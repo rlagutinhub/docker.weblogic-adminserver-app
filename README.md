@@ -64,7 +64,7 @@ oraclelinux         7-slim                    874477adb545        2 weeks ago   
 #### Properties
 
 
-vim properties/domain_base.properties # domain base settings
+```vim properties/domain_base.properties # domain base settings```
 * recommend ADMINISTRATION_PORT_ENABLED=true (admin console access only from other port with force ssl)
 
 ```console
@@ -76,7 +76,7 @@ ADMINISTRATION_PORT_ENABLED=true
 ADMINISTRATION_PORT=9002
 ```
 
-vim properties/domain_security.properties # domain security settings
+```vim properties/domain_security.properties # domain security settings```
 * Use only strong password 12-14 symbols (https://en.wikipedia.org/wiki/Password_strength)
 
 ```console
