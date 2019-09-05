@@ -138,7 +138,7 @@ app.file=hello.war
 ```./build-dev.sh # automate```
 
 or manual:
-```
+```console
 # 1.rm
 docker rm -f wls-app; docker image rm oracle/weblogic:12.2.1.2-generic_custom
 
