@@ -134,16 +134,11 @@ app.file=hello.war
 
 #### Run on Docker Standalone
 
-RUN on Docker Standalone:
 
-```./build-dev.sh # automate run on Docker Standalone```
+```./build-dev.sh # automate```
 
-```cat build-dev.sh```
-```console
-#!/bin/sh
-
-scriptDir="$( cd "$(dirname $0)" && pwd)"; cd $scriptDir
-
+or manual:
+```
 # 1.rm
 docker rm -f wls-app; docker image rm oracle/weblogic:12.2.1.2-generic_custom
 
