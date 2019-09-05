@@ -149,29 +149,83 @@ docker run -dit --name wls-app  --network bridge -p 7001:7001/tcp -p 9002:9002/t
 ```
 ***
 
-
-docker build -f Dockerfile -t oracle/weblogic:12.2.1.2-generic_custom .
-
-docker rm -f wls-app; docker image rm oracle/weblogic:12.2.1.2-generic_custom
-docker rm -f wls-app; docker image rm oracle/weblogic:12.2.1.2-generic_custom; docker build -f Dockerfile -t oracle/weblogic:12.2.1.2-generic_custom .
-docker run -dit --name wls-app  --network bridge -p 7001:7001/tcp -p 9002:9002/tcp oracle/weblogic:12.2.1.2-generic_custom; docker logs --follow wls-app
-
-docker run -dit --name wls-app  --network bridge -p 7001:7001/tcp -p 9002:9002/tcp oracle/weblogic:12.2.1.2-generic_custom bash
-
-docker run -dit --name wls-app  --network bridge -p 7001:7001/tcp -p 9002:9002/tcp oracle/weblogic:12.2.1.2-generic
-docker run -dit --name wls-app  --network bridge -p 7001:7001/tcp -p 9002:9002/tcp oracle/weblogic:12.2.1.2-generic bash
-
-docker image ls
-docker image rm 
-docker ps -a
-docker logs --follow wls-app
-docker rm -f wls-app
-docker exec -it wls-app bash
-
-docker rm -f wls-app; docker image rm oracle/weblogic:12.2.1.2-generic_custom
+#### Run on Docker Swarm Mode
 
 
-cat /proc/*/status | grep -i -e 'name' -e 'pid'
+```docker stack deploy --compose-file docker-compose.yml wls-hello```
+
+```console
+version: '3.7'
+services:
+  app:
+    image: rlagutinhub/docker.weblogic-adminserver-app:2019-09-05
+    networks:
+       - proxy
+    volumes:
+      - /logs:/u01/oracle/user_projects/domains/MTA4RU/logs:rw
+    configs:
+      - source: hello_domain_base.properties.2019-09-05
+        target: /u01/oracle/properties/domain_base.properties
+      - source: hello_domain_security.properties.2019-09-05
+        target: /u01/oracle/properties/domain_security.properties
+      - source: hello_domain_modify.properties.2019-09-05
+        target: /u01/oracle/properties/domain_modify.properties
+      - source: hello_domain_java.properties.2019-09-05
+        target: /u01/oracle/properties/domain_java.properties
+      - source: hello_domain_app.properties.2019-09-05
+        target: /u01/oracle/properties/domain_app.properties
+    deploy:
+      # mode: global
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+        # order: stop-first
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+        window: 120s
+      labels:
+        # https://docs.traefik.io/configuration/backends/docker/#on-containers
+        - "traefik.enable=true"
+        - "traefik.port=7001"
+        # - "traefik.weight=10"
+        - "traefik.frontend.rule=Host:hello.example.com,hello.test.example.com"
+        # - "traefik.frontend.rule=Host:hello.example.com,hello.test.example.com;PathPrefixStrip:/app"
+        - "traefik.frontend.entryPoints=http"
+        # - "traefik.frontend.entryPoints=http,https"
+        # - "traefik.frontend.headers.SSLRedirect=true"
+        # - "traefik.frontend.auth.basic.users=root:$$apr1$$mLRjS/wr$$QqrALWNDgW9alDmnb9DeK1"
+        # - "traefik.backend.loadbalancer.stickiness=true"
+        - "traefik.backend.loadbalancer.method=wrr"
+      placement:
+        constraints:
+          # - node.role == manager
+          # - node.role == worker
+          - node.labels.hello == true
+networks:
+  proxy:
+    external: true
+# volumes:
+  # logs:
+    # external: true
+configs:
+  hello_domain_base.properties.2019-09-05:
+    external: true
+  hello_domain_security.properties.2019-09-05:
+    external: true
+  hello_domain_modify.properties.2019-09-05:
+    external: true
+  hello_domain_java.properties.2019-09-05:
+    external: true
+  hello_domain_app.properties.2019-09-05:
+    external: true
+```
+
+
+
 
 ----
 https://localhost:9002/console/
