@@ -35,7 +35,7 @@ domain_path                 : [/u01/oracle/user_projects/domains/MTA4RU]
 domain_template             : [/u01/oracle/wlserver/common/templates/wls/wls.jar]
 
 
-Exiting WebLogic Scripting Tool.
+Exiting WebLogic Scripting Tool. 
 
 RetVal from Domain creation 0
 
