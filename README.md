@@ -235,3 +235,5 @@ configs:
 ![alt text](https://github.com/rlagutinhub/docker.weblogic-adminserver-app/blob/master/screen1.png)
 ![alt text](https://github.com/rlagutinhub/docker.weblogic-adminserver-app/blob/master/screen2.png)
 ![alt text](https://github.com/rlagutinhub/docker.weblogic-adminserver-app/blob/master/screen3.png)
+
+https://raw.githubusercontent.com/rlagutinhub/docker.weblogic-adminserver-app/master/example.run.log
