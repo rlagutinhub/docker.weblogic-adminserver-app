@@ -223,11 +223,14 @@ configs:
   hello_domain_app.properties.2019-09-05:
     external: true
 ```
+***
+
+#### Result
 
 
+* https://localhost:9002/console/ # if ADMINISTRATION_PORT_ENABLED=true
+* http://localhost:7001/console/ # if ADMINISTRATION_PORT_ENABLED=false
 
-
-----
-https://localhost:9002/console/
-http://localhost:7001/console/
-
+![alt text](https://github.com/rlagutinhub/docker.weblogic-adminserver-app/blob/master/screen1.png)
+![alt text](https://github.com/rlagutinhub/docker.weblogic-adminserver-app/blob/master/screen2.png)
+![alt text](https://github.com/rlagutinhub/docker.weblogic-adminserver-app/blob/master/screen3.png)
