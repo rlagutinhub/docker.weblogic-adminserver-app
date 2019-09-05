@@ -61,6 +61,30 @@ oraclelinux         7-slim                    874477adb545        2 weeks ago   
 ```
 ***
 
+#### Properties
+
+
+vim properties/domain_base.properties # domain base settings
+* recommend ADMINISTRATION_PORT_ENABLED=true (admin console access only from other port with force ssl)
+
+```console
+DOMAIN_NAME=MTA4RU
+ADMIN_NAME=AdminServer
+ADMIN_LISTEN_PORT=7001
+PRODUCTION_MODE=prod
+ADMINISTRATION_PORT_ENABLED=true
+ADMINISTRATION_PORT=9002
+```
+
+vim properties/domain_security.properties # domain security settings
+* Use only strong password 12-14 symbols (https://en.wikipedia.org/wiki/Password_strength)
+
+```console
+username=weblogic
+password=welcome1
+```
+***
+
 
 docker build -f Dockerfile -t oracle/weblogic:12.2.1.2-generic_custom .
 
