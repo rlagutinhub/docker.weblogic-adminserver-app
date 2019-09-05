@@ -158,7 +158,7 @@ docker run -dit --name wls-app  --network bridge -p 7001:7001/tcp -p 9002:9002/t
 version: '3.7'
 services:
   app:
-    image: rlagutinhub/docker.weblogic-adminserver-app:2019-09-05
+    image: rlagutinhub/docker.weblogic-adminserver-app:12.2.1.2-generic_custom
     networks:
        - proxy
     volumes:
