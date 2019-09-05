@@ -1,4 +1,5 @@
-docker.weblogic-adminserver-app # docker run -dit --name wls-app  --network bridge -p 7001:7001/tcp -p 9002:9002/tcp oracle/weblogic:12.2.1.2-generic_custom; docker logs --follow wls-app
+docker run -dit --name wls-app  --network bridge -p 7001:7001/tcp -p 9002:9002/tcp oracle/weblogic:12.2.1.2-generic_custom; docker logs --follow wls-app
+
 3864af13a05f76e8b5a99d67cbaf69ebbbb3116321974b3d1a27473eda3579d1
 Properties file
 ==========================
@@ -35,7 +36,7 @@ domain_path                 : [/u01/oracle/user_projects/domains/MTA4RU]
 domain_template             : [/u01/oracle/wlserver/common/templates/wls/wls.jar]
 
 
-Exiting WebLogic Scripting Tool. 
+Exiting WebLogic Scripting Tool.
 
 RetVal from Domain creation 0
 
