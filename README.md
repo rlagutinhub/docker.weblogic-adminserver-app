@@ -87,25 +87,25 @@ password=welcome1
 
 ```console
 log.admin.path=/Servers/AdminServer/Log/AdminServer
-log.admin.file=../../logs/mta4ru/AdminServer.log
+log.admin.file=/u01/oracle/logs/mta4ru/AdminServer.log
 log.admin.fileMinSize=10000
 log.admin.fileCount=50
 log.admin.rotateLogOnStartup=True
 log.access.path=/Servers/AdminServer/WebServer/AdminServer/WebServerLog/AdminServer
-log.access.file=../../logs/mta4ru/access.log
+log.access.file=/u01/oracle/logs/mta4ru/access.log
 log.access.fileMinSize=10000
 log.access.fileCount=50
 log.access.rotateLogOnStartup=True
 log.datasource.path=/Servers/AdminServer/DataSource/AdminServer/DataSourceLogFile/AdminServer
-log.datasource.file=../../logs/mta4ru/datasource.log
+log.datasource.file=/u01/oracle/logs/mta4ru/datasource.log
 log.datasource.fileMinSize=10000
 log.datasource.fileCount=50
 log.datasource.rotateLogOnStartup=True
 log.diagnostic.path=/Servers/AdminServer/ServerDiagnosticConfig/AdminServer
-log.diagnostic.file=../../logs/mta4ru/diagnostic_images
+log.diagnostic.file=/u01/oracle/logs/mta4ru/diagnostic_images
 log.diagnostic.timeout=1
 log.domain.path=/Log/MTA4RU
-log.domain.file=../../logs/mta4ru/base_domain.log
+log.domain.file=/u01/oracle/logs/mta4ru/base_domain.log
 log.domain.fileMinSize=10000
 log.domain.fileCount=50
 log.domain.rotateLogOnStartup=True
@@ -150,7 +150,7 @@ docker run -dit --name wls-app  --network bridge -p 7001:7001/tcp -p 9002:9002/t
 ***
 
 #### Run on Docker Swarm Mode
-
+* For logs mount source on docker host required chmod -R 0777 /logs
 
 ```docker stack deploy --compose-file docker-compose.yml wls-hello```
 
@@ -162,7 +162,7 @@ services:
     networks:
        - proxy
     volumes:
-      - /logs:/u01/oracle/user_projects/domains/MTA4RU/logs:rw
+      - /logs:/u01/oracle/logs:rw
     configs:
       - source: hello_domain_base.properties.2019-09-05
         target: /u01/oracle/properties/domain_base.properties
