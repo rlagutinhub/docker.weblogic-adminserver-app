@@ -122,6 +122,14 @@ log.domain.rotateLogOnStartup=True
 USER_MEM_ARGS=-Xms1024m -Xmx2048m -XX:MaxPermSize=1024m -Djava.security.egd=file:/dev/./urandom
 JAVA_OPTIONS=-Dweblogic.configuration.schemaValidationEnabled=false -Dfile.encoding=UTF-8 -Xdebug -Xrunjdwp:transport=dt_socket,address=1044,server=y,suspend=n -Djava.io.tmpdir=/tmp/
 ```
+
+```vim properties/domain_app.properties # domain app settings required for installation```
+
+```console
+app.name=hello
+app.path=/u01/oracle/files
+app.file=hello.war
+```
 ***
 
 
