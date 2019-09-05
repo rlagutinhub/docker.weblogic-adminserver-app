@@ -16,8 +16,6 @@ FYI https://github.com/oracle/docker-images
 Docker Image Oracle Linux 7 with Oracle Server JRE:
 
 ```console
-cd ~
-
 # get git oracle docker repo
 git clone https://github.com/oracle/docker-images.git
 
@@ -40,8 +38,6 @@ Docker Image Oracle WebLogic 12.2.1.2-generic:
 * Required Docker Image Oracle Linux 7 with Oracle Server JRE
 
 ```console
-cd ~
-
 # get git oracle docker repo
 git clone https://github.com/oracle/docker-images.git
 
