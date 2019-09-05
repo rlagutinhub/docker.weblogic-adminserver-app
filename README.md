@@ -114,6 +114,14 @@ log.domain.fileMinSize=10000
 log.domain.fileCount=50
 log.domain.rotateLogOnStartup=True
 ```
+
+```vim properties/domain_java.properties # domain java settings```
+* Java settings are applied via env variables (setDomainEnv.sh not modifaed)
+
+```console
+USER_MEM_ARGS=-Xms1024m -Xmx2048m -XX:MaxPermSize=1024m -Djava.security.egd=file:/dev/./urandom
+JAVA_OPTIONS=-Dweblogic.configuration.schemaValidationEnabled=false -Dfile.encoding=UTF-8 -Xdebug -Xrunjdwp:transport=dt_socket,address=1044,server=y,suspend=n -Djava.io.tmpdir=/tmp/
+```
 ***
 
 
