@@ -83,6 +83,37 @@ ADMINISTRATION_PORT=9002
 username=weblogic
 password=welcome1
 ```
+
+```vim properties/domain_modify.properties # domain modify logging settings```
+* Move to single folder ${ORACLE_HOME}/user_projects/domains/${DOMAIN_NAME}/Logs
+* Add prefix docker ContainerID to logs file name (example AdminServer-123456789abc.log)
+* Modify rotation settings by file size and file count
+
+```console
+log.admin.path=/Servers/AdminServer/Log/AdminServer
+log.admin.file=../../logs/mta4ru/AdminServer.log
+log.admin.fileMinSize=10000
+log.admin.fileCount=50
+log.admin.rotateLogOnStartup=True
+log.access.path=/Servers/AdminServer/WebServer/AdminServer/WebServerLog/AdminServer
+log.access.file=../../logs/mta4ru/access.log
+log.access.fileMinSize=10000
+log.access.fileCount=50
+log.access.rotateLogOnStartup=True
+log.datasource.path=/Servers/AdminServer/DataSource/AdminServer/DataSourceLogFile/AdminServer
+log.datasource.file=../../logs/mta4ru/datasource.log
+log.datasource.fileMinSize=10000
+log.datasource.fileCount=50
+log.datasource.rotateLogOnStartup=True
+log.diagnostic.path=/Servers/AdminServer/ServerDiagnosticConfig/AdminServer
+log.diagnostic.file=../../logs/mta4ru/diagnostic_images
+log.diagnostic.timeout=1
+log.domain.path=/Log/MTA4RU
+log.domain.file=../../logs/mta4ru/base_domain.log
+log.domain.fileMinSize=10000
+log.domain.fileCount=50
+log.domain.rotateLogOnStartup=True
+```
 ***
 
 
