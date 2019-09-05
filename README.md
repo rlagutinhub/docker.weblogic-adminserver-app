@@ -3,7 +3,7 @@
 Compiled Docker image: https://hub.docker.com/r/rlagutinhub/docker.weblogic-adminserver-app
 
 -	Docker - Oracle WebLogic 12.2.1.2-generic autoconfig domain without cluster (only AdminServer and User Application).
--	Support run om Docker Standalone and Docker Swarm Mode
+-	Support run on Docker Standalone and Docker Swarm Mode
 -	Base image oraclelinux:7-slim
 
 FYI https://github.com/oracle/docker-images
@@ -16,7 +16,7 @@ Docker Image Oracle Linux 7 with Oracle Server JRE:
 ```console
 cd ~
 
-# git clone
+# get git oracle docker repo
 git clone https://github.com/oracle/docker-images.git
 
 # download Oracle Server JRE (example Java server-jre 1.8.0.172)
@@ -35,12 +35,12 @@ oraclelinux 7-slim 874477adb545 2 weeks ago 118MB # base image
 ```
 
 Docker Image Oracle WebLogic 12.2.1.2-generic:
--	Required Docker Image Oracle Linux 7 with Oracle Server JRE
+* Required Docker Image Oracle Linux 7 with Oracle Server JRE
 
 ```console
 cd ~
 
-# git clone
+# get git oracle docker repo
 git clone https://github.com/oracle/docker-images.git
 
 # download weblogic 12.2.1.2 generic (ttps://www.oracle.com/technetwork/middleware/ias/downloads/wls-main-097127.html)
@@ -57,8 +57,6 @@ oracle/weblogic     12.2.1.2-generic          eaaf52392276        5 days ago    
 oracle/serverjre    8                         fca1db36746d        5 days ago          270MB # base image + server jre
 oraclelinux         7-slim                    874477adb545        2 weeks ago         118MB # base image
 ```
-
-
 
 
 docker build -f Dockerfile -t oracle/weblogic:12.2.1.2-generic_custom .
