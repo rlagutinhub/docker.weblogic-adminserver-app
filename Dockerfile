@@ -10,7 +10,6 @@ USER root
 
 RUN yum -y --setopt=tsflags=nodocs install -y glibc glibc-common && yum clean all
 RUN ln -fs /usr/share/zoneinfo/Europe/Moscow /etc/localtime
-# RUN locale-gen ru_RU.UTF-8
 
 USER oracle
 
