@@ -2,7 +2,7 @@
 
 Compiled Docker image: https://hub.docker.com/r/rlagutinhub/docker.weblogic-adminserver-app
 
->	* Docker - Oracle WebLogic 12.2.1.2-generic autoconfig domain without cluster (only AdminServer and User Application).
+>	* Oracle WebLogic 12.2.1.2-generic autoconfig domain without cluster (only AdminServer and User Application) only on first start docker container.
 >	* Support run on Docker Standalone and Docker Swarm Mode
 >	* Base image oraclelinux:7-slim
 
