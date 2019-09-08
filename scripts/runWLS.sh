@@ -39,7 +39,6 @@ function _kill() {
 
    echo "SIGKILL received, shutting down the server!"
    kill -9 $childPID
-   exit 0
 
 }
 
@@ -57,7 +56,7 @@ DOMAIN_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_base.properties
 echo $DOMAIN_PROPERTIES_FILE
 if [ ! -e "${DOMAIN_PROPERTIES_FILE}" ]; then
     echo "A Domain properties file needs to be supplied."
-    exit
+    exit 1
 fi
 
 # Get SEC_PROPERTIES_FILE
@@ -65,7 +64,7 @@ SEC_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_security.properties
 echo $SEC_PROPERTIES_FILE
 if [ ! -e "${SEC_PROPERTIES_FILE}" ]; then
     echo "A properties file with the username and password needs to be supplied."
-    exit
+    exit 1
 fi
 
 # Get MOD_PROPERTIES_FILE
@@ -73,7 +72,7 @@ MOD_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_modify.properties
 echo $MOD_PROPERTIES_FILE
 if [ ! -e "${MOD_PROPERTIES_FILE}" ]; then
     echo "A Domain modify properties file needs to be supplied."
-    exit
+    exit 1
 fi
 
 # Get APP_PROPERTIES_FILE
@@ -81,7 +80,7 @@ APP_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_app.properties
 echo $APP_PROPERTIES_FILE
 if [ ! -e "${APP_PROPERTIES_FILE}" ]; then
     echo "A Domain app properties file needs to be supplied."
-    exit
+    exit 1
 fi
 
 # Get JAVA_PROPERTIES_FILE
@@ -89,35 +88,35 @@ JAVA_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_java.properties
 echo $JAVA_PROPERTIES_FILE
 if [ ! -e "${JAVA_PROPERTIES_FILE}" ]; then
     echo "A java properties file needs to be supplied."
-    exit
+    exit 1
 fi
 
 # Get DOMAIN_NAME
 DOMAIN_NAME=`cat ${DOMAIN_PROPERTIES_FILE} | grep "^DOMAIN_NAME" | cut -d "=" -f2-`
 if [ -z "${DOMAIN_NAME}" ]; then
-    echo "The DOMAIN_NAME is blank.  The DOMAIN_NAME must be set in the properties file."
-    exit
+    echo "The DOMAIN_NAME is blank. The DOMAIN_NAME must be set in the properties file."
+    exit 1
 fi
 
 # Get ADMIN_NAME
 ADMIN_NAME=`cat ${DOMAIN_PROPERTIES_FILE} | grep "^ADMIN_NAME" | cut -d "=" -f2-`
 if [ -z "${ADMIN_NAME}" ]; then
-    echo "The ADMIN_NAME is blank.  The ADMIN_NAME must be set in the properties file."
-    exit
+    echo "The ADMIN_NAME is blank. The ADMIN_NAME must be set in the properties file."
+    exit 1
 fi
 
 # Get USERNAME
 USER=`cat ${SEC_PROPERTIES_FILE} | grep "^username" | cut -d "=" -f2-`
 if [ -z "${USER}" ]; then
-    echo "The domain username is blank.  The Admin username must be set in the properties file."
-    exit
+    echo "The domain username is blank. The Admin username must be set in the properties file."
+    exit 1
 fi
 
 # Get PASSWORD
 PASS=`cat ${SEC_PROPERTIES_FILE} | grep "^password" | cut -d "=" -f2-`
 if [ -z "${PASS}" ]; then
     echo "The domain password is blank.  The Admin password must be set in the properties file."
-    exit
+    exit 1
 fi
 
 echo
@@ -139,7 +138,7 @@ if [ ! -z "$CID" ]; then
     echo "Container ID is:" $CID
 else
     echo "Container ID not defined."
-    exit
+    exit 1
 fi
 
 echo
@@ -168,7 +167,7 @@ if [ $ADD_DOMAIN -eq 0 ]; then
 
     if [ $retval -ne 0 ]; then
        echo "Domain Creation Failed.. Please check the Domain Logs"
-       exit
+       exit 1
     fi
 
     # Create the security file to start the server(s) without the password prompt
@@ -193,7 +192,7 @@ if [ $ADD_DOMAIN -eq 0 ]; then
 
     if [ $retval -ne 0 ]; then
        echo "Domain Modify Failed.. Please check the Domain Logs"
-       exit
+       exit 1
     fi
 
     # Create datasource
@@ -223,7 +222,7 @@ if [ $ADD_DOMAIN -eq 0 ]; then
 
     if [ $retval -ne 0 ]; then
        echo "App Deploy Failed.. Please check the Domain Logs"
-       exit
+       exit 1
     fi
 
 fi
@@ -245,15 +244,15 @@ echo "=========================="
 # Get USER_MEM_ARGS
 USER_MEM_ARGS=`cat ${JAVA_PROPERTIES_FILE} | grep "^USER_MEM_ARGS" | cut -d "=" -f2-`
 if [ -z "${USER_MEM_ARGS}" ]; then
-    echo "The USER_MEM_ARGS is blank.  The USER_MEM_ARGS must be set in the properties file."
-    exit
+    echo "The USER_MEM_ARGS is blank. The USER_MEM_ARGS must be set in the properties file."
+    exit 1
 fi
 
 # Get JAVA_OPTIONS
 JAVA_OPTIONS=`cat ${JAVA_PROPERTIES_FILE} | grep "^JAVA_OPTIONS" | cut -d "=" -f2-`
 if [ -z "${JAVA_OPTIONS}" ]; then
-    echo "The JAVA_OPTIONS is blank.  The JAVA_OPTIONS must be set in the properties file."
-    exit
+    echo "The JAVA_OPTIONS is blank. The JAVA_OPTIONS must be set in the properties file."
+    exit 1
 fi
 
 # Set JAVA OPTIONS

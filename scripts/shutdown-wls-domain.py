@@ -47,7 +47,12 @@ def check_bool(value):
 
 def main():
 
-    admin_url = 't3://localhost:' + str(ADMIN_LISTEN_PORT)
+    # admin_url = 't3://localhost:' + str(ADMIN_LISTEN_PORT)
+    if ADMINISTRATION_PORT_ENABLED == 'false':
+        admin_url = 't3://localhost:' + str(ADMIN_LISTEN_PORT)
+    
+    else:
+        admin_url = 't3://localhost:' + str(ADMINISTRATION_PORT)
 
     print('domain_name                 : [%s]' % domain_name)
     print('admin name                  : [%s]' % admin_name)
@@ -74,26 +79,26 @@ def main():
     try:
 
         # WLST Offline - AdministrationPort disable
-        if check_bool(administration_port_enabled):
-            readDomain(domain_path)
-            cd('/')
-            cmo.setAdministrationPortEnabled(false)
-            # cmo.setAdministrationPortEnabled(true)
-            updateDomain()
-            closeDomain()
+        # if check_bool(administration_port_enabled):
+            # readDomain(domain_path)
+            # cd('/')
+            # cmo.setAdministrationPortEnabled(false)
+            # # cmo.setAdministrationPortEnabled(true)
+            # updateDomain()
+            # closeDomain()
 
         connect(username, password, admin_url, adminServerName=admin_name)
         shutdown('AdminServer','Server', ignoreSessions='true')
         disconnect()
 
         # WLST Offline - AdministrationPort enable
-        if check_bool(administration_port_enabled):
-            readDomain(domain_path)
-            cd('/')
-            # cmo.setAdministrationPortEnabled(false)
-            cmo.setAdministrationPortEnabled(true)
-            updateDomain()
-            closeDomain()
+        # if check_bool(administration_port_enabled):
+            # readDomain(domain_path)
+            # cd('/')
+            # # cmo.setAdministrationPortEnabled(false)
+            # cmo.setAdministrationPortEnabled(true)
+            # updateDomain()
+            # closeDomain()
 
     except Exception, ex:
         # print ex.toString()
