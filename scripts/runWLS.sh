@@ -154,9 +154,11 @@ if [ $ADD_DOMAIN -eq 0 ]; then
     echo "password=${PASS}" >> ${DOMAIN_HOME}/servers/${ADMIN_NAME}/security/boot.properties
     # /bin/bash; exit 0 # troubleshooting
 
-    # Modify domain
+    # Create Logs folder
     # mkdir -p ${DOMAIN_HOME}/logs/
     mkdir -p ${ORACLE_HOME}/logs/
+
+    # Modify domain
     wlst.sh -skipWLSModuleScanning \
      -loadProperties ${DOMAIN_PROPERTIES_FILE} \
      -loadProperties ${SEC_PROPERTIES_FILE} \
