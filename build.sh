@@ -7,6 +7,7 @@ if [ "$#" -eq 6 ]; then
     if [ ! -d "$3" ]; then echo 'FILES_DIR_SOURCE not exist: '$3; exit 1; fi
     if [ ! -f "$4" ]; then echo 'DOCKERFILE not exist: '$4; exit 1; fi
     if [ ! -d "$6" ]; then echo 'ROOT_DIR not exist: '$6; exit 1; fi
+
     cd $6
 
     docker build \
