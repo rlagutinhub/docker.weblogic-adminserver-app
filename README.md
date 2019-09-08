@@ -54,6 +54,23 @@ REPOSITORY          TAG                       IMAGE ID            CREATED       
 oracle/weblogic     12.2.1.2-generic          eaaf52392276        5 days ago          2.77GB  # base image + server jre + wls
 oracle/serverjre    8                         fca1db36746d        5 days ago          270MB # base image + server jre
 oraclelinux         7-slim                    874477adb545        2 weeks ago         118MB # base image
+
+# example run
+mkdir -p ~/docker/properties; cat <<EOF >  ~/docker/properties/domain.properties
+username=weblogic
+password=welcome1
+EOF
+
+docker run -dit \
+ --name wls-app \
+ --network bridge \
+ -p 7001:7001/tcp -p 9002:9002/tcp \
+ -v /root/docker/properties:/u01/oracle/properties \
+ -e ADMINISTRATION_PORT_ENABLED=true -e DOMAIN_NAME=docker_domain \
+ oracle/weblogic:12.2.1.2-generic
+
+docker ps -a
+docker logs wls-app --follow
 ```
 ***
 
