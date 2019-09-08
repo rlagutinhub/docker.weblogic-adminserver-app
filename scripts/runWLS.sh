@@ -155,7 +155,8 @@ if [ $ADD_DOMAIN -eq 0 ]; then
     # /bin/bash; exit 0 # troubleshooting
 
     # Modify domain
-    mkdir -p ${DOMAIN_HOME}/logs/
+    # mkdir -p ${DOMAIN_HOME}/logs/
+    mkdir -p ${ORACLE_HOME}/logs/
     wlst.sh -skipWLSModuleScanning \
      -loadProperties ${DOMAIN_PROPERTIES_FILE} \
      -loadProperties ${SEC_PROPERTIES_FILE} \
