@@ -277,7 +277,7 @@ def main():
                 username=username,
                 password=password,
                 domainDir=domain_path,
-                jvmArgs='-Xms512m -Xmx512m -XX:PermSize=256m -XX:MaxPermSize=256m')
+                jvmArgs='-Xms512m -Xmx512m')
 
         connect(username, password, admin_url)
 
