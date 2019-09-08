@@ -81,9 +81,11 @@ password=welcome1
 ```
 
 ```vim properties/domain_modify.properties # domain modify logging settings```
-* Move to single folder ${ORACLE_HOME}/user_projects/domains/${DOMAIN_NAME}/Logs
-* Add prefix docker ContainerID to logs file name (example AdminServer-123456789abc.log)
-* Modify rotation settings by file size and file count
+* Move wls logs to single folder ${ORACLE_HOME}/Logs
+> the new location of the logs is not in DOMAIN_HOME, because if you use the mount volume, there will be an error files acl permission deny at creating domain
+> https://github.com/rlagutinhub/docker.weblogic-adminserver-app/blob/master/scripts/runWLS.sh#L159
+* Add prefix docker ContainerID to wls logs filename (example AdminServer-123456789abc.log)
+* Modify rotation settings for wls logs by file size and file count
 
 ```console
 log.admin.path=/Servers/AdminServer/Log/AdminServer
