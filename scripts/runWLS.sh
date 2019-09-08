@@ -9,15 +9,34 @@
 
 ########### SIGTERM handler ############
 function _term() {
+
    echo "Stopping container."
    echo "SIGTERM received, shutting down the server!"
-   ${DOMAIN_HOME}/bin/stopWebLogic.sh
+   # ${DOMAIN_HOME}/bin/stopWebLogic.sh
+
+   # Shutdown domain
+   wlst.sh -skipWLSModuleScanning \
+    -loadProperties ${DOMAIN_PROPERTIES_FILE} \
+    -loadProperties ${SEC_PROPERTIES_FILE} \
+    ${SCRIPTS_DIR}/shutdown-wls-domain.py
+
+   retval=$?
+
+   echo  "RetVal from Domain shutdown $retval"
+
+   if [ $retval -ne 0 ]; then
+      echo "Domain Shutdown Failed.. Please check the Domain Logs"
+      exit
+   fi
+
 }
 
 ########### SIGKILL handler ############
 function _kill() {
+
    echo "SIGKILL received, shutting down the server!"
    kill -9 $childPID
+
 }
 
 # Set SIGTERM handler
@@ -247,10 +266,11 @@ echo "=========================="
 
 # Start Admin Server and tail the logs
 # ${DOMAIN_HOME}/startWebLogic.sh
-${DOMAIN_HOME}/startWebLogic.sh noderby # runWLS without derby server
+${DOMAIN_HOME}/startWebLogic.sh noderby & # runWLS without derby server
+
 # touch ${DOMAIN_HOME}/servers/${ADMIN_NAME}/logs/${ADMIN_NAME}.log
 # tail -f ${DOMAIN_HOME}/servers/${ADMIN_NAME}/logs/${ADMIN_NAME}.log &
 
-# childPID=$!
-# wait $childPID
+childPID=$!
+wait $childPID
 
