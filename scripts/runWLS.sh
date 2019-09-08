@@ -26,7 +26,10 @@ function _term() {
 
    if [ $retval -ne 0 ]; then
       echo "Domain Shutdown Failed.. Please check the Domain Logs"
-      exit
+      exit 1
+   else
+      echo "Domain Shutdown Successfully.. Please check the Domain Logs"
+      exit 0
    fi
 
 }
@@ -36,6 +39,7 @@ function _kill() {
 
    echo "SIGKILL received, shutting down the server!"
    kill -9 $childPID
+   exit 0
 
 }
 

@@ -73,9 +73,27 @@ def main():
 
     try:
 
+        # WLST Offline - AdministrationPort disable
+        if check_bool(administration_port_enabled):
+            readDomain(domain_path)
+            cd('/')
+            cmo.setAdministrationPortEnabled(false)
+            # cmo.setAdministrationPortEnabled(true)
+            updateDomain()
+            closeDomain()
+
         connect(username, password, admin_url, adminServerName=admin_name)
         shutdown('AdminServer','Server', ignoreSessions='true')
-        # disconnect()
+        disconnect()
+
+        # WLST Offline - AdministrationPort enable
+        if check_bool(administration_port_enabled):
+            readDomain(domain_path)
+            cd('/')
+            # cmo.setAdministrationPortEnabled(false)
+            cmo.setAdministrationPortEnabled(true)
+            updateDomain()
+            closeDomain()
 
     except Exception, ex:
         # print ex.toString()
