@@ -22,6 +22,6 @@ else
     echo 'Usage: '$0' [ROPERTIES_DIR_SOURCE] [SCRIPTS_DIR_SOURCE] [FILES_DIR_SOURCE] [DOCKERFILE] [IMAGENAME] [ROOT_DIR]'
     echo
     echo 'Example:'
-    echo '       '$0' "properties" "scripts" "files" "Dockerfile" "oracle/weblogic:12.2.1.2-generic_custom" "/root/docker/wls-app"'
+    echo '       '$0' "properties" "scripts" "files" "Dockerfile" "oracle/weblogic:12.2.1.2-generic_custom" "/root/docker/docker.weblogic-adminserver-app"'
     exit 0
 fi
