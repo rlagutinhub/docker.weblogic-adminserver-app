@@ -16,6 +16,7 @@ admin_listen_port           = int(ADMIN_LISTEN_PORT)
 production_mode             = PRODUCTION_MODE
 administration_port_enabled = ADMINISTRATION_PORT_ENABLED
 administration_port         = int(ADMINISTRATION_PORT)
+admin_console_enabled       = ADMIN_CONSOLE_ENABLED
 
 domain_path                 = '/u01/oracle/user_projects/domains/%s' % domain_name
 domain_template             = '/u01/oracle/wlserver/common/templates/wls/wls.jar'
@@ -26,6 +27,7 @@ print('admin_listen_port           : [%s]' % admin_listen_port)
 print('production_mode             : [%s]' % production_mode)
 print('administration_port_enabled : [%s]' % administration_port_enabled)
 print('administration_port         : [%s]' % administration_port)
+print('admin_console_enabled       : [%s]' % admin_console_enabled)
 
 print('domain_path                 : [%s]' % domain_path)
 print('domain_template             : [%s]' % domain_template)
@@ -45,7 +47,8 @@ if administration_port_enabled != "false":
 
 # Disable Admin Console
 # --------------------
-# cmo.setConsoleEnabled(false)
+if admin_console_enabled != "true":
+   cmo.setConsoleEnabled(false)
 
 # Configure the Administration Server and SSL port.
 # =================================================

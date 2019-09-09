@@ -21,7 +21,8 @@ function _term() {
    #  ${SCRIPTS_DIR}/shutdown-wls-domain.py
 
    # Shutdown domain (connect t3 or t3s with DemoTrust cert allow)
-   source ${DOMAIN_HOME}/bin/setDomainEnv.sh
+   . ${DOMAIN_HOME}/bin/setDomainEnv.sh
+
    java \
     -Dweblogic.security.SSL.ignoreHostnameVerification=true \
     -Dweblogic.security.CustomTrustKeyStoreType="JKS" \
@@ -34,6 +35,11 @@ function _term() {
     ${SCRIPTS_DIR}/shutdown-wls-domain.py
 
    retval=$?
+
+   if [ "${DERBY_ENABLED}" = "true" ] ; then
+      . ${ORACLE_HOME}/wlserver/common/derby/bin/stopNetworkServer.sh  >"${DOMAIN_HOME}/derbyShutdown.log" 2>&1
+      echo "Derby server stopped."
+   fi
 
    echo  "RetVal from Domain shutdown $retval"
 
@@ -115,6 +121,13 @@ fi
 ADMIN_NAME=`cat ${DOMAIN_PROPERTIES_FILE} | grep "^ADMIN_NAME" | cut -d "=" -f2-`
 if [ -z "${ADMIN_NAME}" ]; then
     echo "The ADMIN_NAME is blank. The ADMIN_NAME must be set in the properties file."
+    exit 1
+fi
+
+# Get DERBY_ENABLED
+DERBY_ENABLED=`cat ${DOMAIN_PROPERTIES_FILE} | grep "^DERBY_ENABLED" | cut -d "=" -f2-`
+if [ -z "${DERBY_ENABLED}" ]; then
+    echo "The DERBY_ENABLED is blank. The DERBY_ENABLED must be set in the properties file."
     exit 1
 fi
 
@@ -281,8 +294,12 @@ echo "Starting the Admin Server"
 echo "=========================="
 
 # Start Admin Server and tail the logs
-# ${DOMAIN_HOME}/startWebLogic.sh
-${DOMAIN_HOME}/startWebLogic.sh noderby & # runWLS without derby server
+
+if [ "${DERBY_ENABLED}" == "true" ]; then
+    ${DOMAIN_HOME}/startWebLogic.sh &
+else
+    ${DOMAIN_HOME}/startWebLogic.sh noderby & # runWLS without derby server
+fi
 
 # touch ${DOMAIN_HOME}/servers/${ADMIN_NAME}/logs/${ADMIN_NAME}.log
 # tail -f ${DOMAIN_HOME}/servers/${ADMIN_NAME}/logs/${ADMIN_NAME}.log &
