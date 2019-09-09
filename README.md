@@ -217,7 +217,7 @@ services:
         - "traefik.port=7001"
         # - "traefik.weight=10"
         - "traefik.frontend.rule=Host:hello.example.com,hello.test.example.com"
-        # - "traefik.frontend.rule=Host:hello.example.com,hello.test.example.com;PathPrefixStrip:/app"
+        # - "traefik.frontend.rule=Host:hello.example.com,hello.test.example.com;AddPrefix:/hello;"
         - "traefik.frontend.entryPoints=http"
         # - "traefik.frontend.entryPoints=http,https"
         # - "traefik.frontend.headers.SSLRedirect=true"
