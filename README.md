@@ -87,6 +87,8 @@ ADMIN_LISTEN_PORT=7001
 PRODUCTION_MODE=prod
 ADMINISTRATION_PORT_ENABLED=true
 ADMINISTRATION_PORT=9002
+ADMIN_CONSOLE_ENABLED=true
+DERBY_ENABLED=false
 ```
 
 ```vim properties/domain_security.properties # domain security settings```
@@ -165,7 +167,8 @@ docker rm -f wls-app; docker image rm oracle/weblogic:12.2.1.2-generic_custom
 ./build.sh "properties" "scripts" "files" "Dockerfile" "oracle/weblogic:12.2.1.2-generic_custom" "."
 
 # 4.container
-docker run -dit --name wls-app --network bridge -p 7001:7001/tcp -p 9002:9002/tcp oracle/weblogic:12.2.1.2-generic_custom; docker logs --follow wls-app
+# default graceful stop-timeout 10s then force stop with kill -9
+docker run -dit --stop-timeout 120 --name wls-app --network bridge -p 7001:7001/tcp -p 9002:9002/tcp oracle/weblogic:12.2.1.2-generic_custom; docker logs --follow wls-app
 ```
 ***
 
