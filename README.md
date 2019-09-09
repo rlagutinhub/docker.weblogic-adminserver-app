@@ -135,7 +135,7 @@ log.domain.rotateLogOnStartup=True
 * Java settings are applied via env variables (setDomainEnv.sh not modifaed)
 
 ```console
-USER_MEM_ARGS=-Xms1024m -Xmx2048m -XX:MaxPermSize=1024m -Djava.security.egd=file:/dev/./urandom
+USER_MEM_ARGS=-Xms1024m -Xmx2048m -Djava.security.egd=file:/dev/./urandom
 JAVA_OPTIONS=-Dweblogic.configuration.schemaValidationEnabled=false -Dfile.encoding=UTF-8 -Xdebug -Xrunjdwp:transport=dt_socket,address=1044,server=y,suspend=n -Djava.io.tmpdir=/tmp/
 ```
 
@@ -167,7 +167,7 @@ docker rm -f wls-app; docker image rm oracle/weblogic:12.2.1.2-generic_custom
 ./build.sh "properties" "scripts" "files" "Dockerfile" "oracle/weblogic:12.2.1.2-generic_custom" "."
 
 # 4.container
-# default graceful stop-timeout 10s then force stop with kill -9
+# default graceful stop-timeout 10s then forcestop (kill -9)
 docker run -dit --stop-timeout 120 --name wls-app --network bridge -p 7001:7001/tcp -p 9002:9002/tcp oracle/weblogic:12.2.1.2-generic_custom; docker logs --follow wls-app
 ```
 ***
@@ -182,7 +182,6 @@ version: '3.7'
 services:
   app:
     image: rlagutinhub/docker.weblogic-adminserver-app:12.2.1.2-generic_custom
-    stop_grace_period: 2m
     networks:
        - proxy
     volumes:
@@ -198,6 +197,7 @@ services:
         target: /u01/oracle/properties/domain_java.properties
       - source: hello_domain_app.properties.2019-09-05
         target: /u01/oracle/properties/domain_app.properties
+    stop_grace_period: 2m
     deploy:
       # mode: global
       replicas: 1
