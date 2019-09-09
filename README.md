@@ -182,6 +182,7 @@ version: '3.7'
 services:
   app:
     image: rlagutinhub/docker.weblogic-adminserver-app:12.2.1.2-generic_custom
+    stop_grace_period: 2m
     networks:
        - proxy
     volumes:
