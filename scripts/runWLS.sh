@@ -15,7 +15,18 @@ function _term() {
    # ${DOMAIN_HOME}/bin/stopWebLogic.sh
 
    # Shutdown domain
-   wlst.sh -skipWLSModuleScanning \
+   # wlst.sh -skipWLSModuleScanning \
+   #  -loadProperties ${DOMAIN_PROPERTIES_FILE} \
+   #  -loadProperties ${SEC_PROPERTIES_FILE} \
+   #  ${SCRIPTS_DIR}/shutdown-wls-domain.py
+
+   java \
+    -Dweblogic.security.SSL.ignoreHostnameVerification=true \
+    -Dweblogic.security.CustomTrustKeyStoreType="JKS" \
+    -Dweblogic.security.TrustKeyStore=CustomTrust \
+    -Dweblogic.security.CustomTrustKeyStoreFileName="/u01/oracle/wlserver/server/lib/DemoTrust.jks" \
+    weblogic.WLST \
+    -skipWLSModuleScanning \
     -loadProperties ${DOMAIN_PROPERTIES_FILE} \
     -loadProperties ${SEC_PROPERTIES_FILE} \
     ${SCRIPTS_DIR}/shutdown-wls-domain.py
