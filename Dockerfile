@@ -13,8 +13,8 @@ RUN ln -fs /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 
 USER oracle
 
-ENV LANG='ru_RU.UTF-8' LANGUAGE='ru_RU.UTF-8' LC_ALL='ru_RU.UTF-8'
-# ENV LANG='en_US.UTF-8' LANGUAGE='en_US.UTF-8' LC_ALL='en_US.UTF-8'
+ENV LANG='ru_RU.UTF-8' LANGUAGE='ru_RU:ru' LC_ALL='ru_RU.UTF-8'
+# ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 ENV ORACLE_HOME="/u01/oracle" \
     CONFIG_JVM_ARGS="-Djava.security.egd=file:/dev/./urandom" \
