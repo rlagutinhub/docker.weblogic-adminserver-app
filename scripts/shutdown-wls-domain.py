@@ -52,7 +52,7 @@ def main():
         admin_url = 't3://localhost:' + str(ADMIN_LISTEN_PORT)
     
     else:
-        admin_url = 't3://localhost:' + str(ADMINISTRATION_PORT)
+        admin_url = 't3s://localhost:' + str(ADMINISTRATION_PORT)
 
     print('domain_name                 : [%s]' % domain_name)
     print('admin name                  : [%s]' % admin_name)

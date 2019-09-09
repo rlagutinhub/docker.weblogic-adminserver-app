@@ -20,11 +20,13 @@ function _term() {
    #  -loadProperties ${SEC_PROPERTIES_FILE} \
    #  ${SCRIPTS_DIR}/shutdown-wls-domain.py
 
+   # Shutdown domain (connect t3 or t3s with DemoTrust cert allow)
+   source ${DOMAIN_HOME}/bin/setDomainEnv.sh
    java \
     -Dweblogic.security.SSL.ignoreHostnameVerification=true \
     -Dweblogic.security.CustomTrustKeyStoreType="JKS" \
     -Dweblogic.security.TrustKeyStore=CustomTrust \
-    -Dweblogic.security.CustomTrustKeyStoreFileName="/u01/oracle/wlserver/server/lib/DemoTrust.jks" \
+    -Dweblogic.security.CustomTrustKeyStoreFileName="${ORACLE_HOME}/wlserver/server/lib/DemoTrust.jks" \
     weblogic.WLST \
     -skipWLSModuleScanning \
     -loadProperties ${DOMAIN_PROPERTIES_FILE} \
