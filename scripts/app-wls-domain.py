@@ -47,7 +47,7 @@ def check_bool(value):
         return value
 
     value = str(value).strip().lower()
-    return not value in ['false','f','n','0','']
+    return not value in ['false','f','null','n','0','']
 
 def main():
 
