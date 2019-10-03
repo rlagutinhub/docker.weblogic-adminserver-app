@@ -14,17 +14,18 @@ FYI https://github.com/oracle/docker-images
 
 
 Docker Image Oracle Linux 7 with Oracle Server JRE:
+FYI https://github.com/rlagutinhub/docker.oraclejava
 
 ```console
 # get git oracle docker repo
-git clone https://github.com/oracle/docker-images.git
+git clone https://github.com/rlagutinhub/docker.weblogic-adminserver-app.git
 
 # download Oracle Server JRE (example Java server-jre 1.8.0.172)
 # http://download.oracle.com/otn/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/server-jre-8u172-linux-x64.tar.gz
-cp server-jre-8u172-linux-x64.tar.gz ~/docker-images/OracleJava/java-8/
+cp server-jre-8u172-linux-x64.tar.gz ~/docker.weblogic-adminserver-app/distib/OracleJava/
 
 # create docker image OracleJava (all required packages installed from oracle repo yum.oracle.com):
-cd ~/docker-images/OracleJava/java-8
+cd ~/docker.weblogic-adminserver-app/distib/OracleJava/
 ./build.sh
 
 # result
