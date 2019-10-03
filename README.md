@@ -14,7 +14,7 @@ FYI https://github.com/oracle/docker-images
 
 
 Docker Image Oracle Linux 7 with Oracle Server JRE:
-FYI https://github.com/rlagutinhub/docker.oraclejava
+> FYI https://github.com/rlagutinhub/docker.oraclejava
 
 ```console
 # get git oracle docker repo
