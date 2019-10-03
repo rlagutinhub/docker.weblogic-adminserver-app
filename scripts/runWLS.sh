@@ -110,10 +110,10 @@ if [ ! -e "${DS_EXAMPLE2_PROPERTIES_FILE}" ]; then
     exit 1
 fi
 
-# Get APP_PROPERTIES_FILE
-APP_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_app.properties
-echo $APP_PROPERTIES_FILE
-if [ ! -e "${APP_PROPERTIES_FILE}" ]; then
+# Get APP_HELLO_PROPERTIES_FILE
+APP_HELLO_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_app-hello.properties
+echo $APP_HELLO_PROPERTIES_FILE
+if [ ! -e "${APP_HELLO_PROPERTIES_FILE}" ]; then
     echo "A Domain app properties file needs to be supplied."
     exit 1
 fi
@@ -271,7 +271,7 @@ if [ $ADD_DOMAIN -eq 0 ]; then
     wlst.sh -skipWLSModuleScanning \
      -loadProperties ${DOMAIN_PROPERTIES_FILE} \
      -loadProperties ${SEC_PROPERTIES_FILE} \
-     ${SCRIPTS_DIR}/app-wls-domain.py -p ${APP_PROPERTIES_FILE} -m offline # offline or online
+     ${SCRIPTS_DIR}/app-wls-domain.py -p ${APP_HELLO_PROPERTIES_FILE} -m offline # offline or online
 
     retval=$?
 
