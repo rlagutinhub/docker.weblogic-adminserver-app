@@ -94,8 +94,9 @@ def main():
     configProps.load(propInputStream)
 
     app_name=configProps.get("app.name")
-    app_path=configProps.get("app.path")
-    app_file=configProps.get("app.file")
+    app_type=configProps.get("app.type")
+    app_sourcePath=configProps.get("app.sourcePath")
+    app_securityDDModel=configProps.get("app.securityDDModel")
 
     print('domain_name                      : [%s]' % domain_name)
     print('admin name                       : [%s]' % admin_name)
@@ -109,8 +110,9 @@ def main():
     print('password                         : [%s]' % password)
     print('properties                       : [%s]' % properties)
     print('app_name                         : [%s]' % app_name)
-    print('app_path                         : [%s]' % app_path)
-    print('app_file                         : [%s]' % app_file)
+    print('app_type                         : [%s]' % app_type)
+    print('app_sourcePath                   : [%s]' % app_sourcePath)
+    print('app_securityDDModel              : [%s]' % app_securityDDModel)
 
     check_value(domain_name, "domain_name")
     check_value(admin_name, "admin_name")
@@ -123,13 +125,13 @@ def main():
     check_value(username, "username")
     check_value(password, "password")
     check_value(properties, "properties")
-
     check_value(app_name, "app_name")
-    check_value(app_path, "app_path")
-    check_value(app_file, "app_file")
+    check_value(app_type, "app_type")
+    check_value(app_sourcePath, "app_sourcePath")
+    check_value(app_securityDDModel, "app_securityDDModel")
 
-    if not os.path.isfile(app_path + '/' + app_file):
-        print('Error: not found %s' % app_path + '/' + app_file)
+    if not os.path.isfile(app_sourcePath):
+        print('Error: not found %s' % app_sourcePath)
         sys.exit(1)
 
     try:
@@ -139,12 +141,13 @@ def main():
             readDomain(domain_path)
 
             cd('/')
-            app = create(app_name, 'AppDeployment')
-            app.setSourcePath(app_path + '/' + app_file)
+            app = create(app_name, app_type)
+            app.setSourcePath(app_sourcePath)
+            app.setSecurityDDModel(app_securityDDModel)
             app.setStagingMode('nostage')
 
-            assign('AppDeployment', app_name, 'Target', admin_name)
-            # assign('AppDeployment', app_name, 'Target', cluster_name)
+            assign(app_type, app_name, 'Target', admin_name)
+            # assign(app_type, app_name, 'Target', cluster_name)
 
             updateDomain()
             closeDomain()
@@ -175,11 +178,11 @@ def main():
             edit()
             startEdit()
 
-            progress = deploy(app_name, app_path + '/' + app_file, stageMode='nostage', upload='true')
+            progress = deploy(app_name, app_sourcePath, stageMode='nostage', securityModel=app_securityDDModel, upload='true')
             progress.printStatus()
 
             save()
-            activate(20000,block='true')
+            activate(block='true')
             shutdown(block = 'true')
             disconnect()
 
