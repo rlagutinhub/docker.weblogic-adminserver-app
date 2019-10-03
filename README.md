@@ -40,20 +40,20 @@ Docker Image Oracle WebLogic 12.2.1.2-generic:
 
 ```console
 # get git oracle docker repo
-git clone https://github.com/oracle/docker-images.git
+git clone https://github.com/rlagutinhub/docker.weblogic-adminserver-app.git
 
-# download weblogic 12.2.1.2 generic (ttps://www.oracle.com/technetwork/middleware/ias/downloads/wls-main-097127.html)
-# fmw_12.2.1.2.0_wls_Disk1_1of1.zip # http://download.oracle.com/otn/nt/middleware/12c/12212/fmw_12.2.1.2.0_wls_Disk1_1of1.zip
-cp fmw_12.2.1.2.0_wls_Disk1_1of1.zip ~/docker-images/OracleWebLogic/dockerfiles/12.2.1.2/
+# download weblogic 12.2.1.4 generic (https://www.oracle.com/middleware/technologies/weblogic-server-downloads.html)
+cp fmw_12.2.1.4.0_wls_Disk1_1of1.zip ~/docker.weblogic-adminserver-app/distib/OracleWebLogic/12.2.1.4/
 
-# create docker image weblogic:12.2.1.2-generic (all required packages installed from oracle repo yum.oracle.com)
-~/docker-images/OracleWebLogic/dockerfiles/buildDockerImage.sh -v 12.2.1.2 -g -s
+# create docker image weblogic:12.2.1.4-generic (all required packages installed from oracle repo yum.oracle.com)
+cd ~/docker.weblogic-adminserver-app/distib/OracleWebLogic/
+./buildDockerImage.sh -v 12.2.1.4 -g -s
 
 # result
 docker image ls
 REPOSITORY          TAG                       IMAGE ID            CREATED             SIZE
-oracle/weblogic     12.2.1.2-generic          eaaf52392276        5 days ago          2.77GB  # base image + server jre + wls
-oracle/serverjre    8                         fca1db36746d        5 days ago          270MB # base image + server jre
+oracle/weblogic     12.2.1.4-generic          eaaf52392276        5 days ago          2.77GB  # base image + server jre + wls
+oracle/serverjre    8                         fca1db36746d        5 days ago          280MB # base image + server jre
 oraclelinux         7-slim                    874477adb545        2 weeks ago         118MB # base image
 
 # example run
@@ -68,7 +68,7 @@ docker run -dit \
  -p 7001:7001/tcp -p 9002:9002/tcp \
  -v /root/docker/properties:/u01/oracle/properties \
  -e ADMINISTRATION_PORT_ENABLED=true -e DOMAIN_NAME=docker_domain \
- oracle/weblogic:12.2.1.2-generic
+ oracle/weblogic:12.2.1.4-generic
 
 docker ps -a
 docker logs wls-app --follow
