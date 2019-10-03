@@ -35,7 +35,7 @@ oracle/serverjre 8 fca1db36746d 5 days ago 280MB # base image + server jre
 oraclelinux 7-slim 874477adb545 2 weeks ago 118MB # base image
 ```
 
-Docker Image Oracle WebLogic 12.2.1.2-generic:
+Docker Image Oracle WebLogic 12.2.1.4-generic:
 * Required Docker Image Oracle Linux 7 with Oracle Server JRE
 
 ```console
@@ -52,7 +52,7 @@ cd ~/docker.weblogic-adminserver-app/distib/OracleWebLogic/
 # result
 docker image ls
 REPOSITORY          TAG                       IMAGE ID            CREATED             SIZE
-oracle/weblogic     12.2.1.4-generic          eaaf52392276        5 days ago          2.77GB  # base image + server jre + wls
+oracle/weblogic     12.2.1.4-generic          eaaf52392276        5 days ago          1.18GB  # base image + server jre + wls
 oracle/serverjre    8                         fca1db36746d        5 days ago          280MB # base image + server jre
 oraclelinux         7-slim                    874477adb545        2 weeks ago         118MB # base image
 
