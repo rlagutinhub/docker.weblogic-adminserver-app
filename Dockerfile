@@ -1,4 +1,4 @@
-FROM oracle/weblogic:12.2.1.2-generic
+FROM oracle/weblogic:12.2.1.4-generic
 
 MAINTAINER Lagutin R.A. <rlagutin@mta4.ru>
 
