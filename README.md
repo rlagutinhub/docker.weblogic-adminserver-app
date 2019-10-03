@@ -31,7 +31,7 @@ cd ~/docker.weblogic-adminserver-app/distib/OracleJava/
 # result
 docker image ls
 REPOSITORY TAG IMAGE ID CREATED SIZE
-oracle/serverjre 8 fca1db36746d 5 days ago 270MB # base image + server jre
+oracle/serverjre 8 fca1db36746d 5 days ago 280MB # base image + server jre
 oraclelinux 7-slim 874477adb545 2 weeks ago 118MB # base image
 ```
 
