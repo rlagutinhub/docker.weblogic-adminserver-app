@@ -94,6 +94,22 @@ if [ ! -e "${MOD_PROPERTIES_FILE}" ]; then
     exit 1
 fi
 
+# Get DS_EXAMPLE1_PROPERTIES_FILE
+DS_EXAMPLE1_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_ds-example1.properties
+echo $DS_EXAMPLE1_PROPERTIES_FILE
+if [ ! -e "${DS_EXAMPLE1_PROPERTIES_FILE}" ]; then
+    echo "A Domain datasource properties file needs to be supplied."
+    exit 1
+fi
+
+# Get DS_EXAMPLE2_PROPERTIES_FILE
+DS_EXAMPLE2_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_ds-example2.properties
+echo $DS_EXAMPLE2_PROPERTIES_FILE
+if [ ! -e "${DS_EXAMPLE2_PROPERTIES_FILE}" ]; then
+    echo "A Domain datasource properties file needs to be supplied."
+    exit 1
+fi
+
 # Get APP_PROPERTIES_FILE
 APP_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_app.properties
 echo $APP_PROPERTIES_FILE
@@ -222,19 +238,34 @@ if [ $ADD_DOMAIN -eq 0 ]; then
     fi
 
     # Create datasource
-    # wlst.sh -skipWLSModuleScanning \
-     # -loadProperties ${DOMAIN_PROPERTIES_FILE} \
-     # -loadProperties ${SEC_PROPERTIES_FILE} \
-     # ${SCRIPTS_DIR}/datasource-wls-domain.py
+    wlst.sh -skipWLSModuleScanning \
+     -loadProperties ${DOMAIN_PROPERTIES_FILE} \
+     -loadProperties ${SEC_PROPERTIES_FILE} \
+     ${SCRIPTS_DIR}/datasource-wls-domain.py -p ${DS_EXAMPLE1_PROPERTIES_FILE} -m offline # offline or online
 
-    # retval=$?
+    retval=$?
 
-    # echo  "RetVal from Domain modify $retval"
+    echo  "RetVal from Domain modify $retval"
 
-    # if [ $retval -ne 0 ]; then
-       # echo "Datasource Creation Failed.. Please check the Domain Logs"
-       # exit
-    # fi
+    if [ $retval -ne 0 ]; then
+       echo "Datasource Creation Failed.. Please check the Domain Logs"
+       exit
+    fi
+
+    # Create datasource
+    wlst.sh -skipWLSModuleScanning \
+     -loadProperties ${DOMAIN_PROPERTIES_FILE} \
+     -loadProperties ${SEC_PROPERTIES_FILE} \
+     ${SCRIPTS_DIR}/datasource-wls-domain.py -p ${DS_EXAMPLE2_PROPERTIES_FILE} -m offline # offline or online
+
+    retval=$?
+
+    echo  "RetVal from Domain modify $retval"
+
+    if [ $retval -ne 0 ]; then
+       echo "Datasource Creation Failed.. Please check the Domain Logs"
+       exit
+    fi
 
     # Deploy app
     wlst.sh -skipWLSModuleScanning \
