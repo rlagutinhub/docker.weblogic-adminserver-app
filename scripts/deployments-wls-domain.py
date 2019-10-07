@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-# NAME:   APP-WLS-DOMAIN.PY
+# NAME:   DEPLOYMENTS-WLS-DOMAIN.PY
 # DESC:   DEPLOY WLS APP
-# DATE:   31-08-2019
+# DATE:   07-10-2019
 # LANG:   PYTHON WLST
 # AUTHOR: LAGUTIN R.A.
 # EMAIL:  RLAGUTIN@MTA4.RU
@@ -13,7 +13,12 @@ import sys
 import time
 import getopt
 
-from java.io import FileInputStream
+
+libraries_file = os.environ.get('SCRIPTS_DIR', '') + '/libraries.py'
+sys.path.append(os.path.dirname(os.path.expanduser(libraries_file)))
+
+
+import libraries as lib
 
 
 domain_name                 = DOMAIN_NAME
@@ -27,27 +32,10 @@ password                    = password
 
 domain_path                 = '/u01/oracle/user_projects/domains/%s' % domain_name
 
+# Const
+KEYS_VALUE = 'keys'
+SECTION_VALUE = 'Deployments'
 
-def check_value(value, name):
-
-    check_value = True
-    try:
-        if len(str(value)) == 0:
-            check_value = False
-    except:
-        check_value = False
-
-    if not check_value:
-        print('Error: The parameter [%s] is not set! Exit!' % name)
-        sys.exit(1)
-
-def check_bool(value):
-
-    if value is True or value is False:
-        return value
-
-    value = str(value).strip().lower()
-    return not value in ['false','f','null','n','0','']
 
 def main():
 
@@ -89,15 +77,6 @@ def main():
     # print('properties:', properties)
     # print('mode      :', mode)
 
-    propInputStream = FileInputStream(properties)
-    configProps = Properties()
-    configProps.load(propInputStream)
-
-    app_name=configProps.get("app.name")
-    app_type=configProps.get("app.type")
-    app_sourcePath=configProps.get("app.sourcePath")
-    app_securityDDModel=configProps.get("app.securityDDModel")
-
     print('domain_name                      : [%s]' % domain_name)
     print('admin name                       : [%s]' % admin_name)
     print('admin_listen_port                : [%s]' % admin_listen_port)
@@ -109,42 +88,59 @@ def main():
     print('username                         : [%s]' % username)
     print('password                         : [%s]' % password)
     print('properties                       : [%s]' % properties)
-    print('app_name                         : [%s]' % app_name)
-    print('app_type                         : [%s]' % app_type)
-    print('app_sourcePath                   : [%s]' % app_sourcePath)
-    print('app_securityDDModel              : [%s]' % app_securityDDModel)
 
-    check_value(domain_name, "domain_name")
-    check_value(admin_name, "admin_name")
-    check_value(admin_listen_port, "admin_listen_port")
-    check_value(production_mode, "production_mode")
-    check_value(administration_port_enabled, "administration_port_enabled")
-    check_value(administration_port, "administration_port")
-    check_value(domain_path, "domain_path")
-    check_value(admin_url, "admin_url")
-    check_value(username, "username")
-    check_value(password, "password")
-    check_value(properties, "properties")
-    check_value(app_name, "app_name")
-    check_value(app_type, "app_type")
-    check_value(app_sourcePath, "app_sourcePath")
-    check_value(app_securityDDModel, "app_securityDDModel")
+    lib.check_value(domain_name, "domain_name")
+    lib.check_value(admin_name, "admin_name")
+    lib.check_value(admin_listen_port, "admin_listen_port")
+    lib.check_value(production_mode, "production_mode")
+    lib.check_value(administration_port_enabled, "administration_port_enabled")
+    lib.check_value(administration_port, "administration_port")
+    lib.check_value(domain_path, "domain_path")
+    lib.check_value(admin_url, "admin_url")
+    lib.check_value(username, "username")
+    lib.check_value(password, "password")
+    lib.check_value(properties, "properties")
 
-    if not os.path.isfile(app_sourcePath):
-        print('Error: not found %s' % app_sourcePath)
+    pars = lib.ConfigParserClass(file_value=properties, keys_value=KEYS_VALUE, section_value=SECTION_VALUE)
+    settings = pars.settings
+
+    if not settings:
+        print('Error: %s' % settings)
         sys.exit(1)
 
     try:
         if mode == 'offline':
-            # WLST Offline - Deploy application
-            print('Offline deploy application       : [%s]' % app_name)
+
             readDomain(domain_path)
 
-            cd('/')
-            app = create(app_name, app_type)
-            app.setSourcePath(app_sourcePath)
-            app.setSecurityDDModel(app_securityDDModel)
-            app.setStagingMode('nostage')
+            for key in settings:
+
+                app_name = settings[key]['name']
+                app_type = settings[key]['type']
+                app_sourcePath = settings[key]['sourcePath']
+                app_securityDDModel = settings[key]['securityDDModel']
+
+                print('app_name                         : [%s]' % app_name)
+                print('app_type                         : [%s]' % app_type)
+                print('app_sourcePath                   : [%s]' % app_sourcePath)
+                print('app_securityDDModel              : [%s]' % app_securityDDModel)
+
+                lib.check_value(app_name, "app_name")
+                lib.check_value(app_type, "app_type")
+                lib.check_value(app_sourcePath, "app_sourcePath")
+                lib.check_value(app_securityDDModel, "app_securityDDModel")
+
+                if not os.path.isfile(app_sourcePath):
+                    print('Error: not found %s' % app_sourcePath)
+                    sys.exit(1)
+
+                print('Offline deploy application       : [%s]' % app_name)
+
+                cd('/')
+                app = create(app_name, app_type)
+                app.setSourcePath(app_sourcePath)
+                app.setSecurityDDModel(app_securityDDModel)
+                app.setStagingMode('nostage')
 
             assign(app_type, app_name, 'Target', admin_name)
             # assign(app_type, app_name, 'Target', cluster_name)
@@ -153,10 +149,9 @@ def main():
             closeDomain()
 
         if mode == 'online':
-            # WLST Online - Deploy application
-            print('Online deploy application        : [%s]' % app_name)
+
             # WLST Offline - AdministrationPort disable
-            if check_bool(administration_port_enabled):
+            if lib.check_bool(administration_port_enabled):
                 readDomain(domain_path)
                 cd('/')
                 cmo.setAdministrationPortEnabled(false)
@@ -178,8 +173,32 @@ def main():
             edit()
             startEdit()
 
-            progress = deploy(app_name, app_sourcePath, stageMode='nostage', securityModel=app_securityDDModel, upload='true')
-            progress.printStatus()
+
+            for key in settings:
+
+                app_name = settings[key]['name']
+                app_type = settings[key]['type']
+                app_sourcePath = settings[key]['sourcePath']
+                app_securityDDModel = settings[key]['securityDDModel']
+
+                print('app_name                         : [%s]' % app_name)
+                print('app_type                         : [%s]' % app_type)
+                print('app_sourcePath                   : [%s]' % app_sourcePath)
+                print('app_securityDDModel              : [%s]' % app_securityDDModel)
+
+                lib.check_value(app_name, "app_name")
+                lib.check_value(app_type, "app_type")
+                lib.check_value(app_sourcePath, "app_sourcePath")
+                lib.check_value(app_securityDDModel, "app_securityDDModel")
+
+                if not os.path.isfile(app_sourcePath):
+                    print('Error: not found %s' % app_sourcePath)
+                    sys.exit(1)
+
+                print('Online deploy application        : [%s]' % app_name)
+
+                progress = deploy(app_name, app_sourcePath, stageMode='nostage', securityModel=app_securityDDModel, upload='true')
+                progress.printStatus()
 
             save()
             activate(block='true')
@@ -187,7 +206,7 @@ def main():
             disconnect()
 
             # WLST Offline - AdministrationPort enable
-            if check_bool(administration_port_enabled):
+            if lib.check_bool(administration_port_enabled):
                 readDomain(domain_path)
                 cd('/')
                 # cmo.setAdministrationPortEnabled(false)

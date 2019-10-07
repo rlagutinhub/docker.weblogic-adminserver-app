@@ -2,7 +2,7 @@
 
 # NAME:   RUNWLS.SH
 # DESC:   RUN WLS
-# DATE:   28-08-2019
+# DATE:   07-10-2019
 # LANG:   BASH
 # AUTHOR: LAGUTIN R.A.
 # EMAIL:  RLAGUTIN@MTA4.RU
@@ -16,7 +16,7 @@ function _term() {
 
    # Shutdown domain
    # wlst.sh -skipWLSModuleScanning \
-   #  -loadProperties ${DOMAIN_PROPERTIES_FILE} \
+   #  -loadProperties ${DOM_PROPERTIES_FILE} \
    #  -loadProperties ${SEC_PROPERTIES_FILE} \
    #  ${SCRIPTS_DIR}/shutdown-wls-domain.py
 
@@ -30,7 +30,7 @@ function _term() {
     -Dweblogic.security.CustomTrustKeyStoreFileName="${ORACLE_HOME}/wlserver/server/lib/DemoTrust.jks" \
     weblogic.WLST \
     -skipWLSModuleScanning \
-    -loadProperties ${DOMAIN_PROPERTIES_FILE} \
+    -loadProperties ${DOM_PROPERTIES_FILE} \
     -loadProperties ${SEC_PROPERTIES_FILE} \
     ${SCRIPTS_DIR}/shutdown-wls-domain.py
 
@@ -70,10 +70,10 @@ trap _kill SIGKILL
 echo "Properties file"
 echo "=========================="
 
-# Get DOMAIN_PROPERTIES_FILE
-DOMAIN_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_base.properties
-echo $DOMAIN_PROPERTIES_FILE
-if [ ! -e "${DOMAIN_PROPERTIES_FILE}" ]; then
+# Get DOM_PROPERTIES_FILE
+DOM_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_base.properties
+echo $DOM_PROPERTIES_FILE
+if [ ! -e "${DOM_PROPERTIES_FILE}" ]; then
     echo "A Domain properties file needs to be supplied."
     exit 1
 fi
@@ -87,34 +87,10 @@ if [ ! -e "${SEC_PROPERTIES_FILE}" ]; then
 fi
 
 # Get MOD_PROPERTIES_FILE
-MOD_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_modify.properties
+MOD_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_settings.properties
 echo $MOD_PROPERTIES_FILE
 if [ ! -e "${MOD_PROPERTIES_FILE}" ]; then
     echo "A Domain modify properties file needs to be supplied."
-    exit 1
-fi
-
-# Get DS_EXAMPLE1_PROPERTIES_FILE
-DS_EXAMPLE1_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_ds-example1.properties
-echo $DS_EXAMPLE1_PROPERTIES_FILE
-if [ ! -e "${DS_EXAMPLE1_PROPERTIES_FILE}" ]; then
-    echo "A Domain datasource properties file needs to be supplied."
-    exit 1
-fi
-
-# Get DS_EXAMPLE2_PROPERTIES_FILE
-DS_EXAMPLE2_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_ds-example2.properties
-echo $DS_EXAMPLE2_PROPERTIES_FILE
-if [ ! -e "${DS_EXAMPLE2_PROPERTIES_FILE}" ]; then
-    echo "A Domain datasource properties file needs to be supplied."
-    exit 1
-fi
-
-# Get APP_HELLO_PROPERTIES_FILE
-APP_HELLO_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_app-hello.properties
-echo $APP_HELLO_PROPERTIES_FILE
-if [ ! -e "${APP_HELLO_PROPERTIES_FILE}" ]; then
-    echo "A Domain app properties file needs to be supplied."
     exit 1
 fi
 
@@ -127,21 +103,21 @@ if [ ! -e "${JAVA_PROPERTIES_FILE}" ]; then
 fi
 
 # Get DOMAIN_NAME
-DOMAIN_NAME=`cat ${DOMAIN_PROPERTIES_FILE} | grep "^DOMAIN_NAME" | cut -d "=" -f2-`
+DOMAIN_NAME=`cat ${DOM_PROPERTIES_FILE} | grep "^DOMAIN_NAME" | cut -d "=" -f2-`
 if [ -z "${DOMAIN_NAME}" ]; then
     echo "The DOMAIN_NAME is blank. The DOMAIN_NAME must be set in the properties file."
     exit 1
 fi
 
 # Get ADMIN_NAME
-ADMIN_NAME=`cat ${DOMAIN_PROPERTIES_FILE} | grep "^ADMIN_NAME" | cut -d "=" -f2-`
+ADMIN_NAME=`cat ${DOM_PROPERTIES_FILE} | grep "^ADMIN_NAME" | cut -d "=" -f2-`
 if [ -z "${ADMIN_NAME}" ]; then
     echo "The ADMIN_NAME is blank. The ADMIN_NAME must be set in the properties file."
     exit 1
 fi
 
 # Get DERBY_ENABLED
-DERBY_ENABLED=`cat ${DOMAIN_PROPERTIES_FILE} | grep "^DERBY_ENABLED" | cut -d "=" -f2-`
+DERBY_ENABLED=`cat ${DOM_PROPERTIES_FILE} | grep "^DERBY_ENABLED" | cut -d "=" -f2-`
 if [ -z "${DERBY_ENABLED}" ]; then
     echo "The DERBY_ENABLED is blank. The DERBY_ENABLED must be set in the properties file."
     exit 1
@@ -199,7 +175,7 @@ if [ $ADD_DOMAIN -eq 0 ]; then
 
     # Create domain
     wlst.sh -skipWLSModuleScanning \
-     -loadProperties ${DOMAIN_PROPERTIES_FILE} \
+     -loadProperties ${DOM_PROPERTIES_FILE} \
      -loadProperties ${SEC_PROPERTIES_FILE} \
      ${SCRIPTS_DIR}/create-wls-domain.py
 
@@ -222,63 +198,48 @@ if [ $ADD_DOMAIN -eq 0 ]; then
     # mkdir -p ${DOMAIN_HOME}/logs/
     mkdir -p ${ORACLE_HOME}/logs/
 
-    # Modify domain
+    # Logging
     wlst.sh -skipWLSModuleScanning \
-     -loadProperties ${DOMAIN_PROPERTIES_FILE} \
+     -loadProperties ${DOM_PROPERTIES_FILE} \
      -loadProperties ${SEC_PROPERTIES_FILE} \
-     ${SCRIPTS_DIR}/modify-wls-domain.py -p ${MOD_PROPERTIES_FILE} -c ${CID}
+     ${SCRIPTS_DIR}/logging-wls-domain.py -p ${MOD_PROPERTIES_FILE} -c ${CID}
 
     retval=$?
 
     echo  "RetVal from Domain modify $retval"
 
     if [ $retval -ne 0 ]; then
-       echo "Domain Modify Failed.. Please check the Domain Logs"
+       echo "Logging Failed.. Please check the Domain Logs"
        exit 1
     fi
 
-    # Create datasource
+    # DataSources
     wlst.sh -skipWLSModuleScanning \
-     -loadProperties ${DOMAIN_PROPERTIES_FILE} \
+     -loadProperties ${DOM_PROPERTIES_FILE} \
      -loadProperties ${SEC_PROPERTIES_FILE} \
-     ${SCRIPTS_DIR}/datasource-wls-domain.py -p ${DS_EXAMPLE1_PROPERTIES_FILE} -m offline # offline or online
+     ${SCRIPTS_DIR}/datasources-wls-domain.py -p ${MOD_PROPERTIES_FILE} -m offline # offline or online
 
     retval=$?
 
     echo  "RetVal from Domain modify $retval"
 
     if [ $retval -ne 0 ]; then
-       echo "Datasource Creation Failed.. Please check the Domain Logs"
+       echo "DataSources Failed.. Please check the Domain Logs"
        exit
     fi
 
-    # Create datasource
+    # Deployments
     wlst.sh -skipWLSModuleScanning \
-     -loadProperties ${DOMAIN_PROPERTIES_FILE} \
+     -loadProperties ${DOM_PROPERTIES_FILE} \
      -loadProperties ${SEC_PROPERTIES_FILE} \
-     ${SCRIPTS_DIR}/datasource-wls-domain.py -p ${DS_EXAMPLE2_PROPERTIES_FILE} -m offline # offline or online
+     ${SCRIPTS_DIR}/deployments-wls-domain.py -p ${MOD_PROPERTIES_FILE} -m offline # offline or online
 
     retval=$?
 
     echo  "RetVal from Domain modify $retval"
 
     if [ $retval -ne 0 ]; then
-       echo "Datasource Creation Failed.. Please check the Domain Logs"
-       exit
-    fi
-
-    # Deploy app
-    wlst.sh -skipWLSModuleScanning \
-     -loadProperties ${DOMAIN_PROPERTIES_FILE} \
-     -loadProperties ${SEC_PROPERTIES_FILE} \
-     ${SCRIPTS_DIR}/app-wls-domain.py -p ${APP_HELLO_PROPERTIES_FILE} -m offline # offline or online
-
-    retval=$?
-
-    echo  "RetVal from Domain modify $retval"
-
-    if [ $retval -ne 0 ]; then
-       echo "App Deploy Failed.. Please check the Domain Logs"
+       echo "Deployments Failed.. Please check the Domain Logs"
        exit 1
     fi
 
@@ -337,4 +298,3 @@ fi
 
 childPID=$!
 wait $childPID
-

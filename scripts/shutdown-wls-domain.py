@@ -3,13 +3,22 @@
   
 # NAME:   SHUTDOWN-WLS-DOMAIN.PY
 # DESC:   SHUTDOWN WLS DOMAIN
-# DATE:   08-09-2019
+# DATE:   07-10-2019
 # LANG:   PYTHON WLST
 # AUTHOR: LAGUTIN R.A.
 # EMAIL:  RLAGUTIN@MTA4.RU
 
 import os
 import sys
+import time
+import getopt
+
+
+libraries_file = os.environ.get('SCRIPTS_DIR', '') + '/libraries.py'
+sys.path.append(os.path.dirname(os.path.expanduser(libraries_file)))
+
+
+import libraries as lib
 
 
 domain_name                 = DOMAIN_NAME
@@ -23,27 +32,6 @@ password                    = password
 
 domain_path                 = '/u01/oracle/user_projects/domains/%s' % domain_name
 
-
-def check_value(value, name):
-
-    check_value = True
-    try:
-        if len(str(value)) == 0:
-            check_value = False
-    except:
-        check_value = False
-
-    if not check_value:
-        print('Error: The parameter [%s] is not set! Exit!' % name)
-        sys.exit(1)
-
-def check_bool(value):
-
-    if value is True or value is False:
-        return value
-
-    value = str(value).strip().lower()
-    return not value in ['false','f','null','n','0','']
 
 def main():
 
@@ -65,21 +53,21 @@ def main():
     print('username                    : [%s]' % username)
     print('password                    : [%s]' % password)
 
-    check_value(domain_name, "domain_name")
-    check_value(admin_name, "admin_name")
-    check_value(admin_listen_port, "admin_listen_port")
-    check_value(production_mode, "production_mode")
-    check_value(administration_port_enabled, "administration_port_enabled")
-    check_value(administration_port, "administration_port")
-    check_value(domain_path, "domain_path")
-    check_value(admin_url, "admin_url")
-    check_value(username, "username")
-    check_value(password, "password")
+    lib.check_value(domain_name, "domain_name")
+    lib.check_value(admin_name, "admin_name")
+    lib.check_value(admin_listen_port, "admin_listen_port")
+    lib.check_value(production_mode, "production_mode")
+    lib.check_value(administration_port_enabled, "administration_port_enabled")
+    lib.check_value(administration_port, "administration_port")
+    lib.check_value(domain_path, "domain_path")
+    lib.check_value(admin_url, "admin_url")
+    lib.check_value(username, "username")
+    lib.check_value(password, "password")
 
     try:
 
         # WLST Offline - AdministrationPort disable
-        # if check_bool(administration_port_enabled):
+        # if lib.check_bool(administration_port_enabled):
             # readDomain(domain_path)
             # cd('/')
             # cmo.setAdministrationPortEnabled(false)
@@ -92,7 +80,7 @@ def main():
         disconnect()
 
         # WLST Offline - AdministrationPort enable
-        # if check_bool(administration_port_enabled):
+        # if lib.check_bool(administration_port_enabled):
             # readDomain(domain_path)
             # cd('/')
             # # cmo.setAdministrationPortEnabled(false)
