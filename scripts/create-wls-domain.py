@@ -3,97 +3,192 @@
   
 # NAME:   CREATE-WLS-DOMAIN.PY
 # DESC:   CREATE WLS DOMAIN
-# DATE:   28-08-2019
+# DATE:   11-10-2019
 # LANG:   PYTHON WLST
 # AUTHOR: LAGUTIN R.A.
 # EMAIL:  RLAGUTIN@MTA4.RU
 
-# Get vars
-# ============================
-domain_name                 = DOMAIN_NAME
-admin_name                  = ADMIN_NAME
-admin_listen_port           = int(ADMIN_LISTEN_PORT)
-production_mode             = PRODUCTION_MODE
-administration_port_enabled = ADMINISTRATION_PORT_ENABLED
-administration_port         = int(ADMINISTRATION_PORT)
-admin_console_enabled       = ADMIN_CONSOLE_ENABLED
+import os
+import sys
+import time
+import getopt
 
-domain_path                 = '/u01/oracle/user_projects/domains/%s' % domain_name
-domain_template             = '/u01/oracle/wlserver/common/templates/wls/wls.jar'
 
-print('domain_name                 : [%s]' % domain_name)
-print('admin name                  : [%s]' % admin_name)
-print('admin_listen_port           : [%s]' % admin_listen_port)
-print('production_mode             : [%s]' % production_mode)
-print('administration_port_enabled : [%s]' % administration_port_enabled)
-print('administration_port         : [%s]' % administration_port)
-print('admin_console_enabled       : [%s]' % admin_console_enabled)
+libraries_file = os.environ.get('SCRIPTS_DIR', '') + '/libraries.py'
+sys.path.append(os.path.dirname(os.path.expanduser(libraries_file)))
 
-print('domain_path                 : [%s]' % domain_path)
-print('domain_template             : [%s]' % domain_template)
 
-# Open default domain template
-# ============================
-readTemplate(domain_template)
+import libraries as lib
 
-set('Name', domain_name)
-setOption('DomainName', domain_name)
 
-# Set Administration Port 
-# =======================
-if administration_port_enabled != "false":
-   set('AdministrationPort', administration_port)
-   set('AdministrationPortEnabled', 'true')
+# Const
+KEYS_VALUE = 'keys'
+SECTION_VALUE_BASE = 'Base'
+SECTION_VALUE_SEC = 'Security'
 
-# Disable Admin Console
-# --------------------
-if admin_console_enabled != "true":
-   cmo.setConsoleEnabled(false)
 
-# Configure the Administration Server and SSL port.
-# =================================================
-cd('/Servers/AdminServer')
-set('Name', admin_name)
-set('ListenAddress', '')
-set('ListenPort', admin_listen_port)
-if administration_port_enabled != "false":
-   create('AdminServer','SSL')
-   cd('SSL/AdminServer')
-   set('Enabled', 'True')
+def main():
 
-# Define the user password for weblogic
-# =====================================
-cd(('/Security/%s/User/weblogic') % domain_name)
-cmo.setName(username)
-cmo.setPassword(password)
+    properties = False
 
-# Write the domain and close the domain template
-# ==============================================
-setOption('OverwriteDomain', 'true')
-setOption('ServerStartMode',production_mode)
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], 'p:', ['properties='])
 
-# Create Node Manager
-# ===================
-#cd('/NMProperties')
-#set('ListenAddress','')
-#set('ListenPort',5556)
-#set('CrashRecoveryEnabled', 'true')
-#set('NativeVersionEnabled', 'true')
-#set('StartScriptEnabled', 'false')
-#set('SecureListener', 'false')
-#set('LogLevel', 'FINEST')
+    except getopt.GetoptError:
+        pass
 
-# Set the Node Manager user name and password 
-# ===========================================
-#cd('/SecurityConfiguration/%s' % domain_name)
-#set('NodeManagerUsername', username)
-#set('NodeManagerPasswordEncrypted', password)
+    # print('argv: ', sys.argv[1:])
+    # print('opts: ', opts)
 
-# Write Domain
-# ============
-writeDomain(domain_path)
-closeTemplate()
+    try:
+        for opt, arg in opts:
+            if opt in ('-p', '--properties'):
+                if os.path.isfile(arg):
+                    properties = arg
 
-# Exit WLST
-# =========
-exit()
+    except NameError:
+        pass
+
+    if not properties:
+        print('modify-wls-domain.py -p <path-to-properties-file>')
+        sys.exit(1)
+
+    # print('properties:', properties)
+
+    pars_base = lib.ConfigParserClass(file_value=properties, keys_value=KEYS_VALUE, section_value=SECTION_VALUE_BASE)
+    settings_base = pars_base.settings
+
+    if not settings_base:
+        print('Error: %s' % settings_base)
+        sys.exit(1)
+
+    for key in settings_base:
+
+        domain_name = settings_base[key]['domain_name']
+        admin_name = settings_base[key]['admin_name']
+        admin_listen_port = int(settings_base[key]['admin_listen_port'])
+        production_mode = settings_base[key]['production_mode']
+        administration_port_enabled = settings_base[key]['administration_port_enabled']
+        administration_port = int(settings_base[key]['administration_port'])
+        admin_console_enabled = settings_base[key]['admin_console_enabled']
+
+    pars_sec = lib.ConfigParserClass(file_value=properties, keys_value=KEYS_VALUE, section_value=SECTION_VALUE_SEC)
+    settings_sec = pars_sec.settings
+
+    if not settings_sec:
+        print('Error: %s' % settings_sec)
+        sys.exit(1)
+
+    for key in settings_sec:
+
+        username = settings_sec[key]['username']
+        password = settings_sec[key]['password']
+
+    domain_path = '/u01/oracle/user_projects/domains/%s' % domain_name
+    domain_template = '/u01/oracle/wlserver/common/templates/wls/wls.jar'
+
+    print('domain_name                 : [%s]' % domain_name)
+    print('admin_name                  : [%s]' % admin_name)
+    print('admin_listen_port           : [%s]' % admin_listen_port)
+    print('production_mode             : [%s]' % production_mode)
+    print('administration_port_enabled : [%s]' % administration_port_enabled)
+    print('administration_port         : [%s]' % administration_port)
+    print('admin_console_enabled       : [%s]' % admin_console_enabled)
+    print('username                    : [%s]' % "******")
+    print('password                    : [%s]' % "******")
+    print('domain_path                 : [%s]' % domain_path)
+    print('domain_template             : [%s]' % domain_template)
+
+    lib.check_value(domain_name, "domain_name")
+    lib.check_value(admin_name, "admin_name")
+    lib.check_value(admin_listen_port, "admin_listen_port")
+    lib.check_value(production_mode, "production_mode")
+    lib.check_value(administration_port_enabled, "administration_port_enabled")
+    lib.check_value(administration_port, "administration_port")
+    lib.check_value(admin_console_enabled, "admin_console_enabled")
+    lib.check_value(username, "username")
+    lib.check_value(password, "password")
+    lib.check_value(domain_path, "domain_path")
+    lib.check_value(domain_template, "domain_template")
+
+    try:
+
+        # Open default domain template
+        # ============================
+        readTemplate(domain_template)
+
+        set('Name', domain_name)
+        setOption('DomainName', domain_name)
+
+        # Set Administration Port 
+        # =======================
+        if administration_port_enabled != "false":
+            set('AdministrationPort', administration_port)
+            set('AdministrationPortEnabled', 'true')
+
+        # Disable Admin Console
+        # --------------------
+        if admin_console_enabled != "true":
+            cmo.setConsoleEnabled(false)
+
+        # Configure the Administration Server and SSL port.
+        # =================================================
+        cd('/Servers/AdminServer')
+        set('Name', admin_name)
+        set('ListenAddress', '')
+        set('ListenPort', admin_listen_port)
+        if administration_port_enabled != "false":
+            create('AdminServer','SSL')
+            cd('SSL/AdminServer')
+            set('Enabled', 'True')
+
+        # Define the user password for weblogic
+        # =====================================
+        cd(('/Security/%s/User/weblogic') % domain_name)
+        cmo.setName(username)
+        cmo.setPassword(password)
+
+        # Write the domain and close the domain template
+        # ==============================================
+        setOption('OverwriteDomain', 'true')
+        setOption('ServerStartMode',production_mode)
+
+        # Create Node Manager
+        # ===================
+        #cd('/NMProperties')
+        #set('ListenAddress','')
+        #set('ListenPort',5556)
+        #set('CrashRecoveryEnabled', 'true')
+        #set('NativeVersionEnabled', 'true')
+        #set('StartScriptEnabled', 'false')
+        #set('SecureListener', 'false')
+        #set('LogLevel', 'FINEST')
+
+        # Set the Node Manager user name and password 
+        # ===========================================
+        #cd('/SecurityConfiguration/%s' % domain_name)
+        #set('NodeManagerUsername', username)
+        #set('NodeManagerPasswordEncrypted', password)
+
+        # Write Domain
+        # ============
+        writeDomain(domain_path)
+        closeTemplate()
+
+        # Exit WLST
+        # =========
+        exit()
+
+    except Exception, ex:
+        # print ex.toString()
+        print('Error: %s' % ex)
+        dumpStack()
+        cancelEdit('y')
+        sys.exit(1)
+
+
+if __name__ != '__main__':
+    main()
+
+elif __name__ == '__main__':
+    print('This script has to be executed with weblogic WLST')

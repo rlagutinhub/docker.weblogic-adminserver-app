@@ -34,7 +34,9 @@ domain_path                 = '/u01/oracle/user_projects/domains/%s' % domain_na
 
 # Const
 KEYS_VALUE = 'keys'
-SECTION_VALUE = 'Deployments'
+SECTION_VALUE_BASE = 'Base'
+SECTION_VALUE_SEC = 'Security'
+SECTION_VALUE_DEPLOY = 'Deployments'
 
 
 def main():
