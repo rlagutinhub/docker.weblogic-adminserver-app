@@ -13,15 +13,23 @@ function _properties() {
 
     while read SECTION; do
 
-        if [ "$(echo "$SECTION" | sed 's/ *$//g')" == '['$SECTION_F']' ]; then
+        SECTION=$(echo "$SECTION" | sed 's/ *$//g')
+
+        if [ "$SECTION" == '['$SECTION_F']' ]; then    
 
             SAVEIFS=$IFS; IFS='='
 
             while read KEY VALUE; do
 
-                if [ "$(echo "$KEY" | sed 's/ *$//g')" == "$KEY_F" ]; then
+                KEY=$(echo "$KEY" | sed 's/ *$//g')
 
-                    echo $VALUE | sed 's/ *$//g'
+                if [ "${KEY:0:1}" == "[" ]; then break; fi
+
+                if [ "$KEY" == "$KEY_F" ]; then
+
+                    VALUE=$(echo $VALUE | sed 's/ *$//g')
+
+                    echo $VALUE
                     break
 
                 fi
