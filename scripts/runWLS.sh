@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # NAME:   RUNWLS.SH
-# DESC:   RUN WEBLOGIC
+# DESC:   RUN WLS
 # DATE:   11-10-2019
 # LANG:   BASH
 # AUTHOR: LAGUTIN R.A.
