@@ -7,7 +7,47 @@
 # AUTHOR: LAGUTIN R.A.
 # EMAIL:  RLAGUTIN@MTA4.RU
 
-. ${SCRIPTS_DIR}/libraries.sh
+########### PROPERTIES handler ############
+function _properties() {
+
+    local FILE_F=$1
+    local SECTION_F=$2
+    local KEY_F=$3
+
+    if [ ! -r "$FILE_F" ]; then exit 1; fi
+
+    while read SECTION; do
+
+        SECTION=$(echo "$SECTION" | sed 's/ *$//g')
+
+        if [ "$SECTION" == '['$SECTION_F']' ]; then    
+
+            SAVEIFS=$IFS; IFS='='
+
+            while read KEY VALUE; do
+
+                KEY=$(echo "$KEY" | sed 's/ *$//g')
+
+                if [ "${KEY:0:1}" == "[" ]; then break; fi
+
+                if [ "$KEY" == "$KEY_F" ]; then
+
+                    VALUE=$(echo $VALUE | sed 's/ *$//g')
+
+                    echo $VALUE
+                    break
+
+                fi
+
+            done
+
+            IFS=$SAVEIFS
+
+        fi
+
+    done < $FILE_F
+
+}
 
 ########### SIGTERM handler ############
 function _term() {
@@ -73,67 +113,43 @@ echo "Properties file"
 echo "=========================="
 
 # Get DOM_PROPERTIES_FILE
-DOM_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_base.properties
+DOM_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_settings.properties
 echo $DOM_PROPERTIES_FILE
-if [ ! -e "${DOM_PROPERTIES_FILE}" ]; then
+if [ ! -r "${DOM_PROPERTIES_FILE}" ]; then
     echo "A Domain properties file needs to be supplied."
     exit 1
 fi
 
-# Get SEC_PROPERTIES_FILE
-SEC_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_security.properties
-echo $SEC_PROPERTIES_FILE
-if [ ! -e "${SEC_PROPERTIES_FILE}" ]; then
-    echo "A properties file with the username and password needs to be supplied."
-    exit 1
-fi
-
-# Get MOD_PROPERTIES_FILE
-MOD_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_settings.properties
-echo $MOD_PROPERTIES_FILE
-if [ ! -e "${MOD_PROPERTIES_FILE}" ]; then
-    echo "A Domain modify properties file needs to be supplied."
-    exit 1
-fi
-
-# Get JAVA_PROPERTIES_FILE
-JAVA_PROPERTIES_FILE=${PROPERTIES_DIR}/domain_java.properties
-echo $JAVA_PROPERTIES_FILE
-if [ ! -e "${JAVA_PROPERTIES_FILE}" ]; then
-    echo "A java properties file needs to be supplied."
-    exit 1
-fi
-
 # Get DOMAIN_NAME
-DOMAIN_NAME=`cat ${DOM_PROPERTIES_FILE} | grep "^DOMAIN_NAME" | cut -d "=" -f2-`
+DOMAIN_NAME=$(_properties ${DOM_PROPERTIES_FILE} "Base" "base.domain_name")
 if [ -z "${DOMAIN_NAME}" ]; then
     echo "The DOMAIN_NAME is blank. The DOMAIN_NAME must be set in the properties file."
     exit 1
 fi
 
 # Get ADMIN_NAME
-ADMIN_NAME=`cat ${DOM_PROPERTIES_FILE} | grep "^ADMIN_NAME" | cut -d "=" -f2-`
+ADMIN_NAME=$(_properties ${DOM_PROPERTIES_FILE} "Base" "base.admin_name")
 if [ -z "${ADMIN_NAME}" ]; then
     echo "The ADMIN_NAME is blank. The ADMIN_NAME must be set in the properties file."
     exit 1
 fi
 
 # Get DERBY_ENABLED
-DERBY_ENABLED=`cat ${DOM_PROPERTIES_FILE} | grep "^DERBY_ENABLED" | cut -d "=" -f2-`
+DERBY_ENABLED=$(_properties ${DOM_PROPERTIES_FILE} "Base" "base.derby_enabled")
 if [ -z "${DERBY_ENABLED}" ]; then
     echo "The DERBY_ENABLED is blank. The DERBY_ENABLED must be set in the properties file."
     exit 1
 fi
 
 # Get USERNAME
-USER=`cat ${SEC_PROPERTIES_FILE} | grep "^username" | cut -d "=" -f2-`
+USER=$(_properties ${DOM_PROPERTIES_FILE} "Security" "sec.username")
 if [ -z "${USER}" ]; then
     echo "The domain username is blank. The Admin username must be set in the properties file."
     exit 1
 fi
 
 # Get PASSWORD
-PASS=`cat ${SEC_PROPERTIES_FILE} | grep "^password" | cut -d "=" -f2-`
+PASS=$(_properties ${DOM_PROPERTIES_FILE} "Security" "sec.password")
 if [ -z "${PASS}" ]; then
     echo "The domain password is blank.  The Admin password must be set in the properties file."
     exit 1
@@ -177,9 +193,7 @@ if [ $ADD_DOMAIN -eq 0 ]; then
 
     # Create domain
     wlst.sh -skipWLSModuleScanning \
-     -loadProperties ${DOM_PROPERTIES_FILE} \
-     -loadProperties ${SEC_PROPERTIES_FILE} \
-     ${SCRIPTS_DIR}/create-wls-domain.py
+     ${SCRIPTS_DIR}/create-wls-domain.py -p ${DOM_PROPERTIES_FILE}
 
     retval=$?
 
@@ -202,9 +216,7 @@ if [ $ADD_DOMAIN -eq 0 ]; then
 
     # Logging
     wlst.sh -skipWLSModuleScanning \
-     -loadProperties ${DOM_PROPERTIES_FILE} \
-     -loadProperties ${SEC_PROPERTIES_FILE} \
-     ${SCRIPTS_DIR}/logging-wls-domain.py -p ${MOD_PROPERTIES_FILE} -c ${CID}
+     ${SCRIPTS_DIR}/logging-wls-domain.py -p ${DOM_PROPERTIES_FILE} -c ${CID}
 
     retval=$?
 
@@ -217,9 +229,7 @@ if [ $ADD_DOMAIN -eq 0 ]; then
 
     # DataSources
     wlst.sh -skipWLSModuleScanning \
-     -loadProperties ${DOM_PROPERTIES_FILE} \
-     -loadProperties ${SEC_PROPERTIES_FILE} \
-     ${SCRIPTS_DIR}/datasources-wls-domain.py -p ${MOD_PROPERTIES_FILE} -m offline # offline or online
+     ${SCRIPTS_DIR}/datasources-wls-domain.py -p ${DOM_PROPERTIES_FILE} -m offline # offline or online
 
     retval=$?
 
@@ -232,9 +242,7 @@ if [ $ADD_DOMAIN -eq 0 ]; then
 
     # Deployments
     wlst.sh -skipWLSModuleScanning \
-     -loadProperties ${DOM_PROPERTIES_FILE} \
-     -loadProperties ${SEC_PROPERTIES_FILE} \
-     ${SCRIPTS_DIR}/deployments-wls-domain.py -p ${MOD_PROPERTIES_FILE} -m offline # offline or online
+     ${SCRIPTS_DIR}/deployments-wls-domain.py -p ${DOM_PROPERTIES_FILE} -m offline # offline or online
 
     retval=$?
 
@@ -262,14 +270,14 @@ echo "Apply Java Settings"
 echo "=========================="
 
 # Get USER_MEM_ARGS
-USER_MEM_ARGS=`cat ${JAVA_PROPERTIES_FILE} | grep "^USER_MEM_ARGS" | cut -d "=" -f2-`
+USER_MEM_ARGS=$(_properties ${DOM_PROPERTIES_FILE} "Java" "java.user_mem_args")
 if [ -z "${USER_MEM_ARGS}" ]; then
     echo "The USER_MEM_ARGS is blank. The USER_MEM_ARGS must be set in the properties file."
     exit 1
 fi
 
 # Get JAVA_OPTIONS
-JAVA_OPTIONS=`cat ${JAVA_PROPERTIES_FILE} | grep "^JAVA_OPTIONS" | cut -d "=" -f2-`
+JAVA_OPTIONS=$(_properties ${DOM_PROPERTIES_FILE} "Java" "java.java_options")
 if [ -z "${JAVA_OPTIONS}" ]; then
     echo "The JAVA_OPTIONS is blank. The JAVA_OPTIONS must be set in the properties file."
     exit 1
