@@ -161,7 +161,7 @@ echo "=========================="
 
 #Define DOMAIN_HOME
 export DOMAIN_HOME=${ORACLE_HOME}/user_projects/domains/${DOMAIN_NAME}
-echo "Domain Home is: " $DOMAIN_HOME
+echo "Domain Home is:" $DOMAIN_HOME
 
 echo
 echo "Docker Container ID"
