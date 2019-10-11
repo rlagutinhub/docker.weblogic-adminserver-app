@@ -2,10 +2,12 @@
 
 # NAME:   RUNWLS.SH
 # DESC:   RUN WLS
-# DATE:   07-10-2019
+# DATE:   11-10-2019
 # LANG:   BASH
 # AUTHOR: LAGUTIN R.A.
 # EMAIL:  RLAGUTIN@MTA4.RU
+
+. ${SCRIPTS_DIR}/libraries.sh
 
 ########### SIGTERM handler ############
 function _term() {
@@ -36,7 +38,7 @@ function _term() {
 
    retval=$?
 
-   if [ "${DERBY_ENABLED}" = "true" ] ; then
+   if [ "${DERBY_ENABLED}" == "true" ] ; then
       . ${ORACLE_HOME}/wlserver/common/derby/bin/stopNetworkServer.sh  >"${DOMAIN_HOME}/derbyShutdown.log" 2>&1
       echo "Derby server stopped."
    fi
