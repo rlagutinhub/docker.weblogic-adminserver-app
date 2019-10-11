@@ -3,7 +3,7 @@
 
 # NAME:   DATASOURCES-WLS-DOMAIN.PY
 # DESC:   CREATE WLS DATASOURCES
-# DATE:   07-10-2019
+# DATE:   11-10-2019
 # LANG:   PYTHON WLST
 # AUTHOR: LAGUTIN R.A.
 # EMAIL:  RLAGUTIN@MTA4.RU
@@ -21,30 +21,14 @@ sys.path.append(os.path.dirname(os.path.expanduser(libraries_file)))
 import libraries as lib
 
 
-domain_name                 = DOMAIN_NAME
-admin_name                  = ADMIN_NAME
-admin_listen_port           = int(ADMIN_LISTEN_PORT)
-production_mode             = PRODUCTION_MODE
-administration_port_enabled = ADMINISTRATION_PORT_ENABLED
-administration_port         = int(ADMINISTRATION_PORT)
-username                    = username
-password                    = password
-
-domain_path                 = '/u01/oracle/user_projects/domains/%s' % domain_name
-
 # Const
 KEYS_VALUE = 'keys'
-SECTION_VALUE = 'DataSources'
+SECTION_VALUE_BASE = 'Base'
+SECTION_VALUE_SEC = 'Security'
+SECTION_VALUE_DS = 'DataSources'
 
 
 def main():
-
-    admin_url = 't3://localhost:' + str(ADMIN_LISTEN_PORT)
-    # if ADMINISTRATION_PORT_ENABLED == 'false':
-    #     admin_url = 't3://localhost:' + str(ADMIN_LISTEN_PORT)
-    #
-    # else:
-    #     admin_url = 't3://localhost:' + str(ADMINISTRATION_PORT)
 
     mode = False
     properties = False
@@ -77,17 +61,49 @@ def main():
     # print('properties:', properties)
     # print('mode      :', mode)
 
-    print('domain_name                                : [%s]' % domain_name)
-    print('admin name                                 : [%s]' % admin_name)
-    print('admin_listen_port                          : [%s]' % admin_listen_port)
-    print('production_mode                            : [%s]' % production_mode)
-    print('administration_port_enabled                : [%s]' % administration_port_enabled)
-    print('administration_port                        : [%s]' % administration_port)
-    print('domain_path                                : [%s]' % domain_path)
-    print('admin_url                                  : [%s]' % admin_url)
-    print('username                                   : [%s]' % username)
-    print('password                                   : [%s]' % password)
-    print('properties                                 : [%s]' % properties)
+    pars_base = lib.ConfigParserClass(file_value=properties, keys_value=KEYS_VALUE, section_value=SECTION_VALUE_BASE)
+    settings_base = pars_base.settings
+
+    if not settings_base:
+        print('Error: %s' % settings_base)
+        sys.exit(1)
+
+    for key in settings_base:
+
+        domain_name = settings_base[key]['domain_name']
+        admin_name = settings_base[key]['admin_name']
+        admin_listen_port = int(settings_base[key]['admin_listen_port'])
+        production_mode = settings_base[key]['production_mode']
+        administration_port_enabled = settings_base[key]['administration_port_enabled']
+        administration_port = int(settings_base[key]['administration_port'])
+        admin_console_enabled = settings_base[key]['admin_console_enabled']
+
+    pars_sec = lib.ConfigParserClass(file_value=properties, keys_value=KEYS_VALUE, section_value=SECTION_VALUE_SEC)
+    settings_sec = pars_sec.settings
+
+    if not settings_sec:
+        print('Error: %s' % settings_sec)
+        sys.exit(1)
+
+    for key in settings_sec:
+
+        username = settings_sec[key]['username']
+        password = settings_sec[key]['password']
+
+    domain_path = '/u01/oracle/user_projects/domains/%s' % domain_name
+    # domain_template = '/u01/oracle/wlserver/common/templates/wls/wls.jar'
+
+    print('domain_name                 : [%s]' % domain_name)
+    print('admin_name                  : [%s]' % admin_name)
+    print('admin_listen_port           : [%s]' % admin_listen_port)
+    print('production_mode             : [%s]' % production_mode)
+    print('administration_port_enabled : [%s]' % administration_port_enabled)
+    print('administration_port         : [%s]' % administration_port)
+    print('admin_console_enabled       : [%s]' % admin_console_enabled)
+    print('username                    : [%s]' % "******")
+    print('password                    : [%s]' % "******")
+    print('domain_path                 : [%s]' % domain_path)
+    # print('domain_template             : [%s]' % domain_template)
 
     lib.check_value(domain_name, "domain_name")
     lib.check_value(admin_name, "admin_name")
@@ -95,17 +111,23 @@ def main():
     lib.check_value(production_mode, "production_mode")
     lib.check_value(administration_port_enabled, "administration_port_enabled")
     lib.check_value(administration_port, "administration_port")
-    lib.check_value(domain_path, "domain_path")
-    lib.check_value(admin_url, "admin_url")
+    lib.check_value(admin_console_enabled, "admin_console_enabled")
     lib.check_value(username, "username")
     lib.check_value(password, "password")
-    lib.check_value(properties, "properties")
+    lib.check_value(domain_path, "domain_path")
+    # lib.check_value(domain_template, "domain_template")
 
-    pars = lib.ConfigParserClass(file_value=properties, keys_value=KEYS_VALUE, section_value=SECTION_VALUE)
-    settings = pars.settings
+    admin_url = 't3://localhost:' + str(admin_listen_port)
+    # if administration_port_enabled == 'false':
+    #     admin_url = 't3://localhost:' + str(admin_listen_port)
+    # else:
+    #     admin_url = 't3s://localhost:' + str(administration_port)
 
-    if not settings:
-        print('Error: %s' % settings)
+    pars_ds = lib.ConfigParserClass(file_value=properties, keys_value=KEYS_VALUE, section_value=SECTION_VALUE_DS)
+    settings_ds = pars_ds.settings
+
+    if not settings_ds:
+        print('Error: %s' % settings_ds)
         sys.exit(1)
 
     try:
@@ -113,20 +135,20 @@ def main():
 
             readDomain(domain_path)
 
-            for key in settings:
+            for key in settings_ds:
 
-                ds_url = settings[key]['url']
-                ds_user = settings[key]['user']
-                ds_password = settings[key]['password']
-                ds_Name = settings[key]['Name']
-                ds_jndiName = settings[key]['jndiName']
-                ds_GlobalTransactionsProtocol = settings[key]['GlobalTransactionsProtocol']
-                ds_driver = settings[key]['driver']
-                ds_MaxCapacity = settings[key]['MaxCapacity']
-                ds_ConnectionCreationRetryFrequencySeconds = settings[key]['ConnectionCreationRetryFrequencySeconds']
-                ds_TestTableName = settings[key]['TestTableName']
-                ds_XaSetTransactionTimeout = settings[key]['XaSetTransactionTimeout']
-                ds_XaTransactionTimeout = settings[key]['XaTransactionTimeout']
+                ds_url = settings_ds[key]['url']
+                ds_user = settings_ds[key]['user']
+                ds_password = settings_ds[key]['password']
+                ds_Name = settings_ds[key]['Name']
+                ds_jndiName = settings_ds[key]['jndiName']
+                ds_GlobalTransactionsProtocol = settings_ds[key]['GlobalTransactionsProtocol']
+                ds_driver = settings_ds[key]['driver']
+                ds_MaxCapacity = settings_ds[key]['MaxCapacity']
+                ds_ConnectionCreationRetryFrequencySeconds = settings_ds[key]['ConnectionCreationRetryFrequencySeconds']
+                ds_TestTableName = settings_ds[key]['TestTableName']
+                ds_XaSetTransactionTimeout = settings_ds[key]['XaSetTransactionTimeout']
+                ds_XaTransactionTimeout = settings_ds[key]['XaTransactionTimeout']
 
                 print('ds_url                                     : [%s]' % ds_url)
                 print('ds_user                                    : [%s]' % ds_user)
@@ -247,20 +269,20 @@ def main():
             edit()
             startEdit()
 
-            for key in settings:
+            for key in settings_ds:
 
-                ds_url = settings[key]['url']
-                ds_user = settings[key]['user']
-                ds_password = settings[key]['password']
-                ds_Name = settings[key]['Name']
-                ds_jndiName = settings[key]['jndiName']
-                ds_GlobalTransactionsProtocol = settings[key]['GlobalTransactionsProtocol']
-                ds_driver = settings[key]['driver']
-                ds_MaxCapacity = settings[key]['MaxCapacity']
-                ds_ConnectionCreationRetryFrequencySeconds = settings[key]['ConnectionCreationRetryFrequencySeconds']
-                ds_TestTableName = settings[key]['TestTableName']
-                ds_XaSetTransactionTimeout = settings[key]['XaSetTransactionTimeout']
-                ds_XaTransactionTimeout = settings[key]['XaTransactionTimeout']
+                ds_url = settings_ds[key]['url']
+                ds_user = settings_ds[key]['user']
+                ds_password = settings_ds[key]['password']
+                ds_Name = settings_ds[key]['Name']
+                ds_jndiName = settings_ds[key]['jndiName']
+                ds_GlobalTransactionsProtocol = settings_ds[key]['GlobalTransactionsProtocol']
+                ds_driver = settings_ds[key]['driver']
+                ds_MaxCapacity = settings_ds[key]['MaxCapacity']
+                ds_ConnectionCreationRetryFrequencySeconds = settings_ds[key]['ConnectionCreationRetryFrequencySeconds']
+                ds_TestTableName = settings_ds[key]['TestTableName']
+                ds_XaSetTransactionTimeout = settings_ds[key]['XaSetTransactionTimeout']
+                ds_XaTransactionTimeout = settings_ds[key]['XaTransactionTimeout']
 
                 print('ds_url                                     : [%s]' % ds_url)
                 print('ds_user                                    : [%s]' % ds_user)

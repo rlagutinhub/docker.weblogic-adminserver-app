@@ -3,7 +3,7 @@
 
 # NAME:   DEPLOYMENTS-WLS-DOMAIN.PY
 # DESC:   DEPLOY WLS APP
-# DATE:   07-10-2019
+# DATE:   11-10-2019
 # LANG:   PYTHON WLST
 # AUTHOR: LAGUTIN R.A.
 # EMAIL:  RLAGUTIN@MTA4.RU
@@ -25,17 +25,10 @@ import libraries as lib
 KEYS_VALUE = 'keys'
 SECTION_VALUE_BASE = 'Base'
 SECTION_VALUE_SEC = 'Security'
-SECTION_VALUE_DEPLOY = 'Deployments'
+SECTION_VALUE_DEP = 'Deployments'
 
 
 def main():
-
-    admin_url = 't3://localhost:' + str(ADMIN_LISTEN_PORT)
-    # if ADMINISTRATION_PORT_ENABLED == 'false':
-    #     admin_url = 't3://localhost:' + str(ADMIN_LISTEN_PORT)
-    #
-    # else:
-    #     admin_url = 't3://localhost:' + str(ADMINISTRATION_PORT)
 
     mode = False
     properties = False
@@ -124,11 +117,17 @@ def main():
     lib.check_value(domain_path, "domain_path")
     # lib.check_value(domain_template, "domain_template")
 
-    pars_deploy = lib.ConfigParserClass(file_value=properties, keys_value=KEYS_VALUE, section_value=SECTION_VALUE_DEPLOY)
-    settings_deploy = pars_deploy.settings
+    admin_url = 't3://localhost:' + str(admin_listen_port)
+    # if administration_port_enabled == 'false':
+    #     admin_url = 't3://localhost:' + str(admin_listen_port)
+    # else:
+    #     admin_url = 't3s://localhost:' + str(administration_port)
 
-    if not settings_deploy:
-        print('Error: %s' % settings_deploy)
+    pars_dep = lib.ConfigParserClass(file_value=properties, keys_value=KEYS_VALUE, section_value=SECTION_VALUE_DEP)
+    settings_dep = pars_dep.settings
+
+    if not settings_dep:
+        print('Error: %s' % settings_dep)
         sys.exit(1)
 
     try:
@@ -136,12 +135,12 @@ def main():
 
             readDomain(domain_path)
 
-            for key in settings_deploy:
+            for key in settings_dep:
 
-                app_name = settings_deploy[key]['name']
-                app_type = settings_deploy[key]['type']
-                app_sourcePath = settings_deploy[key]['sourcePath']
-                app_securityDDModel = settings_deploy[key]['securityDDModel']
+                app_name = settings_dep[key]['name']
+                app_type = settings_dep[key]['type']
+                app_sourcePath = settings_dep[key]['sourcePath']
+                app_securityDDModel = settings_dep[key]['securityDDModel']
 
                 print('app_name                         : [%s]' % app_name)
                 print('app_type                         : [%s]' % app_type)
@@ -197,12 +196,12 @@ def main():
             startEdit()
 
 
-            for key in settings_deploy:
+            for key in settings_dep:
 
-                app_name = settings_deploy[key]['name']
-                app_type = settings_deploy[key]['type']
-                app_sourcePath = settings_deploy[key]['sourcePath']
-                app_securityDDModel = settings_deploy[key]['securityDDModel']
+                app_name = settings_dep[key]['name']
+                app_type = settings_dep[key]['type']
+                app_sourcePath = settings_dep[key]['sourcePath']
+                app_securityDDModel = settings_dep[key]['securityDDModel']
 
                 print('app_name                         : [%s]' % app_name)
                 print('app_type                         : [%s]' % app_type)

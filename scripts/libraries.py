@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
+# NAME:   LIBRARIES.PY
+# DESC:   LIBRARIES
+# DATE:   11-10-2019
+# LANG:   PYTHON WLST
+# AUTHOR: LAGUTIN R.A.
+# EMAIL:  RLAGUTIN@MTA4.RU
+
 import os
 import sys
 import ConfigParser

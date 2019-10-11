@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # NAME:   RUNWLS.SH
-# DESC:   RUN WLS
+# DESC:   RUN WEBLOGIC
 # DATE:   11-10-2019
 # LANG:   BASH
 # AUTHOR: LAGUTIN R.A.
@@ -159,7 +159,7 @@ echo
 echo "Domain HOME"
 echo "=========================="
 
-#Define DOMAIN_HOME
+# Define DOMAIN_HOME
 export DOMAIN_HOME=${ORACLE_HOME}/user_projects/domains/${DOMAIN_NAME}
 echo "Domain Home is:" $DOMAIN_HOME
 
@@ -167,7 +167,7 @@ echo
 echo "Docker Container ID"
 echo "=========================="
 
-#Define Container ID
+# Define Container ID
 CID=$(cat /proc/self/cgroup | head -n 1 | cut -d '/' -f3 | cut -c 1-12)
 if [ ! -z "$CID" ]; then
     export CID=$CID
@@ -186,7 +186,7 @@ ADD_DOMAIN=1
 if [ ! -f ${DOMAIN_HOME}/.keep_conf ]; then
     ADD_DOMAIN=0
 else
-    echo "Domain already configured is: " $DOMAIN_NAME
+    echo "Domain already configured is:" $DOMAIN_NAME
 fi
 
 if [ $ADD_DOMAIN -eq 0 ]; then

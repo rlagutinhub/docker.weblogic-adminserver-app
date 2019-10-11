@@ -112,7 +112,6 @@ def main():
     lib.check_value(domain_template, "domain_template")
 
     try:
-
         # Open default domain template
         # ============================
         readTemplate(domain_template)
