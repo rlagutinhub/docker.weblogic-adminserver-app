@@ -21,17 +21,6 @@ sys.path.append(os.path.dirname(os.path.expanduser(libraries_file)))
 import libraries as lib
 
 
-domain_name                 = DOMAIN_NAME
-admin_name                  = ADMIN_NAME
-admin_listen_port           = int(ADMIN_LISTEN_PORT)
-production_mode             = PRODUCTION_MODE
-administration_port_enabled = ADMINISTRATION_PORT_ENABLED
-administration_port         = int(ADMINISTRATION_PORT)
-username                    = username
-password                    = password
-
-domain_path                 = '/u01/oracle/user_projects/domains/%s' % domain_name
-
 # Const
 KEYS_VALUE = 'keys'
 SECTION_VALUE_BASE = 'Base'
@@ -79,17 +68,49 @@ def main():
     # print('properties:', properties)
     # print('mode      :', mode)
 
-    print('domain_name                      : [%s]' % domain_name)
-    print('admin name                       : [%s]' % admin_name)
-    print('admin_listen_port                : [%s]' % admin_listen_port)
-    print('production_mode                  : [%s]' % production_mode)
-    print('administration_port_enabled      : [%s]' % administration_port_enabled)
-    print('administration_port              : [%s]' % administration_port)
-    print('domain_path                      : [%s]' % domain_path)
-    print('admin_url                        : [%s]' % admin_url)
-    print('username                         : [%s]' % username)
-    print('password                         : [%s]' % password)
-    print('properties                       : [%s]' % properties)
+    pars_base = lib.ConfigParserClass(file_value=properties, keys_value=KEYS_VALUE, section_value=SECTION_VALUE_BASE)
+    settings_base = pars_base.settings
+
+    if not settings_base:
+        print('Error: %s' % settings_base)
+        sys.exit(1)
+
+    for key in settings_base:
+
+        domain_name = settings_base[key]['domain_name']
+        admin_name = settings_base[key]['admin_name']
+        admin_listen_port = int(settings_base[key]['admin_listen_port'])
+        production_mode = settings_base[key]['production_mode']
+        administration_port_enabled = settings_base[key]['administration_port_enabled']
+        administration_port = int(settings_base[key]['administration_port'])
+        admin_console_enabled = settings_base[key]['admin_console_enabled']
+
+    pars_sec = lib.ConfigParserClass(file_value=properties, keys_value=KEYS_VALUE, section_value=SECTION_VALUE_SEC)
+    settings_sec = pars_sec.settings
+
+    if not settings_sec:
+        print('Error: %s' % settings_sec)
+        sys.exit(1)
+
+    for key in settings_sec:
+
+        username = settings_sec[key]['username']
+        password = settings_sec[key]['password']
+
+    domain_path = '/u01/oracle/user_projects/domains/%s' % domain_name
+    # domain_template = '/u01/oracle/wlserver/common/templates/wls/wls.jar'
+
+    print('domain_name                 : [%s]' % domain_name)
+    print('admin_name                  : [%s]' % admin_name)
+    print('admin_listen_port           : [%s]' % admin_listen_port)
+    print('production_mode             : [%s]' % production_mode)
+    print('administration_port_enabled : [%s]' % administration_port_enabled)
+    print('administration_port         : [%s]' % administration_port)
+    print('admin_console_enabled       : [%s]' % admin_console_enabled)
+    print('username                    : [%s]' % "******")
+    print('password                    : [%s]' % "******")
+    print('domain_path                 : [%s]' % domain_path)
+    # print('domain_template             : [%s]' % domain_template)
 
     lib.check_value(domain_name, "domain_name")
     lib.check_value(admin_name, "admin_name")
@@ -97,17 +118,17 @@ def main():
     lib.check_value(production_mode, "production_mode")
     lib.check_value(administration_port_enabled, "administration_port_enabled")
     lib.check_value(administration_port, "administration_port")
-    lib.check_value(domain_path, "domain_path")
-    lib.check_value(admin_url, "admin_url")
+    lib.check_value(admin_console_enabled, "admin_console_enabled")
     lib.check_value(username, "username")
     lib.check_value(password, "password")
-    lib.check_value(properties, "properties")
+    lib.check_value(domain_path, "domain_path")
+    # lib.check_value(domain_template, "domain_template")
 
-    pars = lib.ConfigParserClass(file_value=properties, keys_value=KEYS_VALUE, section_value=SECTION_VALUE)
-    settings = pars.settings
+    pars_deploy = lib.ConfigParserClass(file_value=properties, keys_value=KEYS_VALUE, section_value=SECTION_VALUE_DEPLOY)
+    settings_deploy = pars_deploy.settings
 
-    if not settings:
-        print('Error: %s' % settings)
+    if not settings_deploy:
+        print('Error: %s' % settings_deploy)
         sys.exit(1)
 
     try:
@@ -115,12 +136,12 @@ def main():
 
             readDomain(domain_path)
 
-            for key in settings:
+            for key in settings_deploy:
 
-                app_name = settings[key]['name']
-                app_type = settings[key]['type']
-                app_sourcePath = settings[key]['sourcePath']
-                app_securityDDModel = settings[key]['securityDDModel']
+                app_name = settings_deploy[key]['name']
+                app_type = settings_deploy[key]['type']
+                app_sourcePath = settings_deploy[key]['sourcePath']
+                app_securityDDModel = settings_deploy[key]['securityDDModel']
 
                 print('app_name                         : [%s]' % app_name)
                 print('app_type                         : [%s]' % app_type)
@@ -176,12 +197,12 @@ def main():
             startEdit()
 
 
-            for key in settings:
+            for key in settings_deploy:
 
-                app_name = settings[key]['name']
-                app_type = settings[key]['type']
-                app_sourcePath = settings[key]['sourcePath']
-                app_securityDDModel = settings[key]['securityDDModel']
+                app_name = settings_deploy[key]['name']
+                app_type = settings_deploy[key]['type']
+                app_sourcePath = settings_deploy[key]['sourcePath']
+                app_securityDDModel = settings_deploy[key]['securityDDModel']
 
                 print('app_name                         : [%s]' % app_name)
                 print('app_type                         : [%s]' % app_type)

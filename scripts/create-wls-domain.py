@@ -177,7 +177,7 @@ def main():
 
         # Exit WLST
         # =========
-        exit()
+        # exit()
 
     except Exception, ex:
         # print ex.toString()
