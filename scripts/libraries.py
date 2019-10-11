@@ -30,17 +30,43 @@ class ConfigParserClass(object):
 
     def __get_param(self):
 
-        if str(self.section_value).lower() == 'deployments':
-            param_name = 'name'
-            param_type = 'type'
-            param_source_path = 'sourcePath'
-            param_security_dd_model = 'securityDDModel'
+        if str(self.section_value).lower() == 'base':
+            param_domain_name = 'domain_name'
+            param_admin_name = 'admin_name'
+            param_admin_listen_port = 'admin_listen_port'
+            param_production_mode = 'production_mode'
+            param_administration_port_enabled = 'administration_port_enabled'
+            param_administration_port = 'administration_port'
+            param_admin_console_enabled = 'admin_console_enabled'
+            param_derby_enabled = 'derby_enabled'
 
             return [
-                param_name,
-                param_type,
-                param_source_path,
-                param_security_dd_model
+                param_domain_name,
+                param_admin_name,
+                param_admin_listen_port,
+                param_production_mode,
+                param_administration_port_enabled,
+                param_administration_port,
+                param_admin_console_enabled,
+                param_derby_enabled
+            ]
+
+        elif str(self.section_value).lower() == 'security':
+            param_username = 'username'
+            param_password = 'password'
+
+            return [
+                param_username,
+                param_password
+            ]
+
+        elif str(self.section_value).lower() == 'java':
+            param_user_mem_args = 'user_mem_args'
+            param_java_options = 'java_options'
+
+            return [
+                param_user_mem_args,
+                param_java_options
             ]
 
         elif str(self.section_value).lower()  == 'logging':
@@ -85,6 +111,19 @@ class ConfigParserClass(object):
                 param_TestTableName,
                 param_XaSetTransactionTimeout,
                 param_XaTransactionTimeout
+            ]
+
+        elif str(self.section_value).lower() == 'deployments':
+            param_name = 'name'
+            param_type = 'type'
+            param_source_path = 'sourcePath'
+            param_security_dd_model = 'securityDDModel'
+
+            return [
+                param_name,
+                param_type,
+                param_source_path,
+                param_security_dd_model
             ]
 
         else:
