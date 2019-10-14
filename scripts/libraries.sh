@@ -10,7 +10,7 @@
 # $1 - $FILE_F
 # $2 - $SECTION_F
 # $3 - $KEY_F
-function get_ini() {
+function _properties() {
 
     local FILE_F=$1
     local SECTION_F=$2
