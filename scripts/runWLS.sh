@@ -32,9 +32,7 @@ function _term() {
     -Dweblogic.security.CustomTrustKeyStoreFileName="${ORACLE_HOME}/wlserver/server/lib/DemoTrust.jks" \
     weblogic.WLST \
     -skipWLSModuleScanning \
-    -loadProperties ${DOM_PROPERTIES_FILE} \
-    -loadProperties ${SEC_PROPERTIES_FILE} \
-    ${SCRIPTS_DIR}/shutdown-wls-domain.py
+    ${SCRIPTS_DIR}/shutdown-wls-domain.py -p ${DOM_PROPERTIES_FILE}
 
    retval=$?
 
