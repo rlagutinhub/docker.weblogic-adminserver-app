@@ -37,7 +37,8 @@ function _term() {
    retval=$?
 
    if [ "${DERBY_ENABLED}" == "true" ] ; then
-      . ${ORACLE_HOME}/wlserver/common/derby/bin/stopNetworkServer.sh  >"${DOMAIN_HOME}/derbyShutdown.log" 2>&1
+      # . ${ORACLE_HOME}/wlserver/common/derby/bin/stopNetworkServer.sh  >"${DOMAIN_HOME}/derbyShutdown.log" 2>&1
+      . ${WL_HOME}/common/derby/bin/stopNetworkServer.sh  >"${DOMAIN_HOME}/derbyShutdown.log" 2>&1
       echo "Derby server stopped."
    fi
 
