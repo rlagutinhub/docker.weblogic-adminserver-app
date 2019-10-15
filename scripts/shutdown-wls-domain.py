@@ -87,17 +87,17 @@ def main():
     domain_path = '/u01/oracle/user_projects/domains/%s' % domain_name
     # domain_template = '/u01/oracle/wlserver/common/templates/wls/wls.jar'
 
-    print(lib.bcolors.HEADER + 'domain_name                                : [%s]' % domain_name + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'admin_name                                 : [%s]' % admin_name + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'admin_listen_port                          : [%s]' % admin_listen_port + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'production_mode                            : [%s]' % production_mode + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'administration_port_enabled                : [%s]' % administration_port_enabled + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'administration_port                        : [%s]' % administration_port + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'admin_console_enabled                      : [%s]' % admin_console_enabled + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'username                                   : [%s]' % "******" + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'password                                   : [%s]' % "******" + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'domain_path                                : [%s]' % domain_path + lib.bcolors.ENDC)
-    # print(lib.bcolors.HEADER + 'domain_template                            : [%s]' % domain_template + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'domain_name                                : [%s]' % domain_name + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'admin_name                                 : [%s]' % admin_name + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'admin_listen_port                          : [%s]' % admin_listen_port + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'production_mode                            : [%s]' % production_mode + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'administration_port_enabled                : [%s]' % administration_port_enabled + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'administration_port                        : [%s]' % administration_port + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'admin_console_enabled                      : [%s]' % admin_console_enabled + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'username                                   : [%s]' % "******" + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'password                                   : [%s]' % "******" + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'domain_path                                : [%s]' % domain_path + lib.bcolors.ENDC)
+    # print(lib.bcolors.BOLD + 'domain_template                            : [%s]' % domain_template + lib.bcolors.ENDC)
 
     lib.check_value(domain_name, "domain_name")
     lib.check_value(admin_name, "admin_name")

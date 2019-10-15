@@ -93,17 +93,17 @@ def main():
     domain_path = '/u01/oracle/user_projects/domains/%s' % domain_name
     # domain_template = '/u01/oracle/wlserver/common/templates/wls/wls.jar'
 
-    print(lib.bcolors.HEADER + 'domain_name                                : [%s]' % domain_name + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'admin_name                                 : [%s]' % admin_name + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'admin_listen_port                          : [%s]' % admin_listen_port + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'production_mode                            : [%s]' % production_mode + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'administration_port_enabled                : [%s]' % administration_port_enabled + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'administration_port                        : [%s]' % administration_port + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'admin_console_enabled                      : [%s]' % admin_console_enabled + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'username                                   : [%s]' % "******" + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'password                                   : [%s]' % "******" + lib.bcolors.ENDC)
-    print(lib.bcolors.HEADER + 'domain_path                                : [%s]' % domain_path + lib.bcolors.ENDC)
-    # print(lib.bcolors.HEADER + 'domain_template                            : [%s]' % domain_template + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'domain_name                                : [%s]' % domain_name + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'admin_name                                 : [%s]' % admin_name + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'admin_listen_port                          : [%s]' % admin_listen_port + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'production_mode                            : [%s]' % production_mode + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'administration_port_enabled                : [%s]' % administration_port_enabled + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'administration_port                        : [%s]' % administration_port + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'admin_console_enabled                      : [%s]' % admin_console_enabled + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'username                                   : [%s]' % "******" + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'password                                   : [%s]' % "******" + lib.bcolors.ENDC)
+    print(lib.bcolors.BOLD + 'domain_path                                : [%s]' % domain_path + lib.bcolors.ENDC)
+    # print(lib.bcolors.BOLD + 'domain_template                            : [%s]' % domain_template + lib.bcolors.ENDC)
 
     lib.check_value(domain_name, "domain_name")
     lib.check_value(admin_name, "admin_name")
@@ -142,10 +142,10 @@ def main():
                 app_sourcePath = settings_dep[key]['sourcePath']
                 app_securityDDModel = settings_dep[key]['securityDDModel']
 
-                print(lib.bcolors.OKBLUE + 'app_name                                   : [%s]' % app_name + lib.bcolors.ENDC)
-                print(lib.bcolors.OKBLUE + 'app_type                                   : [%s]' % app_type + lib.bcolors.ENDC)
-                print(lib.bcolors.OKBLUE + 'app_sourcePath                             : [%s]' % app_sourcePath + lib.bcolors.ENDC)
-                print(lib.bcolors.OKBLUE + 'app_securityDDModel                        : [%s]' % app_securityDDModel + lib.bcolors.ENDC)
+                print(lib.bcolors.BOLD + 'app_name                                   : [%s]' % app_name + lib.bcolors.ENDC)
+                print(lib.bcolors.BOLD + 'app_type                                   : [%s]' % app_type + lib.bcolors.ENDC)
+                print(lib.bcolors.BOLD + 'app_sourcePath                             : [%s]' % app_sourcePath + lib.bcolors.ENDC)
+                print(lib.bcolors.BOLD + 'app_securityDDModel                        : [%s]' % app_securityDDModel + lib.bcolors.ENDC)
 
                 lib.check_value(app_name, "app_name")
                 lib.check_value(app_type, "app_type")
@@ -156,7 +156,7 @@ def main():
                     print('Error: not found %s' % app_sourcePath)
                     sys.exit(1)
 
-                print(lib.bcolors.OKGREEN + 'Offline deploy application                 : [%s]' % app_name + lib.bcolors.ENDC)
+                print(lib.bcolors.WARNING + 'Offline deploy application                 : [%s]' % app_name + lib.bcolors.ENDC)
 
                 cd('/')
                 app = create(app_name, app_type)
@@ -203,10 +203,10 @@ def main():
                 app_sourcePath = settings_dep[key]['sourcePath']
                 app_securityDDModel = settings_dep[key]['securityDDModel']
 
-                print(lib.bcolors.OKBLUE + 'app_name                                   : [%s]' % app_name + lib.bcolors.ENDC)
-                print(lib.bcolors.OKBLUE + 'app_type                                   : [%s]' % app_type + lib.bcolors.ENDC)
-                print(lib.bcolors.OKBLUE + 'app_sourcePath                             : [%s]' % app_sourcePath + lib.bcolors.ENDC)
-                print(lib.bcolors.OKBLUE + 'app_securityDDModel                        : [%s]' % app_securityDDModel + lib.bcolors.ENDC)
+                print(lib.bcolors.BOLD + 'app_name                                   : [%s]' % app_name + lib.bcolors.ENDC)
+                print(lib.bcolors.BOLD + 'app_type                                   : [%s]' % app_type + lib.bcolors.ENDC)
+                print(lib.bcolors.BOLD + 'app_sourcePath                             : [%s]' % app_sourcePath + lib.bcolors.ENDC)
+                print(lib.bcolors.BOLD + 'app_securityDDModel                        : [%s]' % app_securityDDModel + lib.bcolors.ENDC)
 
                 lib.check_value(app_name, "app_name")
                 lib.check_value(app_type, "app_type")
@@ -217,7 +217,7 @@ def main():
                     print('Error: not found %s' % app_sourcePath)
                     sys.exit(1)
 
-                print(lib.bcolors.OKGREEN + 'Online deploy application                  : [%s]' % app_name + lib.bcolors.ENDC)
+                print(lib.bcolors.WARNING + 'Online deploy application                  : [%s]' % app_name + lib.bcolors.ENDC)
 
                 progress = deploy(app_name, app_sourcePath, stageMode='nostage', securityModel=app_securityDDModel, upload='true')
                 progress.printStatus()
