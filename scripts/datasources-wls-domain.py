@@ -93,17 +93,17 @@ def main():
     domain_path = '/u01/oracle/user_projects/domains/%s' % domain_name
     # domain_template = '/u01/oracle/wlserver/common/templates/wls/wls.jar'
 
-    print('domain_name                 : [%s]' % domain_name)
-    print('admin_name                  : [%s]' % admin_name)
-    print('admin_listen_port           : [%s]' % admin_listen_port)
-    print('production_mode             : [%s]' % production_mode)
-    print('administration_port_enabled : [%s]' % administration_port_enabled)
-    print('administration_port         : [%s]' % administration_port)
-    print('admin_console_enabled       : [%s]' % admin_console_enabled)
-    print('username                    : [%s]' % "******")
-    print('password                    : [%s]' % "******")
-    print('domain_path                 : [%s]' % domain_path)
-    # print('domain_template             : [%s]' % domain_template)
+    print('domain_name                                : [%s]' % domain_name)
+    print('admin_name                                 : [%s]' % admin_name)
+    print('admin_listen_port                          : [%s]' % admin_listen_port)
+    print('production_mode                            : [%s]' % production_mode)
+    print('administration_port_enabled                : [%s]' % administration_port_enabled)
+    print('administration_port                        : [%s]' % administration_port)
+    print('admin_console_enabled                      : [%s]' % admin_console_enabled)
+    print('username                                   : [%s]' % "******")
+    print('password                                   : [%s]' % "******")
+    print('domain_path                                : [%s]' % domain_path)
+    # print('domain_template                            : [%s]' % domain_template)
 
     lib.check_value(domain_name, "domain_name")
     lib.check_value(admin_name, "admin_name")

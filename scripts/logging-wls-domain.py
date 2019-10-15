@@ -166,11 +166,11 @@ def main():
             log_fileCount = settings_log[key]['fileCount']
             log_rotateLogOnStartup = settings_log[key]['rotateLogOnStartup']
 
-            print('log_path                        : [%s]' % log_path)
-            print('log_file                        : [%s]' % log_file)
-            print('log_fileMinSize                 : [%s]' % log_fileMinSize)
-            print('log_fileCount                   : [%s]' % log_fileCount)
-            print('log_rotateLogOnStartup          : [%s]' % log_rotateLogOnStartup)
+            print('log_path                    : [%s]' % log_path)
+            print('log_file                    : [%s]' % log_file)
+            print('log_fileMinSize             : [%s]' % log_fileMinSize)
+            print('log_fileCount               : [%s]' % log_fileCount)
+            print('log_rotateLogOnStartup      : [%s]' % log_rotateLogOnStartup)
 
             lib.check_value(log_path, "log_path")
             lib.check_value(log_file, "log_file")

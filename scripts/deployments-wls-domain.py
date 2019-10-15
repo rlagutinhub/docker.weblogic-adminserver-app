@@ -142,10 +142,10 @@ def main():
                 app_sourcePath = settings_dep[key]['sourcePath']
                 app_securityDDModel = settings_dep[key]['securityDDModel']
 
-                print('app_name                         : [%s]' % app_name)
-                print('app_type                         : [%s]' % app_type)
-                print('app_sourcePath                   : [%s]' % app_sourcePath)
-                print('app_securityDDModel              : [%s]' % app_securityDDModel)
+                print('app_name                    : [%s]' % app_name)
+                print('app_type                    : [%s]' % app_type)
+                print('app_sourcePath              : [%s]' % app_sourcePath)
+                print('app_securityDDModel         : [%s]' % app_securityDDModel)
 
                 lib.check_value(app_name, "app_name")
                 lib.check_value(app_type, "app_type")
@@ -164,8 +164,8 @@ def main():
                 app.setSecurityDDModel(app_securityDDModel)
                 app.setStagingMode('nostage')
 
-            assign(app_type, app_name, 'Target', admin_name)
-            # assign(app_type, app_name, 'Target', cluster_name)
+                assign(app_type, app_name, 'Target', admin_name)
+                # assign(app_type, app_name, 'Target', cluster_name)
 
             updateDomain()
             closeDomain()
@@ -203,10 +203,10 @@ def main():
                 app_sourcePath = settings_dep[key]['sourcePath']
                 app_securityDDModel = settings_dep[key]['securityDDModel']
 
-                print('app_name                         : [%s]' % app_name)
-                print('app_type                         : [%s]' % app_type)
-                print('app_sourcePath                   : [%s]' % app_sourcePath)
-                print('app_securityDDModel              : [%s]' % app_securityDDModel)
+                print('app_name                    : [%s]' % app_name)
+                print('app_type                    : [%s]' % app_type)
+                print('app_sourcePath              : [%s]' % app_sourcePath)
+                print('app_securityDDModel         : [%s]' % app_securityDDModel)
 
                 lib.check_value(app_name, "app_name")
                 lib.check_value(app_type, "app_type")
