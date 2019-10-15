@@ -93,17 +93,17 @@ def main():
     domain_path = '/u01/oracle/user_projects/domains/%s' % domain_name
     # domain_template = '/u01/oracle/wlserver/common/templates/wls/wls.jar'
 
-    print('domain_name                                : [%s]' % domain_name)
-    print('admin_name                                 : [%s]' % admin_name)
-    print('admin_listen_port                          : [%s]' % admin_listen_port)
-    print('production_mode                            : [%s]' % production_mode)
-    print('administration_port_enabled                : [%s]' % administration_port_enabled)
-    print('administration_port                        : [%s]' % administration_port)
-    print('admin_console_enabled                      : [%s]' % admin_console_enabled)
-    print('username                                   : [%s]' % "******")
-    print('password                                   : [%s]' % "******")
-    print('domain_path                                : [%s]' % domain_path)
-    # print('domain_template                            : [%s]' % domain_template)
+    print(lib.bcolors.HEADER + 'domain_name                                : [%s]' % domain_name + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'admin_name                                 : [%s]' % admin_name + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'admin_listen_port                          : [%s]' % admin_listen_port + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'production_mode                            : [%s]' % production_mode + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'administration_port_enabled                : [%s]' % administration_port_enabled + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'administration_port                        : [%s]' % administration_port + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'admin_console_enabled                      : [%s]' % admin_console_enabled + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'username                                   : [%s]' % "******" + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'password                                   : [%s]' % "******" + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'domain_path                                : [%s]' % domain_path + lib.bcolors.ENDC)
+    # print(lib.bcolors.HEADER + 'domain_template                            : [%s]' % domain_template + lib.bcolors.ENDC)
 
     lib.check_value(domain_name, "domain_name")
     lib.check_value(admin_name, "admin_name")
@@ -150,18 +150,18 @@ def main():
                 ds_XaSetTransactionTimeout = settings_ds[key]['XaSetTransactionTimeout']
                 ds_XaTransactionTimeout = settings_ds[key]['XaTransactionTimeout']
 
-                print('ds_url                                     : [%s]' % ds_url)
-                print('ds_user                                    : [%s]' % ds_user)
-                print('ds_password                                : [%s]' % ds_password)
-                print('ds_Name                                    : [%s]' % ds_Name)
-                print('ds_jndiName                                : [%s]' % ds_jndiName)
-                print('ds_GlobalTransactionsProtocol              : [%s]' % ds_GlobalTransactionsProtocol)
-                print('ds_driver                                  : [%s]' % ds_driver)
-                print('ds_MaxCapacity                             : [%s]' % ds_MaxCapacity)
-                print('ds_ConnectionCreationRetryFrequencySeconds : [%s]' % ds_ConnectionCreationRetryFrequencySeconds)
-                print('ds_TestTableName                           : [%s]' % ds_TestTableName)
-                print('ds_XaSetTransactionTimeout                 : [%s]' % ds_XaSetTransactionTimeout)
-                print('ds_XaTransactionTimeout                    : [%s]' % ds_XaTransactionTimeout)
+                print(lib.bcolors.OKBLUE + 'ds_url                                     : [%s]' % ds_url + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_user                                    : [%s]' % ds_user + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_password                                : [%s]' % ds_password + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_Name                                    : [%s]' % ds_Name + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_jndiName                                : [%s]' % ds_jndiName + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_GlobalTransactionsProtocol              : [%s]' % ds_GlobalTransactionsProtocol + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_driver                                  : [%s]' % ds_driver + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_MaxCapacity                             : [%s]' % ds_MaxCapacity + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_ConnectionCreationRetryFrequencySeconds : [%s]' % ds_ConnectionCreationRetryFrequencySeconds + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_TestTableName                           : [%s]' % ds_TestTableName + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_XaSetTransactionTimeout                 : [%s]' % ds_XaSetTransactionTimeout + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_XaTransactionTimeout                    : [%s]' % ds_XaTransactionTimeout + lib.bcolors.ENDC)
 
                 lib.check_value(ds_url, "ds_url")
                 lib.check_value(ds_user, "ds_user")
@@ -176,7 +176,7 @@ def main():
                 lib.check_value(ds_XaSetTransactionTimeout, "ds_XaSetTransactionTimeout")
                 lib.check_value(ds_XaTransactionTimeout, "ds_XaTransactionTimeout")
 
-                print('Offline create datasource                  : [%s]' % ds_Name)
+                print(lib.bcolors.OKGREEN + 'Offline create datasource                  : [%s]' % ds_Name + lib.bcolors.ENDC)
 
                 cd('/')
                 create(ds_Name, 'JDBCSystemResource')
@@ -284,18 +284,18 @@ def main():
                 ds_XaSetTransactionTimeout = settings_ds[key]['XaSetTransactionTimeout']
                 ds_XaTransactionTimeout = settings_ds[key]['XaTransactionTimeout']
 
-                print('ds_url                                     : [%s]' % ds_url)
-                print('ds_user                                    : [%s]' % ds_user)
-                print('ds_password                                : [%s]' % ds_password)
-                print('ds_Name                                    : [%s]' % ds_Name)
-                print('ds_jndiName                                : [%s]' % ds_jndiName)
-                print('ds_GlobalTransactionsProtocol              : [%s]' % ds_GlobalTransactionsProtocol)
-                print('ds_driver                                  : [%s]' % ds_driver)
-                print('ds_MaxCapacity                             : [%s]' % ds_MaxCapacity)
-                print('ds_ConnectionCreationRetryFrequencySeconds : [%s]' % ds_ConnectionCreationRetryFrequencySeconds)
-                print('ds_TestTableName                           : [%s]' % ds_TestTableName)
-                print('ds_XaSetTransactionTimeout                 : [%s]' % ds_XaSetTransactionTimeout)
-                print('ds_XaTransactionTimeout                    : [%s]' % ds_XaTransactionTimeout)
+                print(lib.bcolors.OKBLUE + 'ds_url                                     : [%s]' % ds_url + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_user                                    : [%s]' % ds_user + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_password                                : [%s]' % ds_password + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_Name                                    : [%s]' % ds_Name + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_jndiName                                : [%s]' % ds_jndiName + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_GlobalTransactionsProtocol              : [%s]' % ds_GlobalTransactionsProtocol + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_driver                                  : [%s]' % ds_driver + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_MaxCapacity                             : [%s]' % ds_MaxCapacity + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_ConnectionCreationRetryFrequencySeconds : [%s]' % ds_ConnectionCreationRetryFrequencySeconds + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_TestTableName                           : [%s]' % ds_TestTableName + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_XaSetTransactionTimeout                 : [%s]' % ds_XaSetTransactionTimeout + lib.bcolors.ENDC)
+                print(lib.bcolors.OKBLUE + 'ds_XaTransactionTimeout                    : [%s]' % ds_XaTransactionTimeout + lib.bcolors.ENDC)
 
                 lib.check_value(ds_url, "ds_url")
                 lib.check_value(ds_user, "ds_user")
@@ -310,7 +310,7 @@ def main():
                 lib.check_value(ds_XaSetTransactionTimeout, "ds_XaSetTransactionTimeout")
                 lib.check_value(ds_XaTransactionTimeout, "ds_XaTransactionTimeout")
 
-                print('Online create datasource                   : [%s]' % ds_Name)
+                print(lib.bcolors.OKGREEN + 'Online create datasource                   : [%s]' % ds_Name + lib.bcolors.ENDC)
 
                 cd('/')
                 cmo.createJDBCSystemResource(ds_Name)

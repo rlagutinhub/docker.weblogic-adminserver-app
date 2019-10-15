@@ -93,17 +93,17 @@ def main():
     domain_path = '/u01/oracle/user_projects/domains/%s' % domain_name
     # domain_template = '/u01/oracle/wlserver/common/templates/wls/wls.jar'
 
-    print('domain_name                 : [%s]' % domain_name)
-    print('admin_name                  : [%s]' % admin_name)
-    print('admin_listen_port           : [%s]' % admin_listen_port)
-    print('production_mode             : [%s]' % production_mode)
-    print('administration_port_enabled : [%s]' % administration_port_enabled)
-    print('administration_port         : [%s]' % administration_port)
-    print('admin_console_enabled       : [%s]' % admin_console_enabled)
-    print('username                    : [%s]' % "******")
-    print('password                    : [%s]' % "******")
-    print('domain_path                 : [%s]' % domain_path)
-    # print('domain_template             : [%s]' % domain_template)
+    print(lib.bcolors.HEADER + 'domain_name                                : [%s]' % domain_name + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'admin_name                                 : [%s]' % admin_name + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'admin_listen_port                          : [%s]' % admin_listen_port + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'production_mode                            : [%s]' % production_mode + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'administration_port_enabled                : [%s]' % administration_port_enabled + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'administration_port                        : [%s]' % administration_port + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'admin_console_enabled                      : [%s]' % admin_console_enabled + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'username                                   : [%s]' % "******" + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'password                                   : [%s]' % "******" + lib.bcolors.ENDC)
+    print(lib.bcolors.HEADER + 'domain_path                                : [%s]' % domain_path + lib.bcolors.ENDC)
+    # print(lib.bcolors.HEADER + 'domain_template                            : [%s]' % domain_template + lib.bcolors.ENDC)
   
     lib.check_value(domain_name, "domain_name")
     lib.check_value(admin_name, "admin_name")
@@ -166,11 +166,11 @@ def main():
             log_fileCount = settings_log[key]['fileCount']
             log_rotateLogOnStartup = settings_log[key]['rotateLogOnStartup']
 
-            print('log_path                    : [%s]' % log_path)
-            print('log_file                    : [%s]' % log_file)
-            print('log_fileMinSize             : [%s]' % log_fileMinSize)
-            print('log_fileCount               : [%s]' % log_fileCount)
-            print('log_rotateLogOnStartup      : [%s]' % log_rotateLogOnStartup)
+            print(lib.bcolors.OKBLUE + 'log_path                                   : [%s]' % log_path + lib.bcolors.ENDC)
+            print(lib.bcolors.OKBLUE + 'log_file                                   : [%s]' % log_file + lib.bcolors.ENDC)
+            print(lib.bcolors.OKBLUE + 'log_fileMinSize                            : [%s]' % log_fileMinSize + lib.bcolors.ENDC)
+            print(lib.bcolors.OKBLUE + 'log_fileCount                              : [%s]' % log_fileCount + lib.bcolors.ENDC)
+            print(lib.bcolors.OKBLUE + 'log_rotateLogOnStartup                     : [%s]' % log_rotateLogOnStartup + lib.bcolors.ENDC)
 
             lib.check_value(log_path, "log_path")
             lib.check_value(log_file, "log_file")
@@ -189,7 +189,7 @@ def main():
             else:
                 log_file = log_file.replace('.log', '-' + str(cid) + ".log")
 
-            print('Setup logging                   : [%s]' % log_file)
+            print(lib.bcolors.OKGREEN + 'Setup logging                              : [%s]' % log_file + lib.bcolors.ENDC)
 
             if key == 'diagnostic':
                 cd(log_path)
