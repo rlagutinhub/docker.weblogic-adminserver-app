@@ -78,7 +78,7 @@ docker logs wls-app --follow
 
 #### JPA support
 
-> JPA (Java Persistent API) 2.1 it is automatically enabled on WebLogic 12.2.X but on WebLogic 12.1.3 JPA 2.1 has to be enabled manually Enabling JPA 2.1 in WebLogic Server 12.1.3 [link](https://docs.oracle.com/middleware/1213/wls/EJBAD/using_toplink.htm#EJBAD1309) [link](https://www.oracle.com/webfolder/technetwork/tutorials/obe/fmw/wls/12c/01-06-004-JavaEE7andWebLogicServer/javaee7.html#section1)
+* JPA (Java Persistent API) 2.1 it is automatically enabled on WebLogic 12.2.X but on WebLogic 12.1.3 JPA 2.1 has to be enabled manually Enabling JPA 2.1 in WebLogic Server 12.1.3 [link](https://github.com/oracle/docker-images/blob/master/OracleWebLogic/samples/1213-domain/container-scripts/commEnv.sh) [link](https://docs.oracle.com/middleware/1213/wls/EJBAD/using_toplink.htm#EJBAD1309) [link](https://www.oracle.com/webfolder/technetwork/tutorials/obe/fmw/wls/12c/01-06-004-JavaEE7andWebLogicServer/javaee7.html#section1)
 
 #### Properties
 
