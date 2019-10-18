@@ -2,7 +2,7 @@
 
 Compiled Docker image: https://hub.docker.com/r/rlagutinhub/docker.weblogic-adminserver-app
 
->	* Oracle WebLogic 12.2.1.2-generic autoconfig domain without cluster (only AdminServer and User Application) only on first start docker container.
+>	* Oracle WebLogic 12.2.1.2-generic autoconfig (only first running) domain without cluster (only AdminServer) include deploying datasources, libraries, applications.
 >	* Support run on Docker Standalone and Docker Swarm Mode
 >	* Base image oraclelinux:7-slim
 
@@ -79,74 +79,120 @@ docker logs wls-app --follow
 #### Properties
 
 
-```vim properties/domain_base.properties # domain base settings```
+```vim properties/domain_settings.properties```
+
 * recommend ADMINISTRATION_PORT_ENABLED=true (admin console access only from other port with force ssl)
 
 ```console
-DOMAIN_NAME=MTA4RU
-ADMIN_NAME=AdminServer
-ADMIN_LISTEN_PORT=7001
-PRODUCTION_MODE=prod
-ADMINISTRATION_PORT_ENABLED=true
-ADMINISTRATION_PORT=9002
-ADMIN_CONSOLE_ENABLED=true
-DERBY_ENABLED=false
+[Base]
+keys=base
+base.domain_name=MTA4RU
+base.admin_name=AdminServer
+base.admin_listen_port=7001
+base.production_mode=prod
+base.administration_port_enabled=true
+base.administration_port=9002
+base.admin_console_enabled=true
+base.derby_enabled=false
 ```
 
-```vim properties/domain_security.properties # domain security settings```
 * Use only strong password 12-14 symbols (https://en.wikipedia.org/wiki/Password_strength)
 
 ```console
-username=weblogic
-password=welcome1
+[Security]
+keys=sec
+sec.username=weblogic
+sec.password=welcome1
 ```
 
-```vim properties/domain_modify.properties # domain modify logging settings```
+* Java settings are applied via env variables (setDomainEnv.sh not modifaed)
+
+```console
+[Java]
+keys=java
+java.user_mem_args=-Xms1024m -Xmx1024m -Djava.security.egd=file:/dev/./urandom
+java.java_options=-Dweblogic.configuration.schemaValidationEnabled=false -Dfile.encoding=UTF-8 -Xdebug -Xrunjdwp:transport=dt_socket,address=1044,server=y,suspend=n -Djava.io.tmpdir=/tmp/
+```
+
 * Move wls logs to single folder ${ORACLE_HOME}/Logs (the new location of the logs is not in DOMAIN_HOME, because if you use the mount volume, there will be an error files acl permission deny at creating domain)
-> https://github.com/rlagutinhub/docker.weblogic-adminserver-app/blob/master/scripts/runWLS.sh#L159
 * Add prefix docker ContainerID to wls logs filename (example AdminServer-123456789abc.log)
 * Modify rotation settings for wls logs by file size and file count
 
 ```console
-log.admin.path=/Servers/AdminServer/Log/AdminServer
-log.admin.file=/u01/oracle/logs/mta4ru/AdminServer.log
-log.admin.fileMinSize=10000
-log.admin.fileCount=50
-log.admin.rotateLogOnStartup=True
-log.access.path=/Servers/AdminServer/WebServer/AdminServer/WebServerLog/AdminServer
-log.access.file=/u01/oracle/logs/mta4ru/access.log
-log.access.fileMinSize=10000
-log.access.fileCount=50
-log.access.rotateLogOnStartup=True
-log.datasource.path=/Servers/AdminServer/DataSource/AdminServer/DataSourceLogFile/AdminServer
-log.datasource.file=/u01/oracle/logs/mta4ru/datasource.log
-log.datasource.fileMinSize=10000
-log.datasource.fileCount=50
-log.datasource.rotateLogOnStartup=True
-log.diagnostic.path=/Servers/AdminServer/ServerDiagnosticConfig/AdminServer
-log.diagnostic.file=/u01/oracle/logs/mta4ru/diagnostic_images
-log.diagnostic.timeout=1
-log.domain.path=/Log/MTA4RU
-log.domain.file=/u01/oracle/logs/mta4ru/base_domain.log
-log.domain.fileMinSize=10000
-log.domain.fileCount=50
-log.domain.rotateLogOnStartup=True
+[Logging]
+keys=admin access datasource diagnostic domain
+admin.path=/Servers/AdminServer/Log/AdminServer
+admin.file=/u01/oracle/logs/mta4ru/AdminServer.log
+admin.fileMinSize=10000
+admin.fileCount=50
+admin.rotateLogOnStartup=True
+access.path=/Servers/AdminServer/WebServer/AdminServer/WebServerLog/AdminServer
+access.file=/u01/oracle/logs/mta4ru/access.log
+access.fileMinSize=10000
+access.fileCount=50
+access.rotateLogOnStartup=True
+datasource.path=/Servers/AdminServer/DataSource/AdminServer/DataSourceLogFile/AdminServer
+datasource.file=/u01/oracle/logs/mta4ru/datasource.log
+datasource.fileMinSize=10000
+datasource.fileCount=50
+datasource.rotateLogOnStartup=True
+diagnostic.path=/Servers/AdminServer/ServerDiagnosticConfig/AdminServer
+diagnostic.file=/u01/oracle/logs/mta4ru/diagnostic_images
+diagnostic.fileMinSize=null
+diagnostic.fileCount=null
+diagnostic.rotateLogOnStartup=null
+domain.path=/Log/MTA4RU
+domain.file=/u01/oracle/logs/mta4ru/base_domain.log
+domain.fileMinSize=10000
+domain.fileCount=50
+domain.rotateLogOnStartup=True
 ```
 
-```vim properties/domain_java.properties # domain java settings```
-* Java settings are applied via env variables (setDomainEnv.sh not modifaed)
+* Support wlst offline and online configuring datasources.
 
 ```console
-USER_MEM_ARGS=-Xms1024m -Xmx2048m -Djava.security.egd=file:/dev/./urandom
-JAVA_OPTIONS=-Dweblogic.configuration.schemaValidationEnabled=false -Dfile.encoding=UTF-8 -Xdebug -Xrunjdwp:transport=dt_socket,address=1044,server=y,suspend=n -Djava.io.tmpdir=/tmp/
+[DataSources]
+keys=example1 example2
+example1.url=jdbc:oracle:thin:@db.example.com:1521:example1
+example1.user=example
+example1.password=example
+example1.Name=dsExample1
+example1.jndiName=jdbc/dsExample1
+example1.GlobalTransactionsProtocol=EmulateTwoPhaseCommit
+example1.driver=oracle.jdbc.xa.client.OracleXADataSource
+example1.MaxCapacity=50
+example1.ConnectionCreationRetryFrequencySeconds=10
+example1.TestTableName=SQL SELECT 1 FROM DUAL
+example1.XaSetTransactionTimeout=True
+example1.XaTransactionTimeout=7200
+example2.url=jdbc:oracle:thin:@db.example.com:1521:example2
+example2.user=example
+example2.password=example
+example2.Name=dsExample2
+example2.jndiName=jdbc/dsExample2
+example2.GlobalTransactionsProtocol=None
+example2.driver=oracle.jdbc.OracleDriver
+example2.MaxCapacity=50
+example2.ConnectionCreationRetryFrequencySeconds=10
+example2.TestTableName=SQL SELECT 1 FROM DUAL
+example2.XaSetTransactionTimeout=null
+example2.XaTransactionTimeout=null
 ```
 
-```vim properties/domain_app.properties # domain app settings required for installation```
+* Support wlst offline and online deploying libraries and applications.
+* When you offline (not online) deploy application (not library) to WebLogic, in the Admin Console the application' deployment type will be listed as "UNKNOWN" instead of "Web Application". This issue has no affect on your application.
 
 ```console
-app.name=hello
-app.path=/u01/oracle/files
-app.file=hello.war
+[Deployments]
+keys=jaxrs hello
+jaxrs.name=jax-rs#2.0@2.22.1.0
+jaxrs.type=Library
+jaxrs.sourcePath=/u01/oracle/wlserver/common/deployable-libraries/jax-rs-2.0.war
+jaxrs.securityDDModel=DDOnly
+hello.name=hello
+hello.type=AppDeployment
+hello.sourcePath=/u01/oracle/files/hello.war
+hello.securityDDModel=DDOnly
 ```
 ***
 
