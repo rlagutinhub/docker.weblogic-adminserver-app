@@ -168,9 +168,13 @@ if [ $ADD_DOMAIN -eq 0 ]; then
     echo "username=${USER}" >> ${DOMAIN_HOME}/servers/${ADMIN_NAME}/security/boot.properties
     echo "password=${PASS}" >> ${DOMAIN_HOME}/servers/${ADMIN_NAME}/security/boot.properties
 
+    # Create TMP folder
+    # mkdir -p ${DOMAIN_HOME}/tmp/${CID}
+    mkdir -p ${ORACLE_HOME}/tmp/${CID}
+
     # Create Logs folder
-    # mkdir -p ${DOMAIN_HOME}/logs/
-    mkdir -p ${ORACLE_HOME}/logs/
+    # mkdir -p ${DOMAIN_HOME}/logs
+    mkdir -p ${ORACLE_HOME}/logs
 
     # Logging
     wlst.sh -skipWLSModuleScanning \
@@ -242,6 +246,10 @@ if [ -z "${JAVA_OPTIONS}" ]; then
     echo "The JAVA_OPTIONS is blank. The JAVA_OPTIONS must be set in the properties file."
     exit 1
 fi
+
+# Get value from variable is stored as string
+USER_MEM_ARGS=$(eval echo ${USER_MEM_ARGS})
+JAVA_OPTIONS=$(eval echo ${JAVA_OPTIONS})
 
 # Set JAVA OPTIONS
 export USER_MEM_ARGS=${USER_MEM_ARGS}
