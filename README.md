@@ -85,12 +85,13 @@ docker logs wls-app --follow
 
 ```vim properties/domain_settings.properties```
 
-* recommend ADMINISTRATION_PORT_ENABLED=true (admin console access only from other port with force ssl)
+* recommend administration_port_enabled=true (admin console access only from other port with force ssl)
+* recommend lower case for domain_name
 
 ```console
 [Base]
 keys=base
-base.domain_name=MTA4RU
+base.domain_name=mta4.ru
 base.admin_name=AdminServer
 base.admin_listen_port=7001
 base.production_mode=prod
@@ -100,7 +101,7 @@ base.admin_console_enabled=true
 base.derby_enabled=false
 ```
 
-* Use only strong password 12-14 symbols (https://en.wikipedia.org/wiki/Password_strength)
+* Use only strong password 12-14 symbols [wiki](https://en.wikipedia.org/wiki/Password_strength)
 
 ```console
 [Security]
@@ -145,7 +146,7 @@ diagnostic.file=/u01/oracle/logs/mta4ru/diagnostic_images
 diagnostic.fileMinSize=null
 diagnostic.fileCount=null
 diagnostic.rotateLogOnStartup=null
-domain.path=/Log/MTA4RU
+domain.path=/Log/mta4.ru
 domain.file=/u01/oracle/logs/mta4ru/base_domain.log
 domain.fileMinSize=10000
 domain.fileCount=50
