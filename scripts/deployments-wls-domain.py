@@ -219,8 +219,13 @@ def main():
 
                 print(lib.bcolors.WARNING + 'Online deploy application                  : [%s]' % app_name + lib.bcolors.ENDC)
 
-                progress = deploy(app_name, app_sourcePath, stageMode='nostage', securityModel=app_securityDDModel, upload='true')
-                progress.printStatus()
+                if str(app_type).lower() == 'library':
+                    progress = deploy(app_name, app_sourcePath, stageMode='nostage', libraryModule='true', securityModel=app_securityDDModel, upload='true')
+                    progress.printStatus()
+                
+                else:
+                    progress = deploy(app_name, app_sourcePath, stageMode='nostage', libraryModule='false', securityModel=app_securityDDModel, upload='true')
+                    progress.printStatus()
 
             save()
             activate(block='true')
