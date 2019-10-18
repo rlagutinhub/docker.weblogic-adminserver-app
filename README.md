@@ -115,7 +115,7 @@ sec.password=welcome1
 [Java]
 keys=java
 java.user_mem_args=-Xms1024m -Xmx1024m -Djava.security.egd=file:/dev/./urandom
-java.java_options=-Dweblogic.configuration.schemaValidationEnabled=false -Dfile.encoding=UTF-8 -Xdebug -Xrunjdwp:transport=dt_socket,address=1044,server=y,suspend=n -Djava.io.tmpdir=/tmp/
+java.java_options=-Dweblogic.configuration.schemaValidationEnabled=false -Dfile.encoding=UTF-8 -DCID_SHORT=${CID}- -Xdebug -Xrunjdwp:transport=dt_socket,address=1044,server=y,suspend=n -Djava.io.tmpdir=${ORACLE_HOME}/tmp/mta4ru/${CID}
 ```
 
 * Move wls logs to single folder ${ORACLE_HOME}/Logs (the new location of the logs is not in DOMAIN_HOME, because if you use the mount volume, there will be an error files acl permission deny at creating domain)
