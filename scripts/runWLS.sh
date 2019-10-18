@@ -2,7 +2,7 @@
 
 # NAME:   RUNWLS.SH
 # DESC:   RUN WLS
-# DATE:   14-10-2019
+# DATE:   18-10-2019
 # LANG:   BASH
 # AUTHOR: LAGUTIN R.A.
 # EMAIL:  RLAGUTIN@MTA4.RU
@@ -199,6 +199,9 @@ if [ $ADD_DOMAIN -eq 0 ]; then
        exit
     fi
 
+    # Libraries
+    # cp ${FILES_DIR}/lib_mbeans-current.jar ${ORACLE_HOME}/wlserver/server/lib/mbeantypes/lib_mbeans.jar
+
     # Deployments
     wlst.sh -skipWLSModuleScanning \
      ${SCRIPTS_DIR}/deployments-wls-domain.py -p ${DOM_PROPERTIES_FILE} -m offline # offline or online
@@ -218,11 +221,11 @@ fi
 touch ${DOMAIN_HOME}/.keep_conf
 
 # Remove lok files
-find ${DOMAIN_HOME} -name "*.lok" -exec rm -f {} \;
-find ${DOMAIN_HOME} -name "*.DAT" -exec rm -f {} \;
-rm -rf ${DOMAIN_HOME}/servers/${ADMIN_NAME}/cache/*
-rm -rf ${DOMAIN_HOME}/servers/${ADMIN_NAME}/tmp/*
-# /bin/bash; exit 0 # troubleshooting
+# find ${DOMAIN_HOME} -name "*.lok" -exec rm -f {} \;
+# find ${DOMAIN_HOME} -name "*.DAT" -exec rm -f {} \;
+# rm -rf ${DOMAIN_HOME}/servers/${ADMIN_NAME}/cache/*
+# rm -rf ${DOMAIN_HOME}/servers/${ADMIN_NAME}/tmp/*
+## /bin/bash; exit 0 # troubleshooting
 
 echo
 echo "Apply Java Settings"

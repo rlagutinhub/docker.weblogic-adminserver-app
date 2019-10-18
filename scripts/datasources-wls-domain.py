@@ -3,7 +3,7 @@
 
 # NAME:   DATASOURCES-WLS-DOMAIN.PY
 # DESC:   CREATE WLS DATASOURCES
-# DATE:   11-10-2019
+# DATE:   18-10-2019
 # LANG:   PYTHON WLST
 # AUTHOR: LAGUTIN R.A.
 # EMAIL:  RLAGUTIN@MTA4.RU
@@ -151,8 +151,8 @@ def main():
                 ds_XaTransactionTimeout = settings_ds[key]['XaTransactionTimeout']
 
                 print(lib.bcolors.BOLD + 'ds_url                                     : [%s]' % ds_url + lib.bcolors.ENDC)
-                print(lib.bcolors.BOLD + 'ds_user                                    : [%s]' % ds_user + lib.bcolors.ENDC)
-                print(lib.bcolors.BOLD + 'ds_password                                : [%s]' % ds_password + lib.bcolors.ENDC)
+                print(lib.bcolors.BOLD + 'ds_user                                    : [%s]' % "******" + lib.bcolors.ENDC)
+                print(lib.bcolors.BOLD + 'ds_password                                : [%s]' % "******" + lib.bcolors.ENDC)
                 print(lib.bcolors.BOLD + 'ds_Name                                    : [%s]' % ds_Name + lib.bcolors.ENDC)
                 print(lib.bcolors.BOLD + 'ds_jndiName                                : [%s]' % ds_jndiName + lib.bcolors.ENDC)
                 print(lib.bcolors.BOLD + 'ds_GlobalTransactionsProtocol              : [%s]' % ds_GlobalTransactionsProtocol + lib.bcolors.ENDC)
@@ -285,8 +285,8 @@ def main():
                 ds_XaTransactionTimeout = settings_ds[key]['XaTransactionTimeout']
 
                 print(lib.bcolors.BOLD + 'ds_url                                     : [%s]' % ds_url + lib.bcolors.ENDC)
-                print(lib.bcolors.BOLD + 'ds_user                                    : [%s]' % ds_user + lib.bcolors.ENDC)
-                print(lib.bcolors.BOLD + 'ds_password                                : [%s]' % ds_password + lib.bcolors.ENDC)
+                print(lib.bcolors.BOLD + 'ds_user                                    : [%s]' % "******" + lib.bcolors.ENDC)
+                print(lib.bcolors.BOLD + 'ds_password                                : [%s]' % "******" + lib.bcolors.ENDC)
                 print(lib.bcolors.BOLD + 'ds_Name                                    : [%s]' % ds_Name + lib.bcolors.ENDC)
                 print(lib.bcolors.BOLD + 'ds_jndiName                                : [%s]' % ds_jndiName + lib.bcolors.ENDC)
                 print(lib.bcolors.BOLD + 'ds_GlobalTransactionsProtocol              : [%s]' % ds_GlobalTransactionsProtocol + lib.bcolors.ENDC)
