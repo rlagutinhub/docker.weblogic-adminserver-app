@@ -221,7 +221,7 @@ docker run -dit --stop-timeout 120 --name wls-app --network bridge -p 7001:7001/
 ***
 
 #### Run on Docker Swarm Mode
-* For mount source mkdir -p /data/{logs,tmp} on docker host required chmod -R 0777 /data/{logs,tmp}
+* For mount source `mkdir -p /data/{logs,tmp}` on docker host required `chmod -R 0777 /data/{logs,tmp}`
 
 ```docker stack deploy --compose-file docker-compose.yml wls-hello```
 
