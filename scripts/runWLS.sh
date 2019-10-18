@@ -167,7 +167,6 @@ if [ $ADD_DOMAIN -eq 0 ]; then
     mkdir -p ${DOMAIN_HOME}/servers/${ADMIN_NAME}/security/
     echo "username=${USER}" >> ${DOMAIN_HOME}/servers/${ADMIN_NAME}/security/boot.properties
     echo "password=${PASS}" >> ${DOMAIN_HOME}/servers/${ADMIN_NAME}/security/boot.properties
-    # /bin/bash; exit 0 # troubleshooting
 
     # Create Logs folder
     # mkdir -p ${DOMAIN_HOME}/logs/
@@ -225,7 +224,6 @@ touch ${DOMAIN_HOME}/.keep_conf
 # find ${DOMAIN_HOME} -name "*.DAT" -exec rm -f {} \;
 # rm -rf ${DOMAIN_HOME}/servers/${ADMIN_NAME}/cache/*
 # rm -rf ${DOMAIN_HOME}/servers/${ADMIN_NAME}/tmp/*
-## /bin/bash; exit 0 # troubleshooting
 
 echo
 echo "Apply Java Settings"
@@ -270,3 +268,4 @@ fi
 
 childPID=$!
 wait $childPID
+
