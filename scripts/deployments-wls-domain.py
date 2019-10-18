@@ -158,6 +158,10 @@ def main():
 
                 print(lib.bcolors.WARNING + 'Offline deploy application                 : [%s]' % app_name + lib.bcolors.ENDC)
 
+                # https://github.com/oracle/docker-images/blob/master/OracleWebLogic/samples/12212-oradb-wlsstore/container-scripts/app-deploy.py
+                # https://github.com/oracle/docker-images/blob/master/OracleWebLogic/samples/12212-msiserver/container-scripts/add-app-to-domain.py
+                # https://github.com/oracle/docker-images/blob/master/OracleWebLogic/samples/12213-deploy-application/container-scripts/app-deploy.py
+
                 cd('/')
                 app = create(app_name, app_type)
                 app.setSourcePath(app_sourcePath)
@@ -220,11 +224,11 @@ def main():
                 print(lib.bcolors.WARNING + 'Online deploy application                  : [%s]' % app_name + lib.bcolors.ENDC)
 
                 if str(app_type).lower() == 'library':
-                    progress = deploy(app_name, app_sourcePath, stageMode='nostage', libraryModule='true', securityModel=app_securityDDModel, upload='true')
+                    progress = deploy(app_name, app_sourcePath, targets=admin_name, stageMode='nostage', libraryModule='true', securityModel=app_securityDDModel, upload='true')
                     progress.printStatus()
                 
                 else:
-                    progress = deploy(app_name, app_sourcePath, stageMode='nostage', libraryModule='false', securityModel=app_securityDDModel, upload='true')
+                    progress = deploy(app_name, app_sourcePath, targets=admin_name, stageMode='nostage', libraryModule='false', securityModel=app_securityDDModel, upload='true')
                     progress.printStatus()
 
             save()
