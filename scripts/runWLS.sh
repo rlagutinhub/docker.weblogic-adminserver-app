@@ -169,12 +169,12 @@ if [ $ADD_DOMAIN -eq 0 ]; then
     echo "password=${PASS}" >> ${DOMAIN_HOME}/servers/${ADMIN_NAME}/security/boot.properties
 
     # Create TMP folder
-    # mkdir -p ${DOMAIN_HOME}/tmp/${CID}
-    mkdir -p ${ORACLE_HOME}/tmp/${CID}
+    # mkdir -p ${DOMAIN_HOME}/tmp/$(echo ${DOMAIN_NAME} | tr '[:upper:]' '[:lower:]')/${CID}
+    mkdir -p ${ORACLE_HOME}/tmp/$(echo ${DOMAIN_NAME} | tr '[:upper:]' '[:lower:]')/${CID}
 
     # Create Logs folder
-    # mkdir -p ${DOMAIN_HOME}/logs
-    mkdir -p ${ORACLE_HOME}/logs
+    # mkdir -p ${DOMAIN_HOME}/logs/$(echo ${DOMAIN_NAME} | tr '[:upper:]' '[:lower:]')
+    mkdir -p ${ORACLE_HOME}/logs/$(echo ${DOMAIN_NAME} | tr '[:upper:]' '[:lower:]')
 
     # Logging
     wlst.sh -skipWLSModuleScanning \
@@ -276,4 +276,3 @@ fi
 
 childPID=$!
 wait $childPID
-
