@@ -221,7 +221,7 @@ docker run -dit --stop-timeout 120 --name wls-app --network bridge -p 7001:7001/
 ***
 
 #### Run on Docker Swarm Mode
-* For logs mount source on docker host required chmod -R 0777 /logs
+* For mount source mkdir -p /data/{logs,tmp} on docker host required chmod -R 0777 /data/{logs,tmp}
 
 ```docker stack deploy --compose-file docker-compose.yml wls-hello```
 
@@ -233,18 +233,11 @@ services:
     networks:
        - proxy
     volumes:
-      - /logs:/u01/oracle/logs:rw
+      - /data/logs:/u01/oracle/logs:rw
+      - /data/tmp:/u01/oracle/tmp:rw
     configs:
-      - source: hello_domain_base.properties.2019-09-05
-        target: /u01/oracle/properties/domain_base.properties
-      - source: hello_domain_security.properties.2019-09-05
-        target: /u01/oracle/properties/domain_security.properties
-      - source: hello_domain_modify.properties.2019-09-05
-        target: /u01/oracle/properties/domain_modify.properties
-      - source: hello_domain_java.properties.2019-09-05
-        target: /u01/oracle/properties/domain_java.properties
-      - source: hello_domain_app.properties.2019-09-05
-        target: /u01/oracle/properties/domain_app.properties
+      - source: hello_domain_settings.properties.2019-09-05
+        target: /u01/oracle/properties/domain_settings.properties
     stop_grace_period: 2m
     deploy:
       # mode: global
@@ -280,19 +273,8 @@ services:
 networks:
   proxy:
     external: true
-# volumes:
-  # logs:
-    # external: true
 configs:
-  hello_domain_base.properties.2019-09-05:
-    external: true
-  hello_domain_security.properties.2019-09-05:
-    external: true
-  hello_domain_modify.properties.2019-09-05:
-    external: true
-  hello_domain_java.properties.2019-09-05:
-    external: true
-  hello_domain_app.properties.2019-09-05:
+  hello_domain_settings.properties.2019-09-05:
     external: true
 ```
 ***
