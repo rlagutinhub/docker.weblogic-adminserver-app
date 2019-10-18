@@ -1,21 +1,17 @@
 docker run -dit --name wls-app  --network bridge -p 7001:7001/tcp -p 9002:9002/tcp oracle/weblogic:12.2.1.2-generic_custom; docker logs --follow wls-app
+2e24de679af131fd742601039374fd9235a51c702b2b24f3474e3e473b9b836f
 
-3864af13a05f76e8b5a99d67cbaf69ebbbb3116321974b3d1a27473eda3579d1
 Properties file
 ==========================
-/u01/oracle/properties/domain_base.properties
-/u01/oracle/properties/domain_security.properties
-/u01/oracle/properties/domain_modify.properties
-/u01/oracle/properties/domain_app.properties
-/u01/oracle/properties/domain_java.properties
+/u01/oracle/properties/domain_settings.properties
 
 Domain HOME
 ==========================
-Domain Home is:  /u01/oracle/user_projects/domains/MTA4RU
+Domain Home is: /u01/oracle/user_projects/domains/MTA4RU
 
 Docker Container ID
 ==========================
-Container ID is: 3864af13a05f
+Container ID is: 2e24de679af1
 
 Configure Domain
 ==========================
@@ -26,18 +22,17 @@ Welcome to WebLogic Server Administration Scripting Shell
 
 Type help() for help on available commands
 
-domain_name                 : [MTA4RU]
-admin name                  : [AdminServer]
-admin_listen_port           : [7001]
-production_mode             : [prod]
-administration_port_enabled : [true]
-administration_port         : [9002]
-domain_path                 : [/u01/oracle/user_projects/domains/MTA4RU]
-domain_template             : [/u01/oracle/wlserver/common/templates/wls/wls.jar]
-
-
-Exiting WebLogic Scripting Tool.
-
+domain_name                                : [MTA4RU]
+admin_name                                 : [AdminServer]
+admin_listen_port                          : [7001]
+production_mode                            : [prod]
+administration_port_enabled                : [true]
+administration_port                        : [9002]
+admin_console_enabled                      : [true]
+username                                   : [******]
+password                                   : [******]
+domain_path                                : [/u01/oracle/user_projects/domains/MTA4RU]
+domain_template                            : [/u01/oracle/wlserver/common/templates/wls/wls.jar]
 RetVal from Domain creation 0
 
 Initializing WebLogic Scripting Tool (WLST) ...
@@ -46,213 +41,186 @@ Welcome to WebLogic Server Administration Scripting Shell
 
 Type help() for help on available commands
 
-domain_name                      : [MTA4RU]
-admin name                       : [AdminServer]
-admin_listen_port                : [7001]
-production_mode                  : [prod]
-administration_port_enabled      : [true]
-administration_port              : [9002]
-domain_path                      : [/u01/oracle/user_projects/domains/MTA4RU]
-admin_url                        : [t3://localhost:7001]
-username                         : [weblogic]
-password                         : [welcome1]
-properties                       : [/u01/oracle/properties/domain_modify.properties]
-cid                              : [3864af13a05f]
-log_admin_path                   : [/Servers/AdminServer/Log/AdminServer]
-log_admin_file                   : [../../logs/mta4ru/AdminServer.log]
-log_admin_fileMinSize            : [10000]
-log_admin_fileCount              : [50]
-log_admin_rotateLogOnStartup     : [True]
-log_access_path                  : [/Servers/AdminServer/WebServer/AdminServer/WebServerLog/AdminServer]
-log_access_file                  : [../../logs/mta4ru/access.log]
-log_access_fileMinSize           : [10000]
-log_access_fileCount             : [50]
-log_access_rotateLogOnStartup    : [True]
-log_datasource_path              : [/Servers/AdminServer/DataSource/AdminServer/DataSourceLogFile/AdminServer]
-log_datasource_file              : [../../logs/mta4ru/datasource.log]
-log_datasource_fileMinSize       : [10000]
-log_datasource_fileCount         : [50]
-log_datasource_rotateLogOnStartup: [True]
-log_diagnostic_path              : [/Servers/AdminServer/ServerDiagnosticConfig/AdminServer]
-log_diagnostic_file              : [../../logs/mta4ru/diagnostic_images]
-log_diagnostic_timeout           : [1]
-log_domain_path                  : [/Log/MTA4RU]
-log_domain_file                  : [../../logs/mta4ru/base_domain.log]
-log_domain_fileMinSize           : [10000]
-log_domain_fileCount             : [50]
-log_domain_rotateLogOnStartup    : [True]
+domain_name                                : [MTA4RU]
+admin_name                                 : [AdminServer]
+admin_listen_port                          : [7001]
+production_mode                            : [prod]
+administration_port_enabled                : [true]
+administration_port                        : [9002]
+admin_console_enabled                      : [true]
+username                                   : [******]
+password                                   : [******]
+domain_path                                : [/u01/oracle/user_projects/domains/MTA4RU]
 Starting weblogic server ...
-WLST-WLS-1567676784461: Java HotSpot(TM) 64-Bit Server VM warning: ignoring option PermSize=256m; support was removed in 8.0
-WLST-WLS-1567676784461: Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=256m; support was removed in 8.0
-WLST-WLS-1567676784461: <05.09.2019 12:46:25 MSK> <Info> <Security> <BEA-090905> <Disabling the CryptoJ JCE Provider self-integrity check for better startup performance. To enable this check, specify -Dweblogic.security.allowCryptoJDefaultJCEVerification=true.>
-WLST-WLS-1567676784461: <05.09.2019 12:46:25 MSK> <Info> <Security> <BEA-090906> <Changing the default Random Number Generator in RSA CryptoJ from ECDRBG128 to HMACDRBG. To disable this change, specify -Dweblogic.security.allowCryptoJDefaultPRNG=true.>
-WLST-WLS-1567676784461: <05.09.2019 12:46:26 MSK> <Info> <WebLogicServer> <BEA-000377> <Starting WebLogic Server with Java HotSpot(TM) 64-Bit Server VM Version 25.172-b11 from Oracle Corporation.>
-WLST-WLS-1567676784461: <05.09.2019 12:46:27 MSK> <Info> <RCM> <BEA-2165021> <"ResourceManagement" is not enabled in this JVM. Enable "ResourceManagement" to use the WebLogic Server "Resource Consumption Management" feature. To enable "ResourceManagement", you must specify the following JVM options in the WebLogic Server instance in which the JVM runs: -XX:+UnlockCommercialFeatures -XX:+ResourceManagement.>
-WLST-WLS-1567676784461: <05.09.2019 12:46:27 MSK> <Info> <Management> <BEA-141107> <Version: WebLogic Server 12.2.1.2.0 Mon Oct  3 04:35:36 PDT 2016 1827450>
-.WLST-WLS-1567676784461: <05.09.2019 12:46:31 MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to STARTING.>
-WLST-WLS-1567676784461: <05.09.2019 12:46:31 MSK> <Info> <WorkManager> <BEA-002900> <Initializing self-tuning thread pool.>
-WLST-WLS-1567676784461: <05.09.2019 12:46:31 MSK> <Info> <WorkManager> <BEA-002942> <CMM memory level becomes 0. Setting standby thread pool size to 256.>
-.WLST-WLS-1567676784461: <05.09.2019, 12:46:33,538 PM MSK> <Notice> <Log Management> <BEA-170019> <The server log file weblogic.logging.FileStreamHandler instance=858980690
-WLST-WLS-1567676784461: Current log file=/u01/oracle/user_projects/domains/MTA4RU/servers/AdminServer/logs/AdminServer.log
-WLST-WLS-1567676784461: Rotation dir=/u01/oracle/user_projects/domains/MTA4RU/servers/AdminServer/logs
-WLST-WLS-1567676784461:  is opened. All server side log events will be written to this file.>
-WLST-WLS-1567676784461: <05.09.2019, 12:46:33,677 PM MSK> <Notice> <Security> <BEA-090946> <Security pre-initializing using security realm: myrealm>
-.WLST-WLS-1567676784461: <05.09.2019, 12:46:35,837 PM MSK> <Notice> <Security> <BEA-090947> <Security post-initializing using security realm: myrealm>
-.WLST-WLS-1567676784461: <05.09.2019, 12:46:38,691 PM MSK> <Notice> <Security> <BEA-090082> <Security initialized using administrative security realm: myrealm>
-WLST-WLS-1567676784461: <05.09.2019, 12:46:38,786 PM MSK> <Notice> <Security> <BEA-090083> <Storing boot identity in the file: /u01/oracle/user_projects/domains/MTA4RU/servers/AdminServer/security/boot.properties.>
-WLST-WLS-1567676784461: <05.09.2019, 12:46:39,497 PM MSK> <Warning> <JMX> <BEA-149512> <JMX Connector Server started at service:jmx:iiop://172.17.0.2:7001/jndi/weblogic.management.mbeanservers.domainruntime.>
-WLST-WLS-1567676784461: <05.09.2019, 12:46:39,498 PM MSK> <Warning> <JMX> <BEA-149512> <JMX Connector Server started at service:jmx:iiop://172.17.0.2:7001/jndi/weblogic.management.mbeanservers.runtime.>
-WLST-WLS-1567676784461: <05.09.2019, 12:46:39,497 PM MSK> <Warning> <JMX> <BEA-149512> <JMX Connector Server started at service:jmx:iiop://172.17.0.2:7001/jndi/weblogic.management.mbeanservers.edit.>
-.WLST-WLS-1567676784461: <05.09.2019, 12:46:43,105 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to STANDBY.>
-WLST-WLS-1567676784461: <05.09.2019, 12:46:43,106 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to STARTING.>
-WLST-WLS-1567676784461: <05.09.2019, 12:46:43,292 PM MSK> <Notice> <Log Management> <BEA-170036> <The Logging monitoring service timer has started to check for logged message counts every 30 seconds.>
-......WLST-WLS-1567676784461: <05.09.2019, 12:47:00,703 PM MSK> <Notice> <Log Management> <BEA-170027> <The server has successfully established a connection with the Domain level Diagnostic Service.>
-..WLST-WLS-1567676784461: <05.09.2019, 12:47:04,389 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to ADMIN.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:04,762 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to RESUMING.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:05,182 PM MSK> <Notice> <Security> <BEA-090171> <Loading the identity certificate and private key stored under the alias DemoIdentity from the jks keystore file /u01/oracle/user_projects/domains/MTA4RU/security/DemoIdentity.jks.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:05,245 PM MSK> <Alert> <Security> <BEA-090153> <Demo identity certificate is used in production mode: [
-WLST-WLS-1567676784461: [
-WLST-WLS-1567676784461:   Version: V3
-WLST-WLS-1567676784461:   Subject: CN=3864af13a05f, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US
-WLST-WLS-1567676784461:   Signature Algorithm: SHA256withRSA, OID = 1.2.840.113549.1.1.11
-WLST-WLS-1567676784461:
-WLST-WLS-1567676784461:   Key:  Sun RSA public key, 2048 bits
-WLST-WLS-1567676784461:   modulus: 24315653455009060345211158866955545531424455428932842010020112209597609846796396701159974330019367144719734310373613878769501765621338320920557356518329999353746757272828262164466754646418437576030089047560944537456916732121409173303956449607579195407715583167536417939882891544569194456671945861153701760020950850836171539543555765885658212887004201817270948875765164539752476072674061379388232162141990434003090457528128557371616750603019386824198856290597829756300833250211869921362455010319341583212139757488606848248762433355338714348724691695216045240770066931153950734136053477285798288610585377226425855313573
-WLST-WLS-1567676784461:   public exponent: 65537
-WLST-WLS-1567676784461:   Validity: [From: Wed Sep 04 12:46:04 MSK 2019,
-WLST-WLS-1567676784461:                To: Tue Sep 05 12:46:04 MSK 2034]
-WLST-WLS-1567676784461:   Issuer: CN=CertGenCA, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US
-WLST-WLS-1567676784461:   SerialNumber: [    016d00d1 157f]
-WLST-WLS-1567676784461:
-WLST-WLS-1567676784461: Certificate Extensions: 4
-WLST-WLS-1567676784461: [1]: ObjectId: 2.5.29.35 Criticality=false
-WLST-WLS-1567676784461: AuthorityKeyIdentifier [
-WLST-WLS-1567676784461: KeyIdentifier [
-WLST-WLS-1567676784461: 0000: 34 38 FD 45 D8 80 CF C7   D2 E8 DF 1D F8 A1 39 B0  48.E..........9.
-WLST-WLS-1567676784461: 0010: 11 88 00 6A                                        ...j
-WLST-WLS-1567676784461: ]
-WLST-WLS-1567676784461: [CN=CertGenCA, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US]
-WLST-WLS-1567676784461: SerialNumber: [    40044886 c441ef3b 643a8066 409afca0]
-WLST-WLS-1567676784461: ]
-WLST-WLS-1567676784461:
-WLST-WLS-1567676784461: [2]: ObjectId: 2.5.29.19 Criticality=false
-WLST-WLS-1567676784461: BasicConstraints:[
-WLST-WLS-1567676784461:   CA:false
-WLST-WLS-1567676784461:   PathLen: undefined
-WLST-WLS-1567676784461: ]
-WLST-WLS-1567676784461:
-WLST-WLS-1567676784461: [3]: ObjectId: 2.5.29.15 Criticality=true
-WLST-WLS-1567676784461: KeyUsage [
-WLST-WLS-1567676784461:   DigitalSignature
-WLST-WLS-1567676784461:   Non_repudiation
-WLST-WLS-1567676784461:   Key_Encipherment
-WLST-WLS-1567676784461:   Data_Encipherment
-WLST-WLS-1567676784461:   Key_Agreement
-WLST-WLS-1567676784461: ]
-WLST-WLS-1567676784461:
-WLST-WLS-1567676784461: [4]: ObjectId: 2.5.29.14 Criticality=false
-WLST-WLS-1567676784461: SubjectKeyIdentifier [
-WLST-WLS-1567676784461: KeyIdentifier [
-WLST-WLS-1567676784461: 0000: BA F1 55 DA 35 D9 66 08   01 CC DF CC F8 DA 5F 88  ..U.5.f......._.
-WLST-WLS-1567676784461: 0010: A0 94 4D 7A                                        ..Mz
-WLST-WLS-1567676784461: ]
-WLST-WLS-1567676784461: ]
-WLST-WLS-1567676784461:
-WLST-WLS-1567676784461: ]
-WLST-WLS-1567676784461:   Algorithm: [SHA256withRSA]
-WLST-WLS-1567676784461:   Signature:
-WLST-WLS-1567676784461: 0000: 6E 32 BA 8D CB 97 6A 64   A2 67 39 27 D0 2D 5D 01  n2....jd.g9'.-].
-WLST-WLS-1567676784461: 0010: FA DA 35 FF 1E 9A 95 AF   70 5F D0 18 8F EB 45 BA  ..5.....p_....E.
-WLST-WLS-1567676784461: 0020: A9 C9 6D 39 0C FC F9 BA   6E C8 93 8E 08 C0 D7 B4  ..m9....n.......
-WLST-WLS-1567676784461: 0030: 0D 24 14 19 63 CE F5 C0   11 38 76 9D D3 42 F6 0C  .$..c....8v..B..
-WLST-WLS-1567676784461: 0040: 6D 75 62 25 98 CC 11 2A   7D F4 58 97 16 0E A9 AE  mub%...*..X.....
-WLST-WLS-1567676784461: 0050: A3 4B C1 36 5B 8F 7C 2B   70 1C 07 1D 27 8F 72 F2  .K.6[..+p...'.r.
-WLST-WLS-1567676784461: 0060: 7F B2 74 D8 38 16 7A 54   30 F3 FD 21 F2 C4 61 D7  ..t.8.zT0..!..a.
-WLST-WLS-1567676784461: 0070: EE 09 9F 60 A5 E1 3B FB   60 8F 6C 2E A7 1D 64 EB  ...`..;.`.l...d.
-WLST-WLS-1567676784461: 0080: 56 44 02 34 4C C4 BD A8   B4 BD 5A 88 86 73 CB F7  VD.4L.....Z..s..
-WLST-WLS-1567676784461: 0090: 90 63 8C 69 93 23 1D E5   F7 4E 5E 8F 1E B6 27 3A  .c.i.#...N^...':
-WLST-WLS-1567676784461: 00A0: DA BB 8E EB F6 EB 4A F2   B6 8B DB BC 2E C6 04 EF  ......J.........
-WLST-WLS-1567676784461: 00B0: 52 24 87 DD A4 EB C8 93   59 83 EA DD 08 81 94 9C  R$......Y.......
-WLST-WLS-1567676784461: 00C0: CA 47 C5 08 21 C1 A3 42   81 15 73 2D E5 34 7D 05  .G..!..B..s-.4..
-WLST-WLS-1567676784461: 00D0: 21 B7 ED B1 A4 04 18 4E   6D 2F 79 B7 37 75 54 A7  !......Nm/y.7uT.
-WLST-WLS-1567676784461: 00E0: 31 10 F0 A6 E9 0B 04 83   49 D4 9E F5 8D 79 24 BA  1.......I....y$.
-WLST-WLS-1567676784461: 00F0: 57 BF 60 00 19 18 FE 08   CB 5E 90 DE 63 64 54 29  W.`......^..cdT)
-WLST-WLS-1567676784461:
-WLST-WLS-1567676784461: ] The system is vulnerable to security attacks, since the server private key is available to the public.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:06,137 PM MSK> <Notice> <Security> <BEA-090169> <Loading trusted certificates from the jks keystore file /u01/oracle/wlserver/server/lib/DemoTrust.jks.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:06,159 PM MSK> <Notice> <Security> <BEA-090169> <Loading trusted certificates from the jks keystore file /usr/java/jdk1.8.0_172/jre/lib/security/cacerts.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:06,175 PM MSK> <Alert> <Security> <BEA-090152> <Demo trusted CA certificate is being used in production mode: [
-WLST-WLS-1567676784461: [
-WLST-WLS-1567676784461:   Version: V3
-WLST-WLS-1567676784461:   Subject: CN=CertGenCA, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US
-WLST-WLS-1567676784461:   Signature Algorithm: SHA256withRSA, OID = 1.2.840.113549.1.1.11
-WLST-WLS-1567676784461:
-WLST-WLS-1567676784461:   Key:  Sun RSA public key, 2048 bits
-WLST-WLS-1567676784461:   modulus: 21569708395943251187594674016571604098921772745632282565929962814298138584591157613649992982592658748355964560637259269459381120165962674847997186601844952950794343884378508077250725387979264156405992230284901283444196168994202670671450098028002820729882379283494630302003296180454013575703696190719968922095992809718845192136877316024285273738556979086501184481229174883470885039602384578448109344178846134501578736532042806069180907098975317661162739134415281135882151855357804342112417305346131916129115886340854713286486175081106238445832240131690537019111854259217532593165348893830947166922845648303005469444649
-WLST-WLS-1567676784461:   public exponent: 65537
-WLST-WLS-1567676784461:   Validity: [From: Sat Dec 01 07:07:51 MSK 2012,
-WLST-WLS-1567676784461:                To: Thu Dec 02 06:07:51 MSK 2032]
-WLST-WLS-1567676784461:   Issuer: CN=CertGenCA, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US
-WLST-WLS-1567676784461:   SerialNumber: [    40044886 c441ef3b 643a8066 409afca0]
-WLST-WLS-1567676784461:
-WLST-WLS-1567676784461: Certificate Extensions: 3
-WLST-WLS-1567676784461: [1]: ObjectId: 2.5.29.19 Criticality=true
-WLST-WLS-1567676784461: BasicConstraints:[
-WLST-WLS-1567676784461:   CA:true
-WLST-WLS-1567676784461:   PathLen:1
-WLST-WLS-1567676784461: ]
-WLST-WLS-1567676784461:
-WLST-WLS-1567676784461: [2]: ObjectId: 2.5.29.15 Criticality=true
-WLST-WLS-1567676784461: KeyUsage [
-WLST-WLS-1567676784461:   Key_CertSign
-WLST-WLS-1567676784461: ]
-WLST-WLS-1567676784461:
-WLST-WLS-1567676784461: [3]: ObjectId: 2.5.29.14 Criticality=false
-WLST-WLS-1567676784461: SubjectKeyIdentifier [
-WLST-WLS-1567676784461: KeyIdentifier [
-WLST-WLS-1567676784461: 0000: 34 38 FD 45 D8 80 CF C7   D2 E8 DF 1D F8 A1 39 B0  48.E..........9.
-WLST-WLS-1567676784461: 0010: 11 88 00 6A                                        ...j
-WLST-WLS-1567676784461: ]
-WLST-WLS-1567676784461: ]
-WLST-WLS-1567676784461:
-WLST-WLS-1567676784461: ]
-WLST-WLS-1567676784461:   Algorithm: [SHA256withRSA]
-WLST-WLS-1567676784461:   Signature:
-WLST-WLS-1567676784461: 0000: 17 69 74 CF CB 96 44 33   17 B3 70 0F 2A FF A8 63  .it...D3..p.*..c
-WLST-WLS-1567676784461: 0010: CC 7A C8 CD 74 59 99 DE   10 16 FE 3D 17 00 71 B8  .z..tY.....=..q.
-WLST-WLS-1567676784461: 0020: B0 FC C4 3F B6 B0 6D 77   78 9F 83 9B EA 22 A3 DA  ...?..mwx...."..
-WLST-WLS-1567676784461: 0030: D7 35 00 D6 C5 F3 37 F1   7C 28 DF AA E8 2D 2A 13  .5....7..(...-*.
-WLST-WLS-1567676784461: 0040: 9C 38 63 B7 08 D2 0E 0D   20 93 86 3D A2 F0 86 B9  .8c..... ..=....
-WLST-WLS-1567676784461: 0050: 2B B4 6A 3F C6 FB 61 77   36 EE 60 07 BE C2 0E E4  +.j?..aw6.`.....
-WLST-WLS-1567676784461: 0060: 33 0C E8 08 B1 3A 25 DC   3B E2 47 30 F1 46 43 06  3....:%.;.G0.FC.
-WLST-WLS-1567676784461: 0070: 85 EE AB 3B 65 29 12 35   D4 D9 A8 EC 90 DB 60 6A  ...;e).5......`j
-WLST-WLS-1567676784461: 0080: 4D 13 99 EE BD 29 AA BB   1F 96 C9 88 F3 E3 63 34  M....)........c4
-WLST-WLS-1567676784461: 0090: 73 75 D4 5D EE B7 26 CD   78 E9 AA 1E B8 42 15 01  su.]..&.x....B..
-WLST-WLS-1567676784461: 00A0: F3 D9 2A 64 C4 70 1D 1E   E5 98 EF 1E 78 1F 6C DF  ..*d.p......x.l.
-WLST-WLS-1567676784461: 00B0: 7D FF 4B DD 7A 53 B2 C8   0E 0D 27 27 40 DB 8D 10  ..K.zS....''@...
-WLST-WLS-1567676784461: 00C0: 47 5B 2E F4 74 89 85 2A   1B 6A 6A 3F 65 D9 25 2B  G[..t..*.jj?e.%+
-WLST-WLS-1567676784461: 00D0: 93 A5 33 CE 03 CC 8E 64   E1 9F F1 3C A4 AB 0F C5  ..3....d...<....
-WLST-WLS-1567676784461: 00E0: 28 36 46 B9 F4 24 69 0A   38 E9 A6 73 92 68 AC 79  (6F..$i.8..s.h.y
-WLST-WLS-1567676784461: 00F0: F5 E1 D7 CB D8 FF FE 15   F7 B8 39 33 D3 66 03 17  ..........93.f..
-WLST-WLS-1567676784461:
-WLST-WLS-1567676784461: ]. The system is vulnerable to security attacks, since it trusts certificates signed by the demo trusted CA.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:06,249 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultSecure[1]" is now listening on 127.0.0.1:7002 for protocols iiops, t3s, ldaps, https.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:06,258 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultSecure" is now listening on 172.17.0.2:7002 for protocols iiops, t3s, ldaps, https.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:06,268 PM MSK> <Notice> <Server> <BEA-002613> <Channel "Default" is now listening on 172.17.0.2:7001 for protocols iiop, t3, ldap, snmp, http.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:06,281 PM MSK> <Notice> <WebLogicServer> <BEA-000329> <Started the WebLogic Server Administration Server "AdminServer" for domain "MTA4RU" running in production mode.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:06,286 PM MSK> <Notice> <WebLogicServer> <BEA-000360> <The server started in RUNNING mode.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:06,323 PM MSK> <Notice> <Server> <BEA-002613> <Channel "Default[1]" is now listening on 127.0.0.1:7001 for protocols iiop, t3, ldap, snmp, http.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:06,326 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultSecure[1]" is now listening on 127.0.0.1:7002 for protocols iiops, t3s, ldaps, https.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:06,331 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultSecure" is now listening on 172.17.0.2:7002 for protocols iiops, t3s, ldaps, https.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:06,332 PM MSK> <Notice> <Server> <BEA-002613> <Channel "Default" is now listening on 172.17.0.2:7001 for protocols iiop, t3, ldap, snmp, http.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:06,337 PM MSK> <Notice> <Server> <BEA-002613> <Channel "Default[1]" is now listening on 127.0.0.1:7001 for protocols iiop, t3, ldap, snmp, http.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:06,368 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to RUNNING.>
+WLST-WLS-1571393802259: <18.10.2019 13:16:42 MSK> <Info> <Security> <BEA-090905> <Disabling the CryptoJ JCE Provider self-integrity check for better startup performance. To enable this check, specify -Dweblogic.security.allowCryptoJDefaultJCEVerification=true.>
+WLST-WLS-1571393802259: <18.10.2019 13:16:43 MSK> <Info> <Security> <BEA-090906> <Changing the default Random Number Generator in RSA CryptoJ from ECDRBG128 to HMACDRBG. To disable this change, specify -Dweblogic.security.allowCryptoJDefaultPRNG=true.>
+WLST-WLS-1571393802259: <18.10.2019 13:16:44 MSK> <Info> <WebLogicServer> <BEA-000377> <Starting WebLogic Server with Java HotSpot(TM) 64-Bit Server VM Version 25.172-b11 from Oracle Corporation.>
+WLST-WLS-1571393802259: <18.10.2019 13:16:44 MSK> <Info> <RCM> <BEA-2165021> <"ResourceManagement" is not enabled in this JVM. Enable "ResourceManagement" to use the WebLogic Server "Resource Consumption Management" feature. To enable "ResourceManagement", you must specify the following JVM options in the WebLogic Server instance in which the JVM runs: -XX:+UnlockCommercialFeatures -XX:+ResourceManagement.>
+WLST-WLS-1571393802259: <18.10.2019 13:16:45 MSK> <Info> <Management> <BEA-141107> <Version: WebLogic Server 12.2.1.2.0 Mon Oct  3 04:35:36 PDT 2016 1827450>
+.WLST-WLS-1571393802259: <18.10.2019 13:16:49 MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to STARTING.>
+WLST-WLS-1571393802259: <18.10.2019 13:16:49 MSK> <Info> <WorkManager> <BEA-002900> <Initializing self-tuning thread pool.>
+WLST-WLS-1571393802259: <18.10.2019 13:16:49 MSK> <Info> <WorkManager> <BEA-002942> <CMM memory level becomes 0. Setting standby thread pool size to 256.>
+.WLST-WLS-1571393802259: <18.10.2019, 1:16:51,228 PM MSK> <Notice> <Log Management> <BEA-170019> <The server log file weblogic.logging.FileStreamHandler instance=102201375
+WLST-WLS-1571393802259: Current log file=/u01/oracle/user_projects/domains/MTA4RU/servers/AdminServer/logs/AdminServer.log
+WLST-WLS-1571393802259: Rotation dir=/u01/oracle/user_projects/domains/MTA4RU/servers/AdminServer/logs
+WLST-WLS-1571393802259:  is opened. All server side log events will be written to this file.>
+WLST-WLS-1571393802259: <18.10.2019, 1:16:51,657 PM MSK> <Notice> <Security> <BEA-090946> <Security pre-initializing using security realm: myrealm>
+WLST-WLS-1571393802259: <18.10.2019, 1:16:53,454 PM MSK> <Notice> <Security> <BEA-090947> <Security post-initializing using security realm: myrealm>
+.WLST-WLS-1571393802259: <18.10.2019, 1:16:56,189 PM MSK> <Notice> <Security> <BEA-090082> <Security initialized using administrative security realm: myrealm>
+WLST-WLS-1571393802259: <18.10.2019, 1:16:56,274 PM MSK> <Notice> <Security> <BEA-090083> <Storing boot identity in the file: /u01/oracle/user_projects/domains/MTA4RU/servers/AdminServer/security/boot.properties.>
+.WLST-WLS-1571393802259: <18.10.2019, 1:16:57,59 PM MSK> <Warning> <JMX> <BEA-149512> <JMX Connector Server started at service:jmx:iiop://172.17.0.2:7001/jndi/weblogic.management.mbeanservers.domainruntime.>
+WLST-WLS-1571393802259: <18.10.2019, 1:16:57,63 PM MSK> <Warning> <JMX> <BEA-149512> <JMX Connector Server started at service:jmx:iiop://172.17.0.2:7001/jndi/weblogic.management.mbeanservers.edit.>
+WLST-WLS-1571393802259: <18.10.2019, 1:16:57,71 PM MSK> <Warning> <JMX> <BEA-149512> <JMX Connector Server started at service:jmx:iiop://172.17.0.2:7001/jndi/weblogic.management.mbeanservers.runtime.>
+.WLST-WLS-1571393802259: <18.10.2019, 1:17:00,605 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to STANDBY.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:00,606 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to STARTING.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:00,752 PM MSK> <Notice> <Log Management> <BEA-170036> <The Logging monitoring service timer has started to check for logged message counts every 30 seconds.>
+...WLST-WLS-1571393802259: <18.10.2019, 1:17:08,227 PM MSK> <Notice> <Log Management> <BEA-170027> <The server has successfully established a connection with the Domain level Diagnostic Service.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:10,225 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to ADMIN.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:10,318 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to RESUMING.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:10,686 PM MSK> <Notice> <Security> <BEA-090171> <Loading the identity certificate and private key stored under the alias DemoIdentity from the jks keystore file /u01/oracle/user_projects/domains/MTA4RU/security/DemoIdentity.jks.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:10,701 PM MSK> <Alert> <Security> <BEA-090153> <Demo identity certificate is used in production mode: [
+WLST-WLS-1571393802259: [
+WLST-WLS-1571393802259:   Version: V3
+WLST-WLS-1571393802259:   Subject: CN=2e24de679af1, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US
+WLST-WLS-1571393802259:   Signature Algorithm: SHA256withRSA, OID = 1.2.840.113549.1.1.11
+WLST-WLS-1571393802259:
+WLST-WLS-1571393802259:   Key:  Sun RSA public key, 2048 bits
+WLST-WLS-1571393802259:   modulus: 27575555240581438663908542182081843145774115596326559109332877636678568503658885518320586628444688366078090653953744331807814156981475152129103602311644753283197697354785515180520525443715532737186906988641699097439849611193388894427352603267582883896233816783901375434667145316959562820180393523418533679196875285165308656536195613108826496877618542838117156269818308031952060714559679911346242119770274644054044285529461479027763772138865359082760083141574229725638739565358372291365234980808171773254367412029925533407069300035176880920769131745845439839931485749161428097222407498060361425994684876662096660794483
+WLST-WLS-1571393802259:   public exponent: 65537
+WLST-WLS-1571393802259:   Validity: [From: Thu Oct 17 13:16:22 MSK 2019,
+WLST-WLS-1571393802259:                To: Wed Oct 18 13:16:22 MSK 2034]
+WLST-WLS-1571393802259:   Issuer: CN=CertGenCA, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US
+WLST-WLS-1571393802259:   SerialNumber: [    016dde5e 464d]
+WLST-WLS-1571393802259:
+WLST-WLS-1571393802259: Certificate Extensions: 4
+WLST-WLS-1571393802259: [1]: ObjectId: 2.5.29.35 Criticality=false
+WLST-WLS-1571393802259: AuthorityKeyIdentifier [
+WLST-WLS-1571393802259: KeyIdentifier [
+WLST-WLS-1571393802259: 0000: 34 38 FD 45 D8 80 CF C7   D2 E8 DF 1D F8 A1 39 B0  48.E..........9.
+WLST-WLS-1571393802259: 0010: 11 88 00 6A                                        ...j
+WLST-WLS-1571393802259: ]
+WLST-WLS-1571393802259: [CN=CertGenCA, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US]
+WLST-WLS-1571393802259: SerialNumber: [    40044886 c441ef3b 643a8066 409afca0]
+WLST-WLS-1571393802259: ]
+WLST-WLS-1571393802259:
+WLST-WLS-1571393802259: [2]: ObjectId: 2.5.29.19 Criticality=false
+WLST-WLS-1571393802259: BasicConstraints:[
+WLST-WLS-1571393802259:   CA:false
+WLST-WLS-1571393802259:   PathLen: undefined
+WLST-WLS-1571393802259: ]
+WLST-WLS-1571393802259:
+WLST-WLS-1571393802259: [3]: ObjectId: 2.5.29.15 Criticality=true
+WLST-WLS-1571393802259: KeyUsage [
+WLST-WLS-1571393802259:   DigitalSignature
+WLST-WLS-1571393802259:   Non_repudiation
+WLST-WLS-1571393802259:   Key_Encipherment
+WLST-WLS-1571393802259:   Data_Encipherment
+WLST-WLS-1571393802259:   Key_Agreement
+WLST-WLS-1571393802259: ]
+WLST-WLS-1571393802259:
+WLST-WLS-1571393802259: [4]: ObjectId: 2.5.29.14 Criticality=false
+WLST-WLS-1571393802259: SubjectKeyIdentifier [
+WLST-WLS-1571393802259: KeyIdentifier [
+WLST-WLS-1571393802259: 0000: 42 08 4B F7 3E 06 3F 70   A0 3D 66 F6 0C 3B 06 91  B.K.>.?p.=f..;..
+WLST-WLS-1571393802259: 0010: BA CF 47 05                                        ..G.
+WLST-WLS-1571393802259: ]
+WLST-WLS-1571393802259: ]
+WLST-WLS-1571393802259:
+WLST-WLS-1571393802259: ]
+WLST-WLS-1571393802259:   Algorithm: [SHA256withRSA]
+WLST-WLS-1571393802259:   Signature:
+WLST-WLS-1571393802259: 0000: 10 02 E7 32 D6 B5 72 81   60 AA CE 6F 88 3E 3F 3B  ...2..r.`..o.>?;
+WLST-WLS-1571393802259: 0010: 8D 85 1B A0 B0 36 CB 73   F3 60 17 20 E9 D1 84 CD  .....6.s.`. ....
+WLST-WLS-1571393802259: 0020: 22 7D E9 23 E9 C7 37 CE   8C 42 52 69 4B CE E5 2E  "..#..7..BRiK...
+WLST-WLS-1571393802259: 0030: 2A 72 4B CA A0 FE AB DE   81 87 51 C2 0C 07 DA A3  *rK.......Q.....
+WLST-WLS-1571393802259: 0040: 16 B2 E5 FD 1B B0 8A 42   2F 28 EB C6 24 3C 5A 86  .......B/(..$<Z.
+WLST-WLS-1571393802259: 0050: D5 A5 7F 09 44 A5 CA AE   88 A6 58 FB 29 1D 65 7A  ....D.....X.).ez
+WLST-WLS-1571393802259: 0060: 95 6A 7C 91 09 9B CD BD   D6 3E 13 F5 20 96 CB C6  .j.......>.. ...
+WLST-WLS-1571393802259: 0070: 68 4D C9 D6 6D C1 BB 38   14 41 1E 2B BC 13 26 9A  hM..m..8.A.+..&.
+WLST-WLS-1571393802259: 0080: 13 59 3F AE 7B B2 1E F2   A4 4D 3E 69 EC 08 49 25  .Y?......M>i..I%
+WLST-WLS-1571393802259: 0090: EC 0A AA 72 2C 8E 97 F3   B7 F9 0A 01 1B 96 29 84  ...r,.........).
+WLST-WLS-1571393802259: 00A0: 30 2A FC 47 63 AB D7 34   12 63 82 CD 16 DA E3 2C  0*.Gc..4.c.....,
+WLST-WLS-1571393802259: 00B0: E5 2E 0F 8A A0 AA 1B A9   F3 48 9E E8 57 F7 3A F7  .........H..W.:.
+WLST-WLS-1571393802259: 00C0: B2 34 DF 0F 4D 3C 97 02   3B F1 E9 4A A4 64 C2 BF  .4..M<..;..J.d..
+WLST-WLS-1571393802259: 00D0: E5 4D F7 A5 DF 2D 0B 92   36 FC 23 E5 A7 21 C4 33  .M...-..6.#..!.3
+WLST-WLS-1571393802259: 00E0: E3 4E 82 5B 9F 25 7C 33   CD 7E 5D 07 95 E5 DF 8F  .N.[.%.3..].....
+WLST-WLS-1571393802259: 00F0: F2 30 14 15 B1 D3 33 EA   46 99 40 04 40 D0 F1 AF  .0....3.F.@.@...
+WLST-WLS-1571393802259:
+WLST-WLS-1571393802259: ] The system is vulnerable to security attacks, since the server private key is available to the public.>
+.WLST-WLS-1571393802259: <18.10.2019, 1:17:11,151 PM MSK> <Notice> <Security> <BEA-090169> <Loading trusted certificates from the jks keystore file /u01/oracle/wlserver/server/lib/DemoTrust.jks.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:11,156 PM MSK> <Notice> <Security> <BEA-090169> <Loading trusted certificates from the jks keystore file /usr/java/jdk1.8.0_172/jre/lib/security/cacerts.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:11,162 PM MSK> <Alert> <Security> <BEA-090152> <Demo trusted CA certificate is being used in production mode: [
+WLST-WLS-1571393802259: [
+WLST-WLS-1571393802259:   Version: V3
+WLST-WLS-1571393802259:   Subject: CN=CertGenCA, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US
+WLST-WLS-1571393802259:   Signature Algorithm: SHA256withRSA, OID = 1.2.840.113549.1.1.11
+WLST-WLS-1571393802259:
+WLST-WLS-1571393802259:   Key:  Sun RSA public key, 2048 bits
+WLST-WLS-1571393802259:   modulus: 21569708395943251187594674016571604098921772745632282565929962814298138584591157613649992982592658748355964560637259269459381120165962674847997186601844952950794343884378508077250725387979264156405992230284901283444196168994202670671450098028002820729882379283494630302003296180454013575703696190719968922095992809718845192136877316024285273738556979086501184481229174883470885039602384578448109344178846134501578736532042806069180907098975317661162739134415281135882151855357804342112417305346131916129115886340854713286486175081106238445832240131690537019111854259217532593165348893830947166922845648303005469444649
+WLST-WLS-1571393802259:   public exponent: 65537
+WLST-WLS-1571393802259:   Validity: [From: Sat Dec 01 07:07:51 MSK 2012,
+WLST-WLS-1571393802259:                To: Thu Dec 02 06:07:51 MSK 2032]
+WLST-WLS-1571393802259:   Issuer: CN=CertGenCA, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US
+WLST-WLS-1571393802259:   SerialNumber: [    40044886 c441ef3b 643a8066 409afca0]
+WLST-WLS-1571393802259:
+WLST-WLS-1571393802259: Certificate Extensions: 3
+WLST-WLS-1571393802259: [1]: ObjectId: 2.5.29.19 Criticality=true
+WLST-WLS-1571393802259: BasicConstraints:[
+WLST-WLS-1571393802259:   CA:true
+WLST-WLS-1571393802259:   PathLen:1
+WLST-WLS-1571393802259: ]
+WLST-WLS-1571393802259:
+WLST-WLS-1571393802259: [2]: ObjectId: 2.5.29.15 Criticality=true
+WLST-WLS-1571393802259: KeyUsage [
+WLST-WLS-1571393802259:   Key_CertSign
+WLST-WLS-1571393802259: ]
+WLST-WLS-1571393802259:
+WLST-WLS-1571393802259: [3]: ObjectId: 2.5.29.14 Criticality=false
+WLST-WLS-1571393802259: SubjectKeyIdentifier [
+WLST-WLS-1571393802259: KeyIdentifier [
+WLST-WLS-1571393802259: 0000: 34 38 FD 45 D8 80 CF C7   D2 E8 DF 1D F8 A1 39 B0  48.E..........9.
+WLST-WLS-1571393802259: 0010: 11 88 00 6A                                        ...j
+WLST-WLS-1571393802259: ]
+WLST-WLS-1571393802259: ]
+WLST-WLS-1571393802259:
+WLST-WLS-1571393802259: ]
+WLST-WLS-1571393802259:   Algorithm: [SHA256withRSA]
+WLST-WLS-1571393802259:   Signature:
+WLST-WLS-1571393802259: 0000: 17 69 74 CF CB 96 44 33   17 B3 70 0F 2A FF A8 63  .it...D3..p.*..c
+WLST-WLS-1571393802259: 0010: CC 7A C8 CD 74 59 99 DE   10 16 FE 3D 17 00 71 B8  .z..tY.....=..q.
+WLST-WLS-1571393802259: 0020: B0 FC C4 3F B6 B0 6D 77   78 9F 83 9B EA 22 A3 DA  ...?..mwx...."..
+WLST-WLS-1571393802259: 0030: D7 35 00 D6 C5 F3 37 F1   7C 28 DF AA E8 2D 2A 13  .5....7..(...-*.
+WLST-WLS-1571393802259: 0040: 9C 38 63 B7 08 D2 0E 0D   20 93 86 3D A2 F0 86 B9  .8c..... ..=....
+WLST-WLS-1571393802259: 0050: 2B B4 6A 3F C6 FB 61 77   36 EE 60 07 BE C2 0E E4  +.j?..aw6.`.....
+WLST-WLS-1571393802259: 0060: 33 0C E8 08 B1 3A 25 DC   3B E2 47 30 F1 46 43 06  3....:%.;.G0.FC.
+WLST-WLS-1571393802259: 0070: 85 EE AB 3B 65 29 12 35   D4 D9 A8 EC 90 DB 60 6A  ...;e).5......`j
+WLST-WLS-1571393802259: 0080: 4D 13 99 EE BD 29 AA BB   1F 96 C9 88 F3 E3 63 34  M....)........c4
+WLST-WLS-1571393802259: 0090: 73 75 D4 5D EE B7 26 CD   78 E9 AA 1E B8 42 15 01  su.]..&.x....B..
+WLST-WLS-1571393802259: 00A0: F3 D9 2A 64 C4 70 1D 1E   E5 98 EF 1E 78 1F 6C DF  ..*d.p......x.l.
+WLST-WLS-1571393802259: 00B0: 7D FF 4B DD 7A 53 B2 C8   0E 0D 27 27 40 DB 8D 10  ..K.zS....''@...
+WLST-WLS-1571393802259: 00C0: 47 5B 2E F4 74 89 85 2A   1B 6A 6A 3F 65 D9 25 2B  G[..t..*.jj?e.%+
+WLST-WLS-1571393802259: 00D0: 93 A5 33 CE 03 CC 8E 64   E1 9F F1 3C A4 AB 0F C5  ..3....d...<....
+WLST-WLS-1571393802259: 00E0: 28 36 46 B9 F4 24 69 0A   38 E9 A6 73 92 68 AC 79  (6F..$i.8..s.h.y
+WLST-WLS-1571393802259: 00F0: F5 E1 D7 CB D8 FF FE 15   F7 B8 39 33 D3 66 03 17  ..........93.f..
+WLST-WLS-1571393802259:
+WLST-WLS-1571393802259: ]. The system is vulnerable to security attacks, since it trusts certificates signed by the demo trusted CA.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:11,183 PM MSK> <Notice> <WebLogicServer> <BEA-000329> <Started the WebLogic Server Administration Server "AdminServer" for domain "MTA4RU" running in production mode.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:11,187 PM MSK> <Notice> <WebLogicServer> <BEA-000360> <The server started in RUNNING mode.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:11,190 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultSecure[1]" is now listening on 127.0.0.1:7002 for protocols iiops, t3s, ldaps, https.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:11,190 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultSecure" is now listening on 172.17.0.2:7002 for protocols iiops, t3s, ldaps, https.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:11,191 PM MSK> <Notice> <Server> <BEA-002613> <Channel "Default" is now listening on 172.17.0.2:7001 for protocols iiop, t3, ldap, snmp, http.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:11,191 PM MSK> <Notice> <Server> <BEA-002613> <Channel "Default[1]" is now listening on 127.0.0.1:7001 for protocols iiop, t3, ldap, snmp, http.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:11,192 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultSecure[1]" is now listening on 127.0.0.1:7002 for protocols iiops, t3s, ldaps, https.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:11,192 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultSecure" is now listening on 172.17.0.2:7002 for protocols iiops, t3s, ldaps, https.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:11,193 PM MSK> <Notice> <Server> <BEA-002613> <Channel "Default" is now listening on 172.17.0.2:7001 for protocols iiop, t3, ldap, snmp, http.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:11,193 PM MSK> <Notice> <Server> <BEA-002613> <Channel "Default[1]" is now listening on 127.0.0.1:7001 for protocols iiop, t3, ldap, snmp, http.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:11,225 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to RUNNING.>
 Server started successfully.
 Connecting to t3://localhost:7001 with userid weblogic ...
-WLST-WLS-1567676784461: <05.09.2019, 12:47:12,837 PM MSK> <Warning> <JMX> <BEA-149535> <JMX Resiliency Activity Server=AdminServer : Initializing callbacks>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:12,878 PM MSK> <Warning> <JMX> <BEA-149535> <JMX Resiliency Activity Server=AdminServer : Added MBeanServerConnection in DomainRuntimeServiceMBean >
-WLST-WLS-1567676784461: <05.09.2019, 12:47:12,884 PM MSK> <Warning> <JMX> <BEA-149535> <JMX Resiliency Activity Server=AdminServer : Callback is done>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:12,888 PM MSK> <Warning> <JMX> <BEA-149535> <JMX Resiliency Activity Server=AdminServer : Connection already exists for the server. Did not attempt to connect to the server>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:19,967 PM MSK> <Warning> <JMX> <BEA-149535> <JMX Resiliency Activity Server=AdminServer : Initializing callbacks>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:19,971 PM MSK> <Warning> <JMX> <BEA-149535> <JMX Resiliency Activity Server=AdminServer : Added MBeanServerConnection in DomainRuntimeServiceMBean >
+WLST-WLS-1571393802259: <18.10.2019, 1:17:19,971 PM MSK> <Warning> <JMX> <BEA-149535> <JMX Resiliency Activity Server=AdminServer : Callback is done>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:19,974 PM MSK> <Warning> <JMX> <BEA-149535> <JMX Resiliency Activity Server=AdminServer : Connection already exists for the server. Did not attempt to connect to the server>
 Successfully connected to Admin Server "AdminServer" that belongs to domain "MTA4RU".
 
 Warning: An insecure protocol was used to connect to the server.
@@ -265,33 +233,58 @@ For more help, use help('edit').
 
 Starting an edit session ...
 Started edit session, be sure to save and activate your changes once you are done.
-Setup logging : [../../logs/mta4ru/AdminServer-3864af13a05f.log]
-Setup logging : [../../logs/mta4ru/access-3864af13a05f.log]
-Setup logging : [../../logs/mta4ru/datasource-3864af13a05f.log]
-Setup logging : [../../logs/mta4ru/diagnostic_images-3864af13a05f]
-Setup logging : [../../logs/mta4ru/base_domain-3864af13a05f.log]
+log_path                                   : [/Servers/AdminServer/WebServer/AdminServer/WebServerLog/AdminServer]
+log_file                                   : [/u01/oracle/logs/mta4ru/access.log]
+log_fileMinSize                            : [10000]
+log_fileCount                              : [50]
+log_rotateLogOnStartup                     : [True]
+Setup logging                              : [/u01/oracle/logs/mta4ru/access-2e24de679af1.log]
+log_path                                   : [/Servers/AdminServer/Log/AdminServer]
+log_file                                   : [/u01/oracle/logs/mta4ru/AdminServer.log]
+log_fileMinSize                            : [10000]
+log_fileCount                              : [50]
+log_rotateLogOnStartup                     : [True]
+Setup logging                              : [/u01/oracle/logs/mta4ru/AdminServer-2e24de679af1.log]
+log_path                                   : [/Servers/AdminServer/DataSource/AdminServer/DataSourceLogFile/AdminServer]
+log_file                                   : [/u01/oracle/logs/mta4ru/datasource.log]
+log_fileMinSize                            : [10000]
+log_fileCount                              : [50]
+log_rotateLogOnStartup                     : [True]
+Setup logging                              : [/u01/oracle/logs/mta4ru/datasource-2e24de679af1.log]
+log_path                                   : [/Servers/AdminServer/ServerDiagnosticConfig/AdminServer]
+log_file                                   : [/u01/oracle/logs/mta4ru/diagnostic_images]
+log_fileMinSize                            : [null]
+log_fileCount                              : [null]
+log_rotateLogOnStartup                     : [null]
+Setup logging                              : [/u01/oracle/logs/mta4ru/diagnostic_images-2e24de679af1]
+log_path                                   : [/Log/MTA4RU]
+log_file                                   : [/u01/oracle/logs/mta4ru/base_domain.log]
+log_fileMinSize                            : [10000]
+log_fileCount                              : [50]
+log_rotateLogOnStartup                     : [True]
+Setup logging                              : [/u01/oracle/logs/mta4ru/base_domain-2e24de679af1.log]
 Saving all your changes ...
 Saved all your changes successfully.
 Activating all your changes, this may take a while ...
 The edit lock associated with this edit session is released once the activation is completed.
 Activation completed
 Shutting down the server AdminServer with force=false while connected to AdminServer ...
-WLST-WLS-1567676784461: <05.09.2019, 12:47:18,761 PM MSK> <Notice> <Server> <BEA-002638> <Graceful shutdown of AdminServer was issued remotely from 172.17.0.2.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:18,799 PM MSK> <Notice> <WebLogicServer> <BEA-000396> <Server shutdown has been requested by weblogic.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:18,809 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to SUSPENDING.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:18,848 PM MSK> <Notice> <HTTP> <BEA-101278> <There are no active sessions. The Web service is ready to suspend.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:18,880 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to ADMIN.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:18,897 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to SHUTTING_DOWN.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:18,951 PM MSK> <Notice> <Log Management> <BEA-170037> <The log monitoring service timer has been stopped.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:19,622 PM MSK> <Warning> <JMX> <BEA-149513> <JMX Connector Server stopped at service:jmx:iiop://172.17.0.2:7001/jndi/weblogic.management.mbeanservers.edit.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:19,623 PM MSK> <Warning> <JMX> <BEA-149513> <JMX Connector Server stopped at service:jmx:iiop://172.17.0.2:7001/jndi/weblogic.management.mbeanservers.runtime.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:19,625 PM MSK> <Warning> <JMX> <BEA-149513> <JMX Connector Server stopped at service:jmx:iiop://172.17.0.2:7001/jndi/weblogic.management.mbeanservers.domainruntime.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:23,410 PM MSK> <Notice> <Server> <BEA-002638> <Graceful shutdown of AdminServer was issued remotely from 172.17.0.2.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:23,422 PM MSK> <Notice> <WebLogicServer> <BEA-000396> <Server shutdown has been requested by weblogic.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:23,430 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to SUSPENDING.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:23,490 PM MSK> <Notice> <HTTP> <BEA-101278> <There are no active sessions. The Web service is ready to suspend.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:23,515 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to ADMIN.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:23,524 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to SHUTTING_DOWN.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:23,575 PM MSK> <Notice> <Log Management> <BEA-170037> <The log monitoring service timer has been stopped.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:24,119 PM MSK> <Warning> <JMX> <BEA-149513> <JMX Connector Server stopped at service:jmx:iiop://172.17.0.2:7001/jndi/weblogic.management.mbeanservers.edit.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:24,127 PM MSK> <Warning> <JMX> <BEA-149513> <JMX Connector Server stopped at service:jmx:iiop://172.17.0.2:7001/jndi/weblogic.management.mbeanservers.runtime.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:24,128 PM MSK> <Warning> <JMX> <BEA-149513> <JMX Connector Server stopped at service:jmx:iiop://172.17.0.2:7001/jndi/weblogic.management.mbeanservers.domainruntime.>
+WLST-WLS-1571393802259: <18.10.2019, 1:17:25,58 PM MSK> <Warning> <Management> <BEA-141269> <The temporary bean tree updateDeploymentContext(Fri Oct 18 13:17:23 MSK 2019) was allocated for an undo, get, or activate operation, but has not been garbage collected.>
 Disconnected from weblogic server: AdminServer
+WLST-WLS-1571393802259: <18.10.2019, 1:17:25,95 PM MSK> <Warning> <JMX> <BEA-149535> <JMX Resiliency Activity Server=All Servers : Resolving connection list DomainRuntimeServiceMBean>
 Disconnected from weblogic server:
-WLST-WLS-1567676784461: <05.09.2019, 12:47:20,850 PM MSK> <Warning> <Management> <BEA-141269> <The temporary bean tree updateDeploymentContext(Thu Sep 05 12:47:18 MSK 2019) was allocated for an undo, get, or activate operation, but has not been garbage collected.>
-WLST-WLS-1567676784461: <05.09.2019, 12:47:20,901 PM MSK> <Warning> <JMX> <BEA-149535> <JMX Resiliency Activity Server=All Servers : Resolving connection list DomainRuntimeServiceMBean>
-WLST-WLS-1567676784461: Stopped draining WLST-WLS-1567676784461
-WLST-WLS-1567676784461: Stopped draining WLST-WLS-1567676784461
+WLST-WLS-1571393802259: Stopped draining WLST-WLS-1571393802259
+WLST-WLS-1571393802259: Stopped draining WLST-WLS-1571393802259
 RetVal from Domain modify 0
 
 Initializing WebLogic Scripting Tool (WLST) ...
@@ -300,33 +293,82 @@ Welcome to WebLogic Server Administration Scripting Shell
 
 Type help() for help on available commands
 
-domain_name                      : [MTA4RU]
-admin name                       : [AdminServer]
-admin_listen_port                : [7001]
-production_mode                  : [prod]
-administration_port_enabled      : [true]
-administration_port              : [9002]
-domain_path                      : [/u01/oracle/user_projects/domains/MTA4RU]
-admin_url                        : [t3://localhost:7001]
-username                         : [weblogic]
-password                         : [welcome1]
-properties                       : [/u01/oracle/properties/domain_app.properties]
-app_name                         : [hello]
-app_path                         : [/u01/oracle/files]
-app_file                         : [hello.war]
-Offline deploy application       : [hello]
+domain_name                                : [MTA4RU]
+admin_name                                 : [AdminServer]
+admin_listen_port                          : [7001]
+production_mode                            : [prod]
+administration_port_enabled                : [true]
+administration_port                        : [9002]
+admin_console_enabled                      : [true]
+username                                   : [******]
+password                                   : [******]
+domain_path                                : [/u01/oracle/user_projects/domains/MTA4RU]
+ds_url                                     : [jdbc:oracle:thin:@db.example.com:1521:example2]
+ds_user                                    : [******]
+ds_password                                : [******]
+ds_Name                                    : [dsExample2]
+ds_jndiName                                : [jdbc/dsExample2]
+ds_GlobalTransactionsProtocol              : [None]
+ds_driver                                  : [oracle.jdbc.OracleDriver]
+ds_MaxCapacity                             : [50]
+ds_ConnectionCreationRetryFrequencySeconds : [10]
+ds_TestTableName                           : [SQL SELECT 1 FROM DUAL]
+ds_XaSetTransactionTimeout                 : [null]
+ds_XaTransactionTimeout                    : [null]
+Offline create datasource                  : [dsExample2]
+ds_url                                     : [jdbc:oracle:thin:@db.example.com:1521:example1]
+ds_user                                    : [******]
+ds_password                                : [******]
+ds_Name                                    : [dsExample1]
+ds_jndiName                                : [jdbc/dsExample1]
+ds_GlobalTransactionsProtocol              : [EmulateTwoPhaseCommit]
+ds_driver                                  : [oracle.jdbc.xa.client.OracleXADataSource]
+ds_MaxCapacity                             : [50]
+ds_ConnectionCreationRetryFrequencySeconds : [10]
+ds_TestTableName                           : [SQL SELECT 1 FROM DUAL]
+ds_XaSetTransactionTimeout                 : [True]
+ds_XaTransactionTimeout                    : [7200]
+Offline create datasource                  : [dsExample1]
+RetVal from Domain modify 0
+
+Initializing WebLogic Scripting Tool (WLST) ...
+
+Welcome to WebLogic Server Administration Scripting Shell
+
+Type help() for help on available commands
+
+domain_name                                : [MTA4RU]
+admin_name                                 : [AdminServer]
+admin_listen_port                          : [7001]
+production_mode                            : [prod]
+administration_port_enabled                : [true]
+administration_port                        : [9002]
+admin_console_enabled                      : [true]
+username                                   : [******]
+password                                   : [******]
+domain_path                                : [/u01/oracle/user_projects/domains/MTA4RU]
+app_name                                   : [hello]
+app_type                                   : [AppDeployment]
+app_sourcePath                             : [/u01/oracle/files/hello.war]
+app_securityDDModel                        : [DDOnly]
+Offline deploy application                 : [hello]
+app_name                                   : [jax-rs#2.0@2.22.1.0]
+app_type                                   : [Library]
+app_sourcePath                             : [/u01/oracle/wlserver/common/deployable-libraries/jax-rs-2.0.war]
+app_securityDDModel                        : [DDOnly]
+Offline deploy application                 : [jax-rs#2.0@2.22.1.0]
 RetVal from Domain modify 0
 
 Apply Java Settings
 ==========================
-User Mem Args:   -Xms1024m -Xmx2048m -XX:MaxPermSize=1024m -Djava.security.egd=file:/dev/./urandom
+User Mem Args:   -Xms1024m -Xmx1024m -Djava.security.egd=file:/dev/./urandom
 Java Options:    -Dweblogic.configuration.schemaValidationEnabled=false -Dfile.encoding=UTF-8 -Xdebug -Xrunjdwp:transport=dt_socket,address=1044,server=y,suspend=n -Djava.io.tmpdir=/tmp/
 
 Starting the Admin Server
 ==========================
 .
 .
-JAVA Memory arguments: -Xms1024m -Xmx2048m -XX:MaxPermSize=1024m -Djava.security.egd=file:/dev/./urandom
+JAVA Memory arguments: -Xms1024m -Xmx1024m -Djava.security.egd=file:/dev/./urandom
 .
 CLASSPATH=/usr/java/jdk1.8.0_172/lib/tools.jar:/u01/oracle/wlserver/server/lib/weblogic.jar:/u01/oracle/wlserver/../oracle_common/modules/net.sf.antcontrib_1.1.0.0_1-0b3/lib/ant-contrib.jar:/u01/oracle/wlserver/modules/features/oracle.wls.common.nodemanager.jar:/u01/oracle/wlserver/common/derby/lib/derbyclient.jar:/u01/oracle/wlserver/common/derby/lib/derby.jar
 .
@@ -339,35 +381,34 @@ PATH=/u01/oracle/user_projects/domains/MTA4RU/bin:/u01/oracle/wlserver/server/bi
 *  console at http://hostname:port/console        *
 ***************************************************
 Starting WLS with line:
-/usr/java/jdk1.8.0_172/bin/java -server   -Xms1024m -Xmx2048m -XX:MaxPermSize=1024m -Djava.security.egd=file:/dev/./urandom -Dweblogic.Name=AdminServer -Djava.security.policy=/u01/oracle/wlserver/server/lib/weblogic.policy  -Dweblogic.ProductionModeEnabled=true -Dweblogic.configuration.schemaValidationEnabled=false -Dfile.encoding=UTF-8 -Xdebug -Xrunjdwp:transport=dt_socket,address=1044,server=y,suspend=n -Djava.io.tmpdir=/tmp/  -Djava.system.class.loader=com.oracle.classloader.weblogic.LaunchClassLoader  -javaagent:/u01/oracle/wlserver/server/lib/debugpatch-agent.jar -da -Dwls.home=/u01/oracle/wlserver/server -Dweblogic.home=/u01/oracle/wlserver/server      weblogic.Server
-Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=1024m; support was removed in 8.0
+/usr/java/jdk1.8.0_172/bin/java -server   -Xms1024m -Xmx1024m -Djava.security.egd=file:/dev/./urandom -Dweblogic.Name=AdminServer -Djava.security.policy=/u01/oracle/wlserver/server/lib/weblogic.policy  -Dweblogic.ProductionModeEnabled=true -Dweblogic.configuration.schemaValidationEnabled=false -Dfile.encoding=UTF-8 -Xdebug -Xrunjdwp:transport=dt_socket,address=1044,server=y,suspend=n -Djava.io.tmpdir=/tmp/  -Djava.system.class.loader=com.oracle.classloader.weblogic.LaunchClassLoader  -javaagent:/u01/oracle/wlserver/server/lib/debugpatch-agent.jar -da -Dwls.home=/u01/oracle/wlserver/server -Dweblogic.home=/u01/oracle/wlserver/server      weblogic.Server
 Listening for transport dt_socket at address: 1044
-<05.09.2019 12:47:45 MSK> <Info> <Security> <BEA-090905> <Disabling the CryptoJ JCE Provider self-integrity check for better startup performance. To enable this check, specify -Dweblogic.security.allowCryptoJDefaultJCEVerification=true.>
-<05.09.2019 12:47:45 MSK> <Info> <Security> <BEA-090906> <Changing the default Random Number Generator in RSA CryptoJ from ECDRBG128 to HMACDRBG. To disable this change, specify -Dweblogic.security.allowCryptoJDefaultPRNG=true.>
-<05.09.2019 12:47:46 MSK> <Info> <WebLogicServer> <BEA-000377> <Starting WebLogic Server with Java HotSpot(TM) 64-Bit Server VM Version 25.172-b11 from Oracle Corporation.>
-<05.09.2019 12:47:47 MSK> <Info> <RCM> <BEA-2165021> <"ResourceManagement" is not enabled in this JVM. Enable "ResourceManagement" to use the WebLogic Server "Resource Consumption Management" feature. To enable "ResourceManagement", you must specify the following JVM options in the WebLogic Server instance in which the JVM runs: -XX:+UnlockCommercialFeatures -XX:+ResourceManagement.>
-<05.09.2019 12:47:48 MSK> <Info> <Management> <BEA-141107> <Version: WebLogic Server 12.2.1.2.0 Mon Oct  3 04:35:36 PDT 2016 1827450>
-<05.09.2019 12:47:51 MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to STARTING.>
-<05.09.2019 12:47:51 MSK> <Info> <WorkManager> <BEA-002900> <Initializing self-tuning thread pool.>
-<05.09.2019 12:47:51 MSK> <Info> <WorkManager> <BEA-002942> <CMM memory level becomes 0. Setting standby thread pool size to 256.>
-<05.09.2019, 12:47:53,200 PM MSK> <Notice> <Log Management> <BEA-170019> <The server log file weblogic.logging.FileStreamHandler instance=1566297613
-Current log file=/u01/oracle/user_projects/domains/MTA4RU/servers/AdminServer/../../logs/mta4ru/AdminServer-3864af13a05f.log
-Rotation dir=/u01/oracle/user_projects/domains/MTA4RU/servers/AdminServer/../../logs/mta4ru
+<18.10.2019 13:18:07 MSK> <Info> <Security> <BEA-090905> <Disabling the CryptoJ JCE Provider self-integrity check for better startup performance. To enable this check, specify -Dweblogic.security.allowCryptoJDefaultJCEVerification=true.>
+<18.10.2019 13:18:07 MSK> <Info> <Security> <BEA-090906> <Changing the default Random Number Generator in RSA CryptoJ from ECDRBG128 to HMACDRBG. To disable this change, specify -Dweblogic.security.allowCryptoJDefaultPRNG=true.>
+<18.10.2019 13:18:08 MSK> <Info> <WebLogicServer> <BEA-000377> <Starting WebLogic Server with Java HotSpot(TM) 64-Bit Server VM Version 25.172-b11 from Oracle Corporation.>
+<18.10.2019 13:18:09 MSK> <Info> <RCM> <BEA-2165021> <"ResourceManagement" is not enabled in this JVM. Enable "ResourceManagement" to use the WebLogic Server "Resource Consumption Management" feature. To enable "ResourceManagement", you must specify the following JVM options in the WebLogic Server instance in which the JVM runs: -XX:+UnlockCommercialFeatures -XX:+ResourceManagement.>
+<18.10.2019 13:18:10 MSK> <Info> <Management> <BEA-141107> <Version: WebLogic Server 12.2.1.2.0 Mon Oct  3 04:35:36 PDT 2016 1827450>
+<18.10.2019 13:18:14 MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to STARTING.>
+<18.10.2019 13:18:14 MSK> <Info> <WorkManager> <BEA-002900> <Initializing self-tuning thread pool.>
+<18.10.2019 13:18:14 MSK> <Info> <WorkManager> <BEA-002942> <CMM memory level becomes 0. Setting standby thread pool size to 256.>
+<18.10.2019, 1:18:16,67 PM MSK> <Notice> <Security> <BEA-090171> <Loading the identity certificate and private key stored under the alias DemoIdentity from the jks keystore file /u01/oracle/user_projects/domains/MTA4RU/security/DemoIdentity.jks.>
+<18.10.2019, 1:18:16,96 PM MSK> <Notice> <Log Management> <BEA-170019> <The server log file weblogic.logging.FileStreamHandler instance=612337293
+Current log file=/u01/oracle/logs/mta4ru/AdminServer-2e24de679af1.log
+Rotation dir=/u01/oracle/logs/mta4ru
  is opened. All server side log events will be written to this file.>
-<05.09.2019, 12:47:53,288 PM MSK> <Notice> <Security> <BEA-090171> <Loading the identity certificate and private key stored under the alias DemoIdentity from the jks keystore file /u01/oracle/user_projects/domains/MTA4RU/security/DemoIdentity.jks.>
-<05.09.2019, 12:47:53,327 PM MSK> <Alert> <Security> <BEA-090153> <Demo identity certificate is used in production mode: [
+<18.10.2019, 1:18:16,120 PM MSK> <Alert> <Security> <BEA-090153> <Demo identity certificate is used in production mode: [
 [
   Version: V3
-  Subject: CN=3864af13a05f, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US
+  Subject: CN=2e24de679af1, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US
   Signature Algorithm: SHA256withRSA, OID = 1.2.840.113549.1.1.11
 
   Key:  Sun RSA public key, 2048 bits
-  modulus: 24315653455009060345211158866955545531424455428932842010020112209597609846796396701159974330019367144719734310373613878769501765621338320920557356518329999353746757272828262164466754646418437576030089047560944537456916732121409173303956449607579195407715583167536417939882891544569194456671945861153701760020950850836171539543555765885658212887004201817270948875765164539752476072674061379388232162141990434003090457528128557371616750603019386824198856290597829756300833250211869921362455010319341583212139757488606848248762433355338714348724691695216045240770066931153950734136053477285798288610585377226425855313573
+  modulus: 27575555240581438663908542182081843145774115596326559109332877636678568503658885518320586628444688366078090653953744331807814156981475152129103602311644753283197697354785515180520525443715532737186906988641699097439849611193388894427352603267582883896233816783901375434667145316959562820180393523418533679196875285165308656536195613108826496877618542838117156269818308031952060714559679911346242119770274644054044285529461479027763772138865359082760083141574229725638739565358372291365234980808171773254367412029925533407069300035176880920769131745845439839931485749161428097222407498060361425994684876662096660794483
   public exponent: 65537
-  Validity: [From: Wed Sep 04 12:46:04 MSK 2019,
-               To: Tue Sep 05 12:46:04 MSK 2034]
+  Validity: [From: Thu Oct 17 13:16:22 MSK 2019,
+               To: Wed Oct 18 13:16:22 MSK 2034]
   Issuer: CN=CertGenCA, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US
-  SerialNumber: [    016d00d1 157f]
+  SerialNumber: [    016dde5e 464d]
 
 Certificate Extensions: 4
 [1]: ObjectId: 2.5.29.35 Criticality=false
@@ -398,35 +439,35 @@ KeyUsage [
 [4]: ObjectId: 2.5.29.14 Criticality=false
 SubjectKeyIdentifier [
 KeyIdentifier [
-0000: BA F1 55 DA 35 D9 66 08   01 CC DF CC F8 DA 5F 88  ..U.5.f......._.
-0010: A0 94 4D 7A                                        ..Mz
+0000: 42 08 4B F7 3E 06 3F 70   A0 3D 66 F6 0C 3B 06 91  B.K.>.?p.=f..;..
+0010: BA CF 47 05                                        ..G.
 ]
 ]
 
 ]
   Algorithm: [SHA256withRSA]
   Signature:
-0000: 6E 32 BA 8D CB 97 6A 64   A2 67 39 27 D0 2D 5D 01  n2....jd.g9'.-].
-0010: FA DA 35 FF 1E 9A 95 AF   70 5F D0 18 8F EB 45 BA  ..5.....p_....E.
-0020: A9 C9 6D 39 0C FC F9 BA   6E C8 93 8E 08 C0 D7 B4  ..m9....n.......
-0030: 0D 24 14 19 63 CE F5 C0   11 38 76 9D D3 42 F6 0C  .$..c....8v..B..
-0040: 6D 75 62 25 98 CC 11 2A   7D F4 58 97 16 0E A9 AE  mub%...*..X.....
-0050: A3 4B C1 36 5B 8F 7C 2B   70 1C 07 1D 27 8F 72 F2  .K.6[..+p...'.r.
-0060: 7F B2 74 D8 38 16 7A 54   30 F3 FD 21 F2 C4 61 D7  ..t.8.zT0..!..a.
-0070: EE 09 9F 60 A5 E1 3B FB   60 8F 6C 2E A7 1D 64 EB  ...`..;.`.l...d.
-0080: 56 44 02 34 4C C4 BD A8   B4 BD 5A 88 86 73 CB F7  VD.4L.....Z..s..
-0090: 90 63 8C 69 93 23 1D E5   F7 4E 5E 8F 1E B6 27 3A  .c.i.#...N^...':
-00A0: DA BB 8E EB F6 EB 4A F2   B6 8B DB BC 2E C6 04 EF  ......J.........
-00B0: 52 24 87 DD A4 EB C8 93   59 83 EA DD 08 81 94 9C  R$......Y.......
-00C0: CA 47 C5 08 21 C1 A3 42   81 15 73 2D E5 34 7D 05  .G..!..B..s-.4..
-00D0: 21 B7 ED B1 A4 04 18 4E   6D 2F 79 B7 37 75 54 A7  !......Nm/y.7uT.
-00E0: 31 10 F0 A6 E9 0B 04 83   49 D4 9E F5 8D 79 24 BA  1.......I....y$.
-00F0: 57 BF 60 00 19 18 FE 08   CB 5E 90 DE 63 64 54 29  W.`......^..cdT)
+0000: 10 02 E7 32 D6 B5 72 81   60 AA CE 6F 88 3E 3F 3B  ...2..r.`..o.>?;
+0010: 8D 85 1B A0 B0 36 CB 73   F3 60 17 20 E9 D1 84 CD  .....6.s.`. ....
+0020: 22 7D E9 23 E9 C7 37 CE   8C 42 52 69 4B CE E5 2E  "..#..7..BRiK...
+0030: 2A 72 4B CA A0 FE AB DE   81 87 51 C2 0C 07 DA A3  *rK.......Q.....
+0040: 16 B2 E5 FD 1B B0 8A 42   2F 28 EB C6 24 3C 5A 86  .......B/(..$<Z.
+0050: D5 A5 7F 09 44 A5 CA AE   88 A6 58 FB 29 1D 65 7A  ....D.....X.).ez
+0060: 95 6A 7C 91 09 9B CD BD   D6 3E 13 F5 20 96 CB C6  .j.......>.. ...
+0070: 68 4D C9 D6 6D C1 BB 38   14 41 1E 2B BC 13 26 9A  hM..m..8.A.+..&.
+0080: 13 59 3F AE 7B B2 1E F2   A4 4D 3E 69 EC 08 49 25  .Y?......M>i..I%
+0090: EC 0A AA 72 2C 8E 97 F3   B7 F9 0A 01 1B 96 29 84  ...r,.........).
+00A0: 30 2A FC 47 63 AB D7 34   12 63 82 CD 16 DA E3 2C  0*.Gc..4.c.....,
+00B0: E5 2E 0F 8A A0 AA 1B A9   F3 48 9E E8 57 F7 3A F7  .........H..W.:.
+00C0: B2 34 DF 0F 4D 3C 97 02   3B F1 E9 4A A4 64 C2 BF  .4..M<..;..J.d..
+00D0: E5 4D F7 A5 DF 2D 0B 92   36 FC 23 E5 A7 21 C4 33  .M...-..6.#..!.3
+00E0: E3 4E 82 5B 9F 25 7C 33   CD 7E 5D 07 95 E5 DF 8F  .N.[.%.3..].....
+00F0: F2 30 14 15 B1 D3 33 EA   46 99 40 04 40 D0 F1 AF  .0....3.F.@.@...
 
 ] The system is vulnerable to security attacks, since the server private key is available to the public.>
-<05.09.2019, 12:47:53,349 PM MSK> <Notice> <Security> <BEA-090169> <Loading trusted certificates from the jks keystore file /u01/oracle/wlserver/server/lib/DemoTrust.jks.>
-<05.09.2019, 12:47:53,353 PM MSK> <Notice> <Security> <BEA-090169> <Loading trusted certificates from the jks keystore file /usr/java/jdk1.8.0_172/jre/lib/security/cacerts.>
-<05.09.2019, 12:47:53,368 PM MSK> <Alert> <Security> <BEA-090152> <Demo trusted CA certificate is being used in production mode: [
+<18.10.2019, 1:18:16,158 PM MSK> <Notice> <Security> <BEA-090169> <Loading trusted certificates from the jks keystore file /u01/oracle/wlserver/server/lib/DemoTrust.jks.>
+<18.10.2019, 1:18:16,172 PM MSK> <Notice> <Security> <BEA-090169> <Loading trusted certificates from the jks keystore file /usr/java/jdk1.8.0_172/jre/lib/security/cacerts.>
+<18.10.2019, 1:18:16,192 PM MSK> <Alert> <Security> <BEA-090152> <Demo trusted CA certificate is being used in production mode: [
 [
   Version: V3
   Subject: CN=CertGenCA, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US
@@ -481,35 +522,35 @@ KeyIdentifier [
 00F0: F5 E1 D7 CB D8 FF FE 15   F7 B8 39 33 D3 66 03 17  ..........93.f..
 
 ]. The system is vulnerable to security attacks, since it trusts certificates signed by the demo trusted CA.>
-<05.09.2019, 12:47:53,548 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultAdministration" is now listening on 172.17.0.2:9002 for protocols admin, ldaps, https.>
-<05.09.2019, 12:47:53,554 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultAdministration[1]" is now listening on 127.0.0.1:9002 for protocols admin, ldaps, https.>
-<05.09.2019, 12:47:53,559 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultAdministration" is now listening on 172.17.0.2:9002 for protocols admin, ldaps, https.>
-<05.09.2019, 12:47:53,559 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultAdministration[1]" is now listening on 127.0.0.1:9002 for protocols admin, ldaps, https.>
-<05.09.2019, 12:47:53,782 PM MSK> <Notice> <Security> <BEA-090946> <Security pre-initializing using security realm: myrealm>
-<05.09.2019, 12:47:54,684 PM MSK> <Notice> <Security> <BEA-090947> <Security post-initializing using security realm: myrealm>
-<05.09.2019, 12:47:56,172 PM MSK> <Notice> <Security> <BEA-090082> <Security initialized using administrative security realm: myrealm>
-<05.09.2019, 12:47:57,260 PM MSK> <Warning> <JMX> <BEA-149512> <JMX Connector Server started at service:jmx:iiop://172.17.0.2:9002/jndi/weblogic.management.mbeanservers.runtime.>
-<05.09.2019, 12:47:57,680 PM MSK> <Warning> <JMX> <BEA-149512> <JMX Connector Server started at service:jmx:iiop://172.17.0.2:9002/jndi/weblogic.management.mbeanservers.domainruntime.>
-<05.09.2019, 12:47:57,934 PM MSK> <Warning> <JMX> <BEA-149512> <JMX Connector Server started at service:jmx:iiop://172.17.0.2:9002/jndi/weblogic.management.mbeanservers.edit.>
-<05.09.2019, 12:48:00,39 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to STANDBY.>
-<05.09.2019, 12:48:00,45 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to STARTING.>
-<05.09.2019, 12:48:00,153 PM MSK> <Notice> <Log Management> <BEA-170036> <The Logging monitoring service timer has started to check for logged message counts every 30 seconds.>
-<05.09.2019, 12:48:07,56 PM MSK> <Notice> <Log Management> <BEA-170027> <The server has successfully established a connection with the Domain level Diagnostic Service.>
-<05.09.2019, 12:48:08,982 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to ADMIN.>
-<05.09.2019, 12:48:09,85 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to RESUMING.>
-<05.09.2019, 12:48:09,194 PM MSK> <Alert> <Security> <BEA-090153> <Demo identity certificate is used in production mode: [
+<18.10.2019, 1:18:16,321 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultAdministration" is now listening on 172.17.0.2:9002 for protocols admin, ldaps, https.>
+<18.10.2019, 1:18:16,328 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultAdministration[1]" is now listening on 127.0.0.1:9002 for protocols admin, ldaps, https.>
+<18.10.2019, 1:18:16,328 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultAdministration" is now listening on 172.17.0.2:9002 for protocols admin, ldaps, https.>
+<18.10.2019, 1:18:16,329 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultAdministration[1]" is now listening on 127.0.0.1:9002 for protocols admin, ldaps, https.>
+<18.10.2019, 1:18:16,827 PM MSK> <Notice> <Security> <BEA-090946> <Security pre-initializing using security realm: myrealm>
+<18.10.2019, 1:18:17,756 PM MSK> <Notice> <Security> <BEA-090947> <Security post-initializing using security realm: myrealm>
+<18.10.2019, 1:18:19,315 PM MSK> <Notice> <Security> <BEA-090082> <Security initialized using administrative security realm: myrealm>
+<18.10.2019, 1:18:20,104 PM MSK> <Warning> <JMX> <BEA-149512> <JMX Connector Server started at service:jmx:iiop://172.17.0.2:9002/jndi/weblogic.management.mbeanservers.edit.>
+<18.10.2019, 1:18:20,104 PM MSK> <Warning> <JMX> <BEA-149512> <JMX Connector Server started at service:jmx:iiop://172.17.0.2:9002/jndi/weblogic.management.mbeanservers.runtime.>
+<18.10.2019, 1:18:20,105 PM MSK> <Warning> <JMX> <BEA-149512> <JMX Connector Server started at service:jmx:iiop://172.17.0.2:9002/jndi/weblogic.management.mbeanservers.domainruntime.>
+<18.10.2019, 1:18:22,810 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to STANDBY.>
+<18.10.2019, 1:18:22,818 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to STARTING.>
+<18.10.2019, 1:18:22,938 PM MSK> <Notice> <Log Management> <BEA-170036> <The Logging monitoring service timer has started to check for logged message counts every 30 seconds.>
+<18.10.2019, 1:18:31,526 PM MSK> <Notice> <Log Management> <BEA-170027> <The server has successfully established a connection with the Domain level Diagnostic Service.>
+<18.10.2019, 1:18:32,559 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to ADMIN.>
+<18.10.2019, 1:18:32,701 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to RESUMING.>
+<18.10.2019, 1:18:32,819 PM MSK> <Alert> <Security> <BEA-090153> <Demo identity certificate is used in production mode: [
 [
   Version: V3
-  Subject: CN=3864af13a05f, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US
+  Subject: CN=2e24de679af1, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US
   Signature Algorithm: SHA256withRSA, OID = 1.2.840.113549.1.1.11
 
   Key:  Sun RSA public key, 2048 bits
-  modulus: 24315653455009060345211158866955545531424455428932842010020112209597609846796396701159974330019367144719734310373613878769501765621338320920557356518329999353746757272828262164466754646418437576030089047560944537456916732121409173303956449607579195407715583167536417939882891544569194456671945861153701760020950850836171539543555765885658212887004201817270948875765164539752476072674061379388232162141990434003090457528128557371616750603019386824198856290597829756300833250211869921362455010319341583212139757488606848248762433355338714348724691695216045240770066931153950734136053477285798288610585377226425855313573
+  modulus: 27575555240581438663908542182081843145774115596326559109332877636678568503658885518320586628444688366078090653953744331807814156981475152129103602311644753283197697354785515180520525443715532737186906988641699097439849611193388894427352603267582883896233816783901375434667145316959562820180393523418533679196875285165308656536195613108826496877618542838117156269818308031952060714559679911346242119770274644054044285529461479027763772138865359082760083141574229725638739565358372291365234980808171773254367412029925533407069300035176880920769131745845439839931485749161428097222407498060361425994684876662096660794483
   public exponent: 65537
-  Validity: [From: Wed Sep 04 12:46:04 MSK 2019,
-               To: Tue Sep 05 12:46:04 MSK 2034]
+  Validity: [From: Thu Oct 17 13:16:22 MSK 2019,
+               To: Wed Oct 18 13:16:22 MSK 2034]
   Issuer: CN=CertGenCA, OU=FOR TESTING ONLY, O=MyOrganization, L=MyTown, ST=MyState, C=US
-  SerialNumber: [    016d00d1 157f]
+  SerialNumber: [    016dde5e 464d]
 
 Certificate Extensions: 4
 [1]: ObjectId: 2.5.29.35 Criticality=false
@@ -540,42 +581,43 @@ KeyUsage [
 [4]: ObjectId: 2.5.29.14 Criticality=false
 SubjectKeyIdentifier [
 KeyIdentifier [
-0000: BA F1 55 DA 35 D9 66 08   01 CC DF CC F8 DA 5F 88  ..U.5.f......._.
-0010: A0 94 4D 7A                                        ..Mz
+0000: 42 08 4B F7 3E 06 3F 70   A0 3D 66 F6 0C 3B 06 91  B.K.>.?p.=f..;..
+0010: BA CF 47 05                                        ..G.
 ]
 ]
 
 ]
   Algorithm: [SHA256withRSA]
   Signature:
-0000: 6E 32 BA 8D CB 97 6A 64   A2 67 39 27 D0 2D 5D 01  n2....jd.g9'.-].
-0010: FA DA 35 FF 1E 9A 95 AF   70 5F D0 18 8F EB 45 BA  ..5.....p_....E.
-0020: A9 C9 6D 39 0C FC F9 BA   6E C8 93 8E 08 C0 D7 B4  ..m9....n.......
-0030: 0D 24 14 19 63 CE F5 C0   11 38 76 9D D3 42 F6 0C  .$..c....8v..B..
-0040: 6D 75 62 25 98 CC 11 2A   7D F4 58 97 16 0E A9 AE  mub%...*..X.....
-0050: A3 4B C1 36 5B 8F 7C 2B   70 1C 07 1D 27 8F 72 F2  .K.6[..+p...'.r.
-0060: 7F B2 74 D8 38 16 7A 54   30 F3 FD 21 F2 C4 61 D7  ..t.8.zT0..!..a.
-0070: EE 09 9F 60 A5 E1 3B FB   60 8F 6C 2E A7 1D 64 EB  ...`..;.`.l...d.
-0080: 56 44 02 34 4C C4 BD A8   B4 BD 5A 88 86 73 CB F7  VD.4L.....Z..s..
-0090: 90 63 8C 69 93 23 1D E5   F7 4E 5E 8F 1E B6 27 3A  .c.i.#...N^...':
-00A0: DA BB 8E EB F6 EB 4A F2   B6 8B DB BC 2E C6 04 EF  ......J.........
-00B0: 52 24 87 DD A4 EB C8 93   59 83 EA DD 08 81 94 9C  R$......Y.......
-00C0: CA 47 C5 08 21 C1 A3 42   81 15 73 2D E5 34 7D 05  .G..!..B..s-.4..
-00D0: 21 B7 ED B1 A4 04 18 4E   6D 2F 79 B7 37 75 54 A7  !......Nm/y.7uT.
-00E0: 31 10 F0 A6 E9 0B 04 83   49 D4 9E F5 8D 79 24 BA  1.......I....y$.
-00F0: 57 BF 60 00 19 18 FE 08   CB 5E 90 DE 63 64 54 29  W.`......^..cdT)
+0000: 10 02 E7 32 D6 B5 72 81   60 AA CE 6F 88 3E 3F 3B  ...2..r.`..o.>?;
+0010: 8D 85 1B A0 B0 36 CB 73   F3 60 17 20 E9 D1 84 CD  .....6.s.`. ....
+0020: 22 7D E9 23 E9 C7 37 CE   8C 42 52 69 4B CE E5 2E  "..#..7..BRiK...
+0030: 2A 72 4B CA A0 FE AB DE   81 87 51 C2 0C 07 DA A3  *rK.......Q.....
+0040: 16 B2 E5 FD 1B B0 8A 42   2F 28 EB C6 24 3C 5A 86  .......B/(..$<Z.
+0050: D5 A5 7F 09 44 A5 CA AE   88 A6 58 FB 29 1D 65 7A  ....D.....X.).ez
+0060: 95 6A 7C 91 09 9B CD BD   D6 3E 13 F5 20 96 CB C6  .j.......>.. ...
+0070: 68 4D C9 D6 6D C1 BB 38   14 41 1E 2B BC 13 26 9A  hM..m..8.A.+..&.
+0080: 13 59 3F AE 7B B2 1E F2   A4 4D 3E 69 EC 08 49 25  .Y?......M>i..I%
+0090: EC 0A AA 72 2C 8E 97 F3   B7 F9 0A 01 1B 96 29 84  ...r,.........).
+00A0: 30 2A FC 47 63 AB D7 34   12 63 82 CD 16 DA E3 2C  0*.Gc..4.c.....,
+00B0: E5 2E 0F 8A A0 AA 1B A9   F3 48 9E E8 57 F7 3A F7  .........H..W.:.
+00C0: B2 34 DF 0F 4D 3C 97 02   3B F1 E9 4A A4 64 C2 BF  .4..M<..;..J.d..
+00D0: E5 4D F7 A5 DF 2D 0B 92   36 FC 23 E5 A7 21 C4 33  .M...-..6.#..!.3
+00E0: E3 4E 82 5B 9F 25 7C 33   CD 7E 5D 07 95 E5 DF 8F  .N.[.%.3..].....
+00F0: F2 30 14 15 B1 D3 33 EA   46 99 40 04 40 D0 F1 AF  .0....3.F.@.@...
 
 ] The system is vulnerable to security attacks, since the server private key is available to the public.>
-<05.09.2019, 12:48:09,221 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultSecure[1]" is now listening on 127.0.0.1:7002 for protocols iiops, t3s, ldaps, https.>
-<05.09.2019, 12:48:09,222 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultSecure" is now listening on 172.17.0.2:7002 for protocols iiops, t3s, ldaps, https.>
-<05.09.2019, 12:48:09,224 PM MSK> <Notice> <Server> <BEA-002613> <Channel "Default" is now listening on 172.17.0.2:7001 for protocols iiop, t3, ldap, snmp, http.>
-<05.09.2019, 12:48:09,226 PM MSK> <Notice> <Server> <BEA-002613> <Channel "Default[1]" is now listening on 127.0.0.1:7001 for protocols iiop, t3, ldap, snmp, http.>
-<05.09.2019, 12:48:09,229 PM MSK> <Notice> <WebLogicServer> <BEA-000329> <Started the WebLogic Server Administration Server "AdminServer" for domain "MTA4RU" running in production mode.>
-<05.09.2019, 12:48:09,229 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultSecure[1]" is now listening on 127.0.0.1:7002 for protocols iiops, t3s, ldaps, https.>
-<05.09.2019, 12:48:09,230 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultSecure" is now listening on 172.17.0.2:7002 for protocols iiops, t3s, ldaps, https.>
-<05.09.2019, 12:48:09,232 PM MSK> <Notice> <Server> <BEA-002613> <Channel "Default" is now listening on 172.17.0.2:7001 for protocols iiop, t3, ldap, snmp, http.>
-<05.09.2019, 12:48:09,233 PM MSK> <Notice> <Server> <BEA-002613> <Channel "Default[1]" is now listening on 127.0.0.1:7001 for protocols iiop, t3, ldap, snmp, http.>
-<05.09.2019, 12:48:09,271 PM MSK> <Notice> <WebLogicServer> <BEA-000360> <The server started in RUNNING mode.>
-<05.09.2019, 12:48:09,295 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to RUNNING.>
-<05.09.2019, 12:48:37,921 PM MSK> <Warning> <Socket> <BEA-000449> <Closing the socket, as no data read from it on 172.17.0.1:33 206 during the configured idle timeout of 5 seconds.>
-<05.09.2019, 12:48:47,925 PM MSK> <Warning> <Socket> <BEA-000449> <Closing the socket, as no data read from it on 172.17.0.1:33 270 during the configured idle timeout of 5 seconds.>
+<18.10.2019, 1:18:32,840 PM MSK> <Notice> <WebLogicServer> <BEA-000329> <Started the WebLogic Server Administration Server "AdminServer" for domain "MTA4RU" running in production mode.>
+<18.10.2019, 1:18:32,842 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultSecure[1]" is now listening on 127.0.0.1:7002 for protocols iiops, t3s, ldaps, https.>
+<18.10.2019, 1:18:32,850 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultSecure" is now listening on 172.17.0.2:7002 for protocols iiops, t3s, ldaps, https.>
+<18.10.2019, 1:18:32,850 PM MSK> <Notice> <Server> <BEA-002613> <Channel "Default" is now listening on 172.17.0.2:7001 for protocols iiop, t3, ldap, snmp, http.>
+<18.10.2019, 1:18:32,851 PM MSK> <Notice> <Server> <BEA-002613> <Channel "Default[1]" is now listening on 127.0.0.1:7001 for protocols iiop, t3, ldap, snmp, http.>
+<18.10.2019, 1:18:32,851 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultSecure[1]" is now listening on 127.0.0.1:7002 for protocols iiops, t3s, ldaps, https.>
+<18.10.2019, 1:18:32,852 PM MSK> <Notice> <Server> <BEA-002613> <Channel "DefaultSecure" is now listening on 172.17.0.2:7002 for protocols iiops, t3s, ldaps, https.>
+<18.10.2019, 1:18:32,867 PM MSK> <Notice> <Server> <BEA-002613> <Channel "Default" is now listening on 172.17.0.2:7001 for protocols iiop, t3, ldap, snmp, http.>
+<18.10.2019, 1:18:32,873 PM MSK> <Notice> <Server> <BEA-002613> <Channel "Default[1]" is now listening on 127.0.0.1:7001 for protocols iiop, t3, ldap, snmp, http.>
+<18.10.2019, 1:18:32,895 PM MSK> <Notice> <WebLogicServer> <BEA-000360> <The server started in RUNNING mode.>
+<18.10.2019, 1:18:32,933 PM MSK> <Notice> <WebLogicServer> <BEA-000365> <Server state changed to RUNNING.>
+
+
+
