@@ -56,13 +56,12 @@ oracle/weblogic     12.2.1.2-generic          eaaf52392276        5 days ago    
 oracle/serverjre    8                         fca1db36746d        5 days ago          280MB # base image + server jre
 oraclelinux         7-slim                    874477adb545        2 weeks ago         118MB # base image
 
-# example run
+# example run (for wls 12.2.1.2 to set the DOMAIN_NAME, you must set both DOMAIN_NAME and DOMAIN_HOME)
 mkdir -p ~/docker/properties; cat <<EOF >  ~/docker/properties/domain.properties
 username=weblogic
 password=welcome1
 EOF
 
-# For wls 12.2.1.2 to set the DOMAIN_NAME, you must set both DOMAIN_NAME and DOMAIN_HOME.
 docker run -dit \
  --name wls-app \
  --network bridge \
