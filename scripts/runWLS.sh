@@ -176,9 +176,12 @@ if [ $ADD_DOMAIN -eq 0 ]; then
     # mkdir -p ${DOMAIN_HOME}/logs/${DOMAIN_NAME}
     mkdir -p ${ORACLE_HOME}/logs/${DOMAIN_NAME}
 
-    # Logging
+    # Libraries
+    # cp ${FILES_DIR}/lib_mbeans-current.jar ${ORACLE_HOME}/wlserver/server/lib/mbeantypes/lib_mbeans.jar
+
+    # Modify
     wlst.sh -skipWLSModuleScanning \
-     ${SCRIPTS_DIR}/logging-wls-domain.py -p ${DOM_PROPERTIES_FILE} -c ${CID}
+     ${SCRIPTS_DIR}/modify-wls-domain.py -p ${DOM_PROPERTIES_FILE} -c ${CID}
 
     retval=$?
 
@@ -201,9 +204,6 @@ if [ $ADD_DOMAIN -eq 0 ]; then
        echo "DataSources Failed.. Please check the Domain Logs"
        exit
     fi
-
-    # Libraries
-    # cp ${FILES_DIR}/lib_mbeans-current.jar ${ORACLE_HOME}/wlserver/server/lib/mbeantypes/lib_mbeans.jar
 
     # Deployments
     wlst.sh -skipWLSModuleScanning \
