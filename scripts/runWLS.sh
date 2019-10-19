@@ -12,53 +12,56 @@
 ########### SIGTERM handler ############
 function _term() {
 
-   echo "Stopping container."
-   echo "SIGTERM received, shutting down the server!"
-   # ${DOMAIN_HOME}/bin/stopWebLogic.sh
+    echo "Stopping container."
+    echo "SIGTERM received, shutting down the server!"
+    # ${DOMAIN_HOME}/bin/stopWebLogic.sh
 
-   # Shutdown domain
-   # wlst.sh -skipWLSModuleScanning \
-   #  -loadProperties ${DOM_PROPERTIES_FILE} \
-   #  -loadProperties ${SEC_PROPERTIES_FILE} \
-   #  ${SCRIPTS_DIR}/shutdown-wls-domain.py
+    # Shutdown domain
+    # wlst.sh -skipWLSModuleScanning \
+    #  -loadProperties ${DOM_PROPERTIES_FILE} \
+    #  -loadProperties ${SEC_PROPERTIES_FILE} \
+    #  ${SCRIPTS_DIR}/shutdown-wls-domain.py
 
-   # Shutdown domain (connect t3 or t3s with DemoTrust cert allow)
-   . ${DOMAIN_HOME}/bin/setDomainEnv.sh
+    # Shutdown domain (connect t3 or t3s with DemoTrust cert allow)
+    . ${DOMAIN_HOME}/bin/setDomainEnv.sh
 
-   java \
-    -Dweblogic.security.SSL.ignoreHostnameVerification=true \
-    -Dweblogic.security.CustomTrustKeyStoreType="JKS" \
-    -Dweblogic.security.TrustKeyStore=CustomTrust \
-    -Dweblogic.security.CustomTrustKeyStoreFileName="${ORACLE_HOME}/wlserver/server/lib/DemoTrust.jks" \
-    weblogic.WLST \
-    -skipWLSModuleScanning \
-    ${SCRIPTS_DIR}/shutdown-wls-domain.py -p ${DOM_PROPERTIES_FILE}
+    java \
+     -Dweblogic.security.SSL.ignoreHostnameVerification=true \
+     -Dweblogic.security.CustomTrustKeyStoreType="JKS" \
+     -Dweblogic.security.TrustKeyStore=CustomTrust \
+     -Dweblogic.security.CustomTrustKeyStoreFileName="${ORACLE_HOME}/wlserver/server/lib/DemoTrust.jks" \
+     weblogic.WLST \
+     -skipWLSModuleScanning \
+     ${SCRIPTS_DIR}/shutdown-wls-domain.py -p ${DOM_PROPERTIES_FILE}
 
-   retval=$?
+    retval=$?
 
-   if [ "${DERBY_ENABLED}" == "true" ] ; then
-      # . ${ORACLE_HOME}/wlserver/common/derby/bin/stopNetworkServer.sh  >"${DOMAIN_HOME}/derbyShutdown.log" 2>&1
-      . ${WL_HOME}/common/derby/bin/stopNetworkServer.sh  >"${DOMAIN_HOME}/derbyShutdown.log" 2>&1
-      echo "Derby server stopped."
-   fi
+    if [ "${DERBY_ENABLED}" == "true" ] ; then
+        # . ${ORACLE_HOME}/wlserver/common/derby/bin/stopNetworkServer.sh  >"${DOMAIN_HOME}/derbyShutdown.log" 2>&1
+        . ${WL_HOME}/common/derby/bin/stopNetworkServer.sh  >"${DOMAIN_HOME}/derbyShutdown.log" 2>&1
+        echo "Derby server stopped."
+    fi
 
-   echo  "RetVal from Domain shutdown $retval"
+    # Clear TMP folder
+    rm -rf ${ORACLE_HOME}/tmp/${DOMAIN_NAME}/${CID}/*
 
-   if [ $retval -ne 0 ]; then
-      echo "Domain Shutdown Failed.. Please check the Domain Logs"
-      exit 1
-   else
-      echo "Domain Shutdown Successfully.. Please check the Domain Logs"
-      exit 0
-   fi
+    echo  "RetVal from Domain shutdown $retval"
+
+    if [ $retval -ne 0 ]; then
+        echo "Domain Shutdown Failed.. Please check the Domain Logs"
+        exit 1
+    else
+        echo "Domain Shutdown Successfully.. Please check the Domain Logs"
+        exit 0
+    fi
 
 }
 
 ########### SIGKILL handler ############
 function _kill() {
 
-   echo "SIGKILL received, shutting down the server!"
-   kill -9 $childPID
+    echo "SIGKILL received, shutting down the server!"
+    kill -9 $childPID
 
 }
 

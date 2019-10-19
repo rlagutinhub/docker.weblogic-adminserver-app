@@ -237,7 +237,7 @@ def main():
 
             print(lib.bcolors.WARNING + 'Setup Security Realm Auth Providers        : [%s]' % sec_realm_authprov_name + lib.bcolors.ENDC)
             
-            if not getMBean('/SecurityConfiguration/' + domain_name + '/Realms/' + sec_realm_authprov_realm + '/AuthenticationProviders/' + sec_realm_authprov_name):
+            if not sec_realm_authprov_name in ('DefaultAuthenticator', 'DefaultIdentityAsserter'):
 
                 if lib.check_bool(sec_realm_authprov_name) and lib.check_bool(sec_realm_authprov_type):
                     cd('/SecurityConfiguration/' + domain_name + '/Realms/' + sec_realm_authprov_realm)
@@ -248,6 +248,7 @@ def main():
                     cmo.setControlFlag(sec_realm_authprov_ControlFlag)
 
             else:
+
                 if lib.check_bool(sec_realm_authprov_ControlFlag):
                     cd('/SecurityConfiguration/' + domain_name + '/Realms/' + sec_realm_authprov_realm + '/AuthenticationProviders/' + sec_realm_authprov_name)
                     cmo.setControlFlag(sec_realm_authprov_ControlFlag)
@@ -268,7 +269,7 @@ def main():
 
             print(lib.bcolors.WARNING + 'Setup Security Realm Role Mapping          : [%s]' % sec_realm_rolemapp_name + lib.bcolors.ENDC)
 
-            if not getMBean('/SecurityConfiguration/' + domain_name + '/Realms/' + sec_realm_authprov_realm + '/RoleMappers/' + sec_realm_rolemapp_name):
+            if not sec_realm_rolemapp_name in ('XACMLRoleMapper'):
 
                 if lib.check_bool(sec_realm_rolemapp_name) and lib.check_bool(sec_realm_rolemapp_type):
                     cd('/SecurityConfiguration/' + domain_name + '/Realms/' + sec_realm_authprov_realm)
