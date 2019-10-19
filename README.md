@@ -91,7 +91,7 @@ docker logs wls-app --follow
 ```console
 [Base]
 keys=base
-base.domain_name=mta4.ru
+base.domain_name=mta4ru
 base.admin_name=AdminServer
 base.admin_listen_port=7001
 base.production_mode=prod
@@ -146,7 +146,7 @@ diagnostic.file=/u01/oracle/logs/mta4ru/diagnostic_images
 diagnostic.fileMinSize=null
 diagnostic.fileCount=null
 diagnostic.rotateLogOnStartup=null
-domain.path=/Log/mta4.ru
+domain.path=/Log/mta4ru
 domain.file=/u01/oracle/logs/mta4ru/base_domain.log
 domain.fileMinSize=10000
 domain.fileCount=50
