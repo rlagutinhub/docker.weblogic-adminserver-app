@@ -269,6 +269,11 @@ def main():
 
             print(lib.bcolors.WARNING + 'Setup Security Realm Role Mapping          : [%s]' % sec_realm_rolemapp_name + lib.bcolors.ENDC)
 
+            # When you created new Role Mapper with type weblogic.security.providers.authorization.DefaultRoleMapper (as in this example),at weblogic startup there will be the following issue
+            # <BEA-099503> <Evaluation of policy associated with role :Admin failed because the policy expression contains unregistered predicate: weblogic.entitlement.rules.AdministrativeGroup.>
+            # Reason dublicated Global Roles in Home >myrealm >Providers >ExampleAuthenticator >Providers >ExampleRoleMapper >Summary of Deployments >Summary of JDBC Data Sources >Summary of Security Realms >myrealm >Realm Roles
+            # This issue can be ignored (in test only).
+
             if not sec_realm_rolemapp_name in ('XACMLRoleMapper'):
 
                 if lib.check_bool(sec_realm_rolemapp_name) and lib.check_bool(sec_realm_rolemapp_type):
