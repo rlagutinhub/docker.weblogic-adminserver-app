@@ -91,6 +91,30 @@ class ConfigParserClass(object):
                 param_rotateLogOnStartup
             ]
 
+        elif str(self.section_value).lower()  == 'securityrealmauthenticationproviders':
+            param_realm = 'realm'
+            param_name = 'name'
+            param_type = 'type'
+            param_ControlFlag = 'ControlFlag'
+
+            return [
+                param_realm,
+                param_name,
+                param_type,
+                param_ControlFlag
+            ]
+
+        elif str(self.section_value).lower()  == 'securityrealmrolemapping':
+            param_realm = 'realm'
+            param_name = 'name'
+            param_type = 'type'
+
+            return [
+                param_realm,
+                param_name,
+                param_type
+            ]
+
         elif str(self.section_value).lower()  == 'datasources':
             param_url = 'url'
             param_user = 'user'

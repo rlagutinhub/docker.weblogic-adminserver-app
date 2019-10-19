@@ -26,7 +26,8 @@ KEYS_VALUE = 'keys'
 SECTION_VALUE_BASE = 'Base'
 SECTION_VALUE_SEC = 'Security'
 SECTION_VALUE_LOG = 'Logging'
-
+SECTION_VALUE_SEC_REALM_AUTHPROV = 'SecurityRealmAuthenticationProviders'
+SECTION_VALUE_SEC_REALM_ROLEMAPP = 'SecurityRealmRoleMapping'
 
 def main():
 
@@ -130,6 +131,20 @@ def main():
         print('Error: %s' % settings_log)
         sys.exit(1)
 
+    pars_sec_realm_authprov = lib.ConfigParserClass(file_value=properties, keys_value=KEYS_VALUE, section_value=SECTION_VALUE_SEC_REALM_AUTHPROV)
+    settings_sec_realm_authprov = pars_sec_realm_authprov.settings
+
+    if not settings_sec_realm_authprov:
+        print('Error: %s' % settings_sec_realm_authprov)
+        sys.exit(1)
+
+    pars_sec_realm_rolemapp = lib.ConfigParserClass(file_value=properties, keys_value=KEYS_VALUE, section_value=SECTION_VALUE_SEC_REALM_ROLEMAPP)
+    settings_sec_realm_rolemapp = pars_sec_realm_rolemapp.settings
+
+    if not settings_sec_realm_rolemapp:
+        print('Error: %s' % settings_sec_realm_rolemapp)
+        sys.exit(1)
+
     try:
         # WLST Offline - AdministrationPort disable
         if lib.check_bool(administration_port_enabled):
@@ -202,7 +217,63 @@ def main():
                 cmo.setRotateLogOnStartup(lib.check_bool(log_rotateLogOnStartup))
                 cmo.setFileCount(int(log_fileCount))
                 cmo.setFileMinSize(int(log_fileMinSize))
-    
+
+        for key in settings_sec_realm_authprov:
+
+            sec_realm_authprov_realm = settings_sec_realm_authprov[key]['realm']
+            sec_realm_authprov_name = settings_sec_realm_authprov[key]['name']
+            sec_realm_authprov_type = settings_sec_realm_authprov[key]['type']
+            sec_realm_authprov_ControlFlag = settings_sec_realm_authprov[key]['ControlFlag']
+
+            print(lib.bcolors.BOLD + 'sec_realm_authprov_realm                   : [%s]' % sec_realm_authprov_realm + lib.bcolors.ENDC)
+            print(lib.bcolors.BOLD + 'sec_realm_authprov_name                    : [%s]' % sec_realm_authprov_name + lib.bcolors.ENDC)
+            print(lib.bcolors.BOLD + 'sec_realm_authprov_type                    : [%s]' % sec_realm_authprov_type + lib.bcolors.ENDC)
+            print(lib.bcolors.BOLD + 'sec_realm_authprov_ControlFlag             : [%s]' % sec_realm_authprov_ControlFlag + lib.bcolors.ENDC)
+
+            lib.check_value(sec_realm_authprov_realm, "sec_realm_authprov_realm")
+            lib.check_value(sec_realm_authprov_name, "sec_realm_authprov_name")
+            lib.check_value(sec_realm_authprov_type, "sec_realm_authprov_type")
+            lib.check_value(sec_realm_authprov_ControlFlag, "sec_realm_authprov_ControlFlag")
+
+            print(lib.bcolors.WARNING + 'Setup Security Realm Auth Providers        : [%s]' % sec_realm_authprov_name + lib.bcolors.ENDC)
+            
+            if not getMBean('/SecurityConfiguration/' + domain_name + '/Realms/' + sec_realm_authprov_realm + '/AuthenticationProviders/' + sec_realm_authprov_name):
+
+                if lib.check_bool(sec_realm_authprov_name) and lib.check_bool(sec_realm_authprov_type):
+                    cd('/SecurityConfiguration/' + domain_name + '/Realms/' + sec_realm_authprov_realm)
+                    cmo.createAuthenticationProvider(sec_realm_authprov_name, sec_realm_authprov_type)
+
+                if lib.check_bool(sec_realm_authprov_ControlFlag):
+                    cd('/SecurityConfiguration/' + domain_name + '/Realms/' + sec_realm_authprov_realm + '/AuthenticationProviders/' + sec_realm_authprov_name)
+                    cmo.setControlFlag(sec_realm_authprov_ControlFlag)
+
+            else:
+                if lib.check_bool(sec_realm_authprov_ControlFlag):
+                    cd('/SecurityConfiguration/' + domain_name + '/Realms/' + sec_realm_authprov_realm + '/AuthenticationProviders/' + sec_realm_authprov_name)
+                    cmo.setControlFlag(sec_realm_authprov_ControlFlag)
+
+        for key in settings_sec_realm_rolemapp:
+
+            sec_realm_rolemapp_realm = settings_sec_realm_rolemapp[key]['realm']
+            sec_realm_rolemapp_name = settings_sec_realm_rolemapp[key]['name']
+            sec_realm_rolemapp_type = settings_sec_realm_rolemapp[key]['type']
+
+            print(lib.bcolors.BOLD + 'sec_realm_rolemapp_realm                   : [%s]' % sec_realm_rolemapp_realm + lib.bcolors.ENDC)
+            print(lib.bcolors.BOLD + 'sec_realm_rolemapp_name                    : [%s]' % sec_realm_rolemapp_name + lib.bcolors.ENDC)
+            print(lib.bcolors.BOLD + 'sec_realm_rolemapp_type                    : [%s]' % sec_realm_rolemapp_type + lib.bcolors.ENDC)
+
+            lib.check_value(sec_realm_rolemapp_realm, "sec_realm_rolemapp_realm")
+            lib.check_value(sec_realm_rolemapp_name, "sec_realm_rolemapp_name")
+            lib.check_value(sec_realm_rolemapp_type, "sec_realm_rolemapp_type")
+
+            print(lib.bcolors.WARNING + 'Setup Security Realm Role Mapping          : [%s]' % sec_realm_rolemapp_name + lib.bcolors.ENDC)
+
+            if not getMBean('/SecurityConfiguration/' + domain_name + '/Realms/' + sec_realm_authprov_realm + '/RoleMappers/' + sec_realm_rolemapp_name):
+
+                if lib.check_bool(sec_realm_rolemapp_name) and lib.check_bool(sec_realm_rolemapp_type):
+                    cd('/SecurityConfiguration/' + domain_name + '/Realms/' + sec_realm_authprov_realm)
+                    cmo.createRoleMapper(sec_realm_rolemapp_name, sec_realm_rolemapp_type)
+
         save()
         activate(block = 'true')
         shutdown(block = 'true')
