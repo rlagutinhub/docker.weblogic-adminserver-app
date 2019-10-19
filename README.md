@@ -152,6 +152,31 @@ domain.fileCount=50
 domain.rotateLogOnStartup=True
 ```
 
+* Create and modify Security Realm.
+
+> When you created new Role Mapper with type weblogic.security.providers.authorization.DefaultRoleMapper (as in this example),at weblogic startup there will be the following issue
+> `<BEA-099503> <Evaluation of policy associated with role :Admin failed because the policy expression contains unregistered predicate: weblogic.entitlement.rules.AdministrativeGroup.>`
+> Reason dublicated Global Roles in Home >myrealm >Providers >ExampleAuthenticator >Providers >ExampleRoleMapper >Summary of Deployments >Summary of JDBC Data Sources >Summary of Security Realms >myrealm >Realm Roles. This issue can be ignored (in test only).
+
+```
+[SecurityRealmAuthenticationProviders]
+keys=ExampleAuthenticator DefaultAuthenticator
+ExampleAuthenticator.realm=myrealm
+ExampleAuthenticator.name=ExampleAuthenticator
+ExampleAuthenticator.type=weblogic.security.providers.authentication.DefaultAuthenticator
+ExampleAuthenticator.ControlFlag=null
+DefaultAuthenticator.realm=myrealm
+DefaultAuthenticator.name=DefaultAuthenticator
+DefaultAuthenticator.type=null
+DefaultAuthenticator.ControlFlag=OPTIONAL
+
+[SecurityRealmRoleMapping]
+keys=ExampleRoleMapper
+ExampleRoleMapper.realm=myrealm
+ExampleRoleMapper.name=ExampleRoleMapper
+ExampleRoleMapper.type=weblogic.security.providers.authorization.DefaultRoleMapper
+```
+
 * Support wlst offline and online configuring datasources.
 
 ```console
