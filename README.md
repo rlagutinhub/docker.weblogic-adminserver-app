@@ -86,8 +86,7 @@ docker logs wls-app --follow
 
 * Base settings
 
-> recommend administration_port_enabled=true (admin console access only from other port with force ssl)
-> recommend lower case for domain_name
+> Recommend administration_port_enabled=true (admin console access only from other port with force ssl) and recommend lower case for domain_name.
 
 ```console
 [Base]
@@ -102,7 +101,9 @@ base.admin_console_enabled=true
 base.derby_enabled=false
 ```
 
-* Use only strong password 12-14 symbols [wiki](https://en.wikipedia.org/wiki/Password_strength)
+* Security settings
+
+> Use only strong password 12-14 symbols [wiki](https://en.wikipedia.org/wiki/Password_strength)
 
 ```console
 [Security]
@@ -111,7 +112,9 @@ sec.username=weblogic
 sec.password=welcome1
 ```
 
-* Java settings are applied via env variables (setDomainEnv.sh not modifaed)
+* Java settings
+
+> Java settings are applied via env variables (setDomainEnv.sh not modifaed)
 
 ```console
 [Java]
@@ -121,9 +124,7 @@ java.java_options=-Dweblogic.configuration.schemaValidationEnabled=false -Dfile.
 ```
 * Support wlst online modify Loggins settings
 
-> Move wls logs to single folder ${ORACLE_HOME}/Logs (the new location of the logs is not in DOMAIN_HOME, because if you use the mount volume, there will be an error files acl permission deny at creating domain)
-> Add prefix docker ContainerID to wls logs filename (example AdminServer-123456789abc.log)
-> Modify rotation settings for wls logs by file size and file count
+> Move wls logs to single folder ${ORACLE_HOME}/Logs (the new location of the logs is not in DOMAIN_HOME, because if you use the mount volume, there will be an error files acl permission deny at creating domain). Add prefix docker ContainerID to wls logs filename (example AdminServer-123456789abc.log). Modify rotation settings for wls logs by file size and file count.
 
 ```console
 [Logging]
@@ -157,9 +158,7 @@ domain.rotateLogOnStartup=True
 
 * Support wlst online create and modify Security Realm
 
-> When you created new Role Mapper with type weblogic.security.providers.authorization.DefaultRoleMapper (as in this example),at weblogic startup there will be the following issue
-> `<BEA-099503> <Evaluation of policy associated with role :Admin failed because the policy expression contains unregistered predicate: weblogic.entitlement.rules.AdministrativeGroup.>`
-> Reason: dublicated Global Roles in Home >myrealm >Providers >ExampleAuthenticator >Providers >ExampleRoleMapper >Summary of Deployments >Summary of JDBC Data Sources >Summary of Security Realms >myrealm >Realm Roles. This issue can be ignored (in test only).
+> When you created new Role Mapper with type weblogic.security.providers.authorization.DefaultRoleMapper (as in this example),at weblogic startup there will be the following issue `<BEA-099503> <Evaluation of policy associated with role :Admin failed because the policy expression contains unregistered predicate: weblogic.entitlement.rules.AdministrativeGroup.>`. Reason: dublicated Global Roles in Home >myrealm >Providers >ExampleAuthenticator >Providers >ExampleRoleMapper >Summary of Deployments >Summary of JDBC Data Sources >Summary of Security Realms >myrealm >Realm Roles. This issue can be ignored (in test only).
 
 ```console
 [SecurityRealmAuthenticationProviders]
