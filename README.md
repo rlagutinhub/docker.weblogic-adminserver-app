@@ -310,6 +310,25 @@ configs:
 ```
 ***
 
+#### Quick setup
+
+```
+1. git clone https://github.com/rlagutinhub/docker.weblogic-adminserver-app.git # clone git repo
+2. cd docker.weblogic-adminserver-app/ # cd git repo root folder
+3. rm -f files/* # clean distrib folder
+4. cp *.war *.jar *.ear files/ # copy new distrib files to distrib folder
+5. vim scripts/runWLS.sh # uncomment and modify copy libraries jar files to ${ORACLE_HOME}/wlserver/server/lib/mbeantypes/ (line 183, only if required)
+6. ./build.sh "properties" "scripts" "files" "Dockerfile" "oracle/weblogic:12.2.1.2-generic_custom.$(date +%F)" "." # build docker image
+7. docker tag oracle/weblogic:12.2.1.2-generic_custom.2019-10-19 rlagutinhub/docker.weblogic-adminserver-app:12.2.1.2-generic_custom:latest # new tag for docker image
+8. docker push rlagutinhub/docker.weblogic-adminserver-app:12.2.1.2-generic_custom:latest # push tagged image to docker hub
+9. vim properties/domain_settings.properties # modify weblogic properties
+10. docker config create example_domain_settings.properties.2019-10-19 properties/domain_settings.properties # create docker config
+11. vim docker-compose.yml # custom docker-compose file
+12. docker stack deploy --compose-file docker-compose.yml example # run
+```
+
+***
+
 #### Result
 
 
