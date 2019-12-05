@@ -8,7 +8,7 @@ ARG FILES_DIR_SOURCE
 
 USER root
 
-RUN yum -y --setopt=tsflags=nodocs install -y glibc glibc-common && yum clean all
+RUN yum -y --setopt=tsflags=nodocs reinstall -y glibc glibc-common && yum clean all
 RUN ln -fs /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 
 USER oracle
@@ -36,6 +36,8 @@ RUN chown -R oracle:oracle $ORACLE_HOME/properties && chmod -R a+r $ORACLE_HOME/
     chown -R oracle:oracle $ORACLE_HOME/files && chmod -R a+r $ORACLE_HOME/files
 
 USER oracle
+
+RUN locale -a
 
 WORKDIR $ORACLE_HOME
 CMD ["/u01/oracle/scripts/runWLS.sh"]
