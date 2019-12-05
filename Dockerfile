@@ -37,7 +37,5 @@ RUN chown -R oracle:oracle $ORACLE_HOME/properties && chmod -R a+r $ORACLE_HOME/
 
 USER oracle
 
-RUN locale -a
-
 WORKDIR $ORACLE_HOME
 CMD ["/u01/oracle/scripts/runWLS.sh"]
